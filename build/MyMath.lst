@@ -1,0 +1,3569 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"MyMath.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.ComplexMake,"ax",%progbits
+  16              		.align	1
+  17              		.global	ComplexMake
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	ComplexMake:
+  24              	.LFB66:
+  25              		.file 1 "Src/MyMath.c"
+   1:Src/MyMath.c  **** 
+   2:Src/MyMath.c  **** #include "MyMath.h"
+   3:Src/MyMath.c  **** #include <math.h>
+   4:Src/MyMath.c  **** #include <string.h>
+   5:Src/MyMath.c  **** #include <stdio.h>
+   6:Src/MyMath.c  **** #include <stdlib.h>
+   7:Src/MyMath.c  **** #include <stdint.h>
+   8:Src/MyMath.c  **** #include <assert.h>
+   9:Src/MyMath.c  **** #include "stm32f1xx_hal.h"
+  10:Src/MyMath.c  **** Complex ComplexMake(Real re, Real im){
+  26              		.loc 1 10 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  11:Src/MyMath.c  ****     Complex complex;
+  12:Src/MyMath.c  ****     complex.re = re; complex.im = im;
+  32              		.loc 1 12 0
+  33 0000 0160     		str	r1, [r0]	@ float
+  34 0002 4260     		str	r2, [r0, #4]	@ float
+  13:Src/MyMath.c  ****     return complex;
+  14:Src/MyMath.c  **** }
+  35              		.loc 1 14 0
+  36 0004 7047     		bx	lr
+  37              		.cfi_endproc
+  38              	.LFE66:
+  40              		.global	__aeabi_fmul
+  41              		.global	__aeabi_fadd
+  42              		.global	__aeabi_f2d
+  43              		.global	__aeabi_d2f
+  44              		.section	.text.cAbsolute,"ax",%progbits
+  45              		.align	1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 2
+
+
+  46              		.global	cAbsolute
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu softvfp
+  52              	cAbsolute:
+  53              	.LFB67:
+  15:Src/MyMath.c  **** Real cAbsolute(Complex a){
+  54              		.loc 1 15 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 8
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58 0000 10B5     		push	{r4, lr}
+  59              	.LCFI0:
+  60              		.cfi_def_cfa_offset 8
+  61              		.cfi_offset 4, -8
+  62              		.cfi_offset 14, -4
+  63 0002 82B0     		sub	sp, sp, #8
+  64              	.LCFI1:
+  65              		.cfi_def_cfa_offset 16
+  66 0004 02AB     		add	r3, sp, #8
+  67 0006 03E90300 		stmdb	r3, {r0, r1}
+  16:Src/MyMath.c  ****     return sqrt(a.re * a.re + a.im * a.im);
+  68              		.loc 1 16 0
+  69 000a 0099     		ldr	r1, [sp]	@ float
+  70 000c 0846     		mov	r0, r1
+  71 000e FFF7FEFF 		bl	__aeabi_fmul
+  72              	.LVL1:
+  73 0012 0446     		mov	r4, r0
+  74 0014 0199     		ldr	r1, [sp, #4]	@ float
+  75 0016 0846     		mov	r0, r1
+  76 0018 FFF7FEFF 		bl	__aeabi_fmul
+  77              	.LVL2:
+  78 001c 0146     		mov	r1, r0
+  79 001e 2046     		mov	r0, r4
+  80 0020 FFF7FEFF 		bl	__aeabi_fadd
+  81              	.LVL3:
+  82 0024 FFF7FEFF 		bl	__aeabi_f2d
+  83              	.LVL4:
+  84 0028 FFF7FEFF 		bl	sqrt
+  85              	.LVL5:
+  86 002c FFF7FEFF 		bl	__aeabi_d2f
+  87              	.LVL6:
+  17:Src/MyMath.c  **** }
+  88              		.loc 1 17 0
+  89 0030 02B0     		add	sp, sp, #8
+  90              	.LCFI2:
+  91              		.cfi_def_cfa_offset 8
+  92              		@ sp needed
+  93 0032 10BD     		pop	{r4, pc}
+  94              		.cfi_endproc
+  95              	.LFE67:
+  97              		.section	.text.cArgument,"ax",%progbits
+  98              		.align	1
+  99              		.global	cArgument
+ 100              		.syntax unified
+ 101              		.thumb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 3
+
+
+ 102              		.thumb_func
+ 103              		.fpu softvfp
+ 105              	cArgument:
+ 106              	.LFB68:
+  18:Src/MyMath.c  **** Real cArgument(Complex a){
+ 107              		.loc 1 18 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 8
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111 0000 30B5     		push	{r4, r5, lr}
+ 112              	.LCFI3:
+ 113              		.cfi_def_cfa_offset 12
+ 114              		.cfi_offset 4, -12
+ 115              		.cfi_offset 5, -8
+ 116              		.cfi_offset 14, -4
+ 117 0002 83B0     		sub	sp, sp, #12
+ 118              	.LCFI4:
+ 119              		.cfi_def_cfa_offset 24
+ 120 0004 02AB     		add	r3, sp, #8
+ 121 0006 03E90300 		stmdb	r3, {r0, r1}
+  19:Src/MyMath.c  ****     return atan2(a.im, a.re);
+ 122              		.loc 1 19 0
+ 123 000a 0098     		ldr	r0, [sp]	@ float
+ 124 000c FFF7FEFF 		bl	__aeabi_f2d
+ 125              	.LVL7:
+ 126 0010 0446     		mov	r4, r0
+ 127 0012 0D46     		mov	r5, r1
+ 128 0014 0198     		ldr	r0, [sp, #4]	@ float
+ 129 0016 FFF7FEFF 		bl	__aeabi_f2d
+ 130              	.LVL8:
+ 131 001a 2246     		mov	r2, r4
+ 132 001c 2B46     		mov	r3, r5
+ 133 001e FFF7FEFF 		bl	atan2
+ 134              	.LVL9:
+ 135 0022 FFF7FEFF 		bl	__aeabi_d2f
+ 136              	.LVL10:
+  20:Src/MyMath.c  **** }
+ 137              		.loc 1 20 0
+ 138 0026 03B0     		add	sp, sp, #12
+ 139              	.LCFI5:
+ 140              		.cfi_def_cfa_offset 12
+ 141              		@ sp needed
+ 142 0028 30BD     		pop	{r4, r5, pc}
+ 143              		.cfi_endproc
+ 144              	.LFE68:
+ 146              		.section	.text.cAdd,"ax",%progbits
+ 147              		.align	1
+ 148              		.global	cAdd
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu softvfp
+ 154              	cAdd:
+ 155              	.LFB69:
+  21:Src/MyMath.c  **** Complex cAdd(Complex a, Complex b){
+ 156              		.loc 1 21 0
+ 157              		.cfi_startproc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 4
+
+
+ 158              		@ args = 12, pretend = 8, frame = 8
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              	.LVL11:
+ 161 0000 82B0     		sub	sp, sp, #8
+ 162              	.LCFI6:
+ 163              		.cfi_def_cfa_offset 8
+ 164 0002 30B5     		push	{r4, r5, lr}
+ 165              	.LCFI7:
+ 166              		.cfi_def_cfa_offset 20
+ 167              		.cfi_offset 4, -20
+ 168              		.cfi_offset 5, -16
+ 169              		.cfi_offset 14, -12
+ 170 0004 83B0     		sub	sp, sp, #12
+ 171              	.LCFI8:
+ 172              		.cfi_def_cfa_offset 32
+ 173 0006 0446     		mov	r4, r0
+ 174 0008 02A8     		add	r0, sp, #8
+ 175              	.LVL12:
+ 176 000a 00E90600 		stmdb	r0, {r1, r2}
+ 177 000e 0793     		str	r3, [sp, #28]
+  22:Src/MyMath.c  ****     return ComplexMake(a.re + b.re, a.im + b.im);
+ 178              		.loc 1 22 0
+ 179 0010 0899     		ldr	r1, [sp, #32]	@ float
+ 180 0012 0198     		ldr	r0, [sp, #4]	@ float
+ 181 0014 FFF7FEFF 		bl	__aeabi_fadd
+ 182              	.LVL13:
+ 183 0018 0546     		mov	r5, r0
+ 184 001a 0799     		ldr	r1, [sp, #28]	@ float
+ 185 001c 0098     		ldr	r0, [sp]	@ float
+ 186 001e FFF7FEFF 		bl	__aeabi_fadd
+ 187              	.LVL14:
+ 188 0022 2A46     		mov	r2, r5
+ 189 0024 0146     		mov	r1, r0
+ 190 0026 2046     		mov	r0, r4
+ 191 0028 FFF7FEFF 		bl	ComplexMake
+ 192              	.LVL15:
+  23:Src/MyMath.c  **** }
+ 193              		.loc 1 23 0
+ 194 002c 2046     		mov	r0, r4
+ 195 002e 03B0     		add	sp, sp, #12
+ 196              	.LCFI9:
+ 197              		.cfi_def_cfa_offset 20
+ 198              		@ sp needed
+ 199 0030 BDE83040 		pop	{r4, r5, lr}
+ 200              	.LCFI10:
+ 201              		.cfi_restore 14
+ 202              		.cfi_restore 5
+ 203              		.cfi_restore 4
+ 204              		.cfi_def_cfa_offset 8
+ 205              	.LVL16:
+ 206 0034 02B0     		add	sp, sp, #8
+ 207              	.LCFI11:
+ 208              		.cfi_def_cfa_offset 0
+ 209 0036 7047     		bx	lr
+ 210              		.cfi_endproc
+ 211              	.LFE69:
+ 213              		.global	__aeabi_fsub
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 5
+
+
+ 214              		.section	.text.cSubtract,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	cSubtract
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 220              		.fpu softvfp
+ 222              	cSubtract:
+ 223              	.LFB70:
+  24:Src/MyMath.c  **** Complex cSubtract(Complex a, Complex b){
+ 224              		.loc 1 24 0
+ 225              		.cfi_startproc
+ 226              		@ args = 12, pretend = 8, frame = 8
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228              	.LVL17:
+ 229 0000 82B0     		sub	sp, sp, #8
+ 230              	.LCFI12:
+ 231              		.cfi_def_cfa_offset 8
+ 232 0002 30B5     		push	{r4, r5, lr}
+ 233              	.LCFI13:
+ 234              		.cfi_def_cfa_offset 20
+ 235              		.cfi_offset 4, -20
+ 236              		.cfi_offset 5, -16
+ 237              		.cfi_offset 14, -12
+ 238 0004 83B0     		sub	sp, sp, #12
+ 239              	.LCFI14:
+ 240              		.cfi_def_cfa_offset 32
+ 241 0006 0446     		mov	r4, r0
+ 242 0008 02A8     		add	r0, sp, #8
+ 243              	.LVL18:
+ 244 000a 00E90600 		stmdb	r0, {r1, r2}
+ 245 000e 0793     		str	r3, [sp, #28]
+  25:Src/MyMath.c  ****     return ComplexMake(a.re - b.re, a.im - b.im);
+ 246              		.loc 1 25 0
+ 247 0010 0899     		ldr	r1, [sp, #32]	@ float
+ 248 0012 0198     		ldr	r0, [sp, #4]	@ float
+ 249 0014 FFF7FEFF 		bl	__aeabi_fsub
+ 250              	.LVL19:
+ 251 0018 0546     		mov	r5, r0
+ 252 001a 0799     		ldr	r1, [sp, #28]	@ float
+ 253 001c 0098     		ldr	r0, [sp]	@ float
+ 254 001e FFF7FEFF 		bl	__aeabi_fsub
+ 255              	.LVL20:
+ 256 0022 2A46     		mov	r2, r5
+ 257 0024 0146     		mov	r1, r0
+ 258 0026 2046     		mov	r0, r4
+ 259 0028 FFF7FEFF 		bl	ComplexMake
+ 260              	.LVL21:
+  26:Src/MyMath.c  **** }
+ 261              		.loc 1 26 0
+ 262 002c 2046     		mov	r0, r4
+ 263 002e 03B0     		add	sp, sp, #12
+ 264              	.LCFI15:
+ 265              		.cfi_def_cfa_offset 20
+ 266              		@ sp needed
+ 267 0030 BDE83040 		pop	{r4, r5, lr}
+ 268              	.LCFI16:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 6
+
+
+ 269              		.cfi_restore 14
+ 270              		.cfi_restore 5
+ 271              		.cfi_restore 4
+ 272              		.cfi_def_cfa_offset 8
+ 273              	.LVL22:
+ 274 0034 02B0     		add	sp, sp, #8
+ 275              	.LCFI17:
+ 276              		.cfi_def_cfa_offset 0
+ 277 0036 7047     		bx	lr
+ 278              		.cfi_endproc
+ 279              	.LFE70:
+ 281              		.section	.text.cMultiply,"ax",%progbits
+ 282              		.align	1
+ 283              		.global	cMultiply
+ 284              		.syntax unified
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.fpu softvfp
+ 289              	cMultiply:
+ 290              	.LFB71:
+  27:Src/MyMath.c  **** Complex cMultiply(Complex a, Complex b){
+ 291              		.loc 1 27 0
+ 292              		.cfi_startproc
+ 293              		@ args = 12, pretend = 8, frame = 8
+ 294              		@ frame_needed = 0, uses_anonymous_args = 0
+ 295              	.LVL23:
+ 296 0000 82B0     		sub	sp, sp, #8
+ 297              	.LCFI18:
+ 298              		.cfi_def_cfa_offset 8
+ 299 0002 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 300              	.LCFI19:
+ 301              		.cfi_def_cfa_offset 40
+ 302              		.cfi_offset 4, -40
+ 303              		.cfi_offset 5, -36
+ 304              		.cfi_offset 6, -32
+ 305              		.cfi_offset 7, -28
+ 306              		.cfi_offset 8, -24
+ 307              		.cfi_offset 9, -20
+ 308              		.cfi_offset 10, -16
+ 309              		.cfi_offset 14, -12
+ 310 0006 82B0     		sub	sp, sp, #8
+ 311              	.LCFI20:
+ 312              		.cfi_def_cfa_offset 48
+ 313 0008 0446     		mov	r4, r0
+ 314 000a 02A8     		add	r0, sp, #8
+ 315              	.LVL24:
+ 316 000c 00E90600 		stmdb	r0, {r1, r2}
+ 317 0010 0B93     		str	r3, [sp, #44]
+  28:Src/MyMath.c  ****     return ComplexMake(a.re * b.re - a.im * b.im, a.re * b.im + b.re * a.im);
+ 318              		.loc 1 28 0
+ 319 0012 009F     		ldr	r7, [sp]	@ float
+ 320 0014 0B9D     		ldr	r5, [sp, #44]	@ float
+ 321 0016 2946     		mov	r1, r5
+ 322 0018 3846     		mov	r0, r7
+ 323 001a FFF7FEFF 		bl	__aeabi_fmul
+ 324              	.LVL25:
+ 325 001e 8146     		mov	r9, r0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 7
+
+
+ 326 0020 019E     		ldr	r6, [sp, #4]	@ float
+ 327 0022 DDF83080 		ldr	r8, [sp, #48]	@ float
+ 328 0026 4146     		mov	r1, r8
+ 329 0028 3046     		mov	r0, r6
+ 330 002a FFF7FEFF 		bl	__aeabi_fmul
+ 331              	.LVL26:
+ 332 002e 8246     		mov	r10, r0
+ 333 0030 4146     		mov	r1, r8
+ 334 0032 3846     		mov	r0, r7
+ 335 0034 FFF7FEFF 		bl	__aeabi_fmul
+ 336              	.LVL27:
+ 337 0038 0746     		mov	r7, r0
+ 338 003a 3146     		mov	r1, r6
+ 339 003c 2846     		mov	r0, r5
+ 340 003e FFF7FEFF 		bl	__aeabi_fmul
+ 341              	.LVL28:
+ 342 0042 0146     		mov	r1, r0
+ 343 0044 3846     		mov	r0, r7
+ 344 0046 FFF7FEFF 		bl	__aeabi_fadd
+ 345              	.LVL29:
+ 346 004a 0546     		mov	r5, r0
+ 347 004c 5146     		mov	r1, r10
+ 348 004e 4846     		mov	r0, r9
+ 349 0050 FFF7FEFF 		bl	__aeabi_fsub
+ 350              	.LVL30:
+ 351 0054 2A46     		mov	r2, r5
+ 352 0056 0146     		mov	r1, r0
+ 353 0058 2046     		mov	r0, r4
+ 354 005a FFF7FEFF 		bl	ComplexMake
+ 355              	.LVL31:
+  29:Src/MyMath.c  **** }
+ 356              		.loc 1 29 0
+ 357 005e 2046     		mov	r0, r4
+ 358 0060 02B0     		add	sp, sp, #8
+ 359              	.LCFI21:
+ 360              		.cfi_def_cfa_offset 40
+ 361              		@ sp needed
+ 362 0062 BDE8F047 		pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 363              	.LCFI22:
+ 364              		.cfi_restore 14
+ 365              		.cfi_restore 10
+ 366              		.cfi_restore 9
+ 367              		.cfi_restore 8
+ 368              		.cfi_restore 7
+ 369              		.cfi_restore 6
+ 370              		.cfi_restore 5
+ 371              		.cfi_restore 4
+ 372              		.cfi_def_cfa_offset 8
+ 373              	.LVL32:
+ 374 0066 02B0     		add	sp, sp, #8
+ 375              	.LCFI23:
+ 376              		.cfi_def_cfa_offset 0
+ 377 0068 7047     		bx	lr
+ 378              		.cfi_endproc
+ 379              	.LFE71:
+ 381              		.global	__aeabi_dcmplt
+ 382              		.global	__aeabi_fdiv
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 8
+
+
+ 383              		.section	.text.cDivide,"ax",%progbits
+ 384              		.align	1
+ 385              		.global	cDivide
+ 386              		.syntax unified
+ 387              		.thumb
+ 388              		.thumb_func
+ 389              		.fpu softvfp
+ 391              	cDivide:
+ 392              	.LFB72:
+  30:Src/MyMath.c  **** Complex cDivide(Complex a, Complex b){
+ 393              		.loc 1 30 0
+ 394              		.cfi_startproc
+ 395              		@ args = 12, pretend = 8, frame = 8
+ 396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 397              	.LVL33:
+ 398 0000 82B0     		sub	sp, sp, #8
+ 399              	.LCFI24:
+ 400              		.cfi_def_cfa_offset 8
+ 401 0002 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 402              	.LCFI25:
+ 403              		.cfi_def_cfa_offset 40
+ 404              		.cfi_offset 4, -40
+ 405              		.cfi_offset 5, -36
+ 406              		.cfi_offset 6, -32
+ 407              		.cfi_offset 7, -28
+ 408              		.cfi_offset 8, -24
+ 409              		.cfi_offset 9, -20
+ 410              		.cfi_offset 10, -16
+ 411              		.cfi_offset 14, -12
+ 412 0006 82B0     		sub	sp, sp, #8
+ 413              	.LCFI26:
+ 414              		.cfi_def_cfa_offset 48
+ 415 0008 0546     		mov	r5, r0
+ 416 000a 02A8     		add	r0, sp, #8
+ 417              	.LVL34:
+ 418 000c 00E90600 		stmdb	r0, {r1, r2}
+ 419 0010 0AAA     		add	r2, sp, #40
+ 420 0012 42F8043F 		str	r3, [r2, #4]!
+  31:Src/MyMath.c  ****     Real abs = cAbsolute(b);
+ 421              		.loc 1 31 0
+ 422 0016 92E80300 		ldm	r2, {r0, r1}
+ 423 001a FFF7FEFF 		bl	cAbsolute
+ 424              	.LVL35:
+  32:Src/MyMath.c  ****     abs *= abs;
+ 425              		.loc 1 32 0
+ 426 001e 0146     		mov	r1, r0
+ 427 0020 FFF7FEFF 		bl	__aeabi_fmul
+ 428              	.LVL36:
+ 429 0024 0646     		mov	r6, r0
+ 430              	.LVL37:
+  33:Src/MyMath.c  ****     if (abs < 1.e-30) assert(0);
+ 431              		.loc 1 33 0
+ 432 0026 FFF7FEFF 		bl	__aeabi_f2d
+ 433              	.LVL38:
+ 434 002a 21A3     		adr	r3, .L19
+ 435 002c D3E90023 		ldrd	r2, [r3]
+ 436 0030 FFF7FEFF 		bl	__aeabi_dcmplt
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 9
+
+
+ 437              	.LVL39:
+ 438 0034 0028     		cmp	r0, #0
+ 439 0036 34D1     		bne	.L18
+  34:Src/MyMath.c  ****     return ComplexMake((a.re * b.re + a.im * b.im)/abs, (-a.re * b.im + b.re * a.im)/abs);
+ 440              		.loc 1 34 0
+ 441 0038 009C     		ldr	r4, [sp]	@ float
+ 442 003a 0B9F     		ldr	r7, [sp, #44]	@ float
+ 443 003c 3946     		mov	r1, r7
+ 444 003e 2046     		mov	r0, r4
+ 445 0040 FFF7FEFF 		bl	__aeabi_fmul
+ 446              	.LVL40:
+ 447 0044 8246     		mov	r10, r0
+ 448 0046 DDF80480 		ldr	r8, [sp, #4]	@ float
+ 449 004a DDF83090 		ldr	r9, [sp, #48]	@ float
+ 450 004e 4946     		mov	r1, r9
+ 451 0050 4046     		mov	r0, r8
+ 452 0052 FFF7FEFF 		bl	__aeabi_fmul
+ 453              	.LVL41:
+ 454 0056 0146     		mov	r1, r0
+ 455 0058 5046     		mov	r0, r10
+ 456 005a FFF7FEFF 		bl	__aeabi_fadd
+ 457              	.LVL42:
+ 458 005e 8246     		mov	r10, r0
+ 459 0060 04F10041 		add	r1, r4, #-2147483648
+ 460 0064 4846     		mov	r0, r9
+ 461 0066 FFF7FEFF 		bl	__aeabi_fmul
+ 462              	.LVL43:
+ 463 006a 0446     		mov	r4, r0
+ 464 006c 4146     		mov	r1, r8
+ 465 006e 3846     		mov	r0, r7
+ 466 0070 FFF7FEFF 		bl	__aeabi_fmul
+ 467              	.LVL44:
+ 468 0074 0146     		mov	r1, r0
+ 469 0076 2046     		mov	r0, r4
+ 470 0078 FFF7FEFF 		bl	__aeabi_fadd
+ 471              	.LVL45:
+ 472 007c 3146     		mov	r1, r6
+ 473 007e FFF7FEFF 		bl	__aeabi_fdiv
+ 474              	.LVL46:
+ 475 0082 0446     		mov	r4, r0
+ 476 0084 3146     		mov	r1, r6
+ 477 0086 5046     		mov	r0, r10
+ 478 0088 FFF7FEFF 		bl	__aeabi_fdiv
+ 479              	.LVL47:
+ 480 008c 2246     		mov	r2, r4
+ 481 008e 0146     		mov	r1, r0
+ 482 0090 2846     		mov	r0, r5
+ 483 0092 FFF7FEFF 		bl	ComplexMake
+ 484              	.LVL48:
+  35:Src/MyMath.c  **** }
+ 485              		.loc 1 35 0
+ 486 0096 2846     		mov	r0, r5
+ 487 0098 02B0     		add	sp, sp, #8
+ 488              	.LCFI27:
+ 489              		.cfi_remember_state
+ 490              		.cfi_def_cfa_offset 40
+ 491              		@ sp needed
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 10
+
+
+ 492 009a BDE8F047 		pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 493              	.LCFI28:
+ 494              		.cfi_restore 14
+ 495              		.cfi_restore 10
+ 496              		.cfi_restore 9
+ 497              		.cfi_restore 8
+ 498              		.cfi_restore 7
+ 499              		.cfi_restore 6
+ 500              		.cfi_restore 5
+ 501              		.cfi_restore 4
+ 502              		.cfi_def_cfa_offset 8
+ 503              	.LVL49:
+ 504 009e 02B0     		add	sp, sp, #8
+ 505              	.LCFI29:
+ 506              		.cfi_def_cfa_offset 0
+ 507 00a0 7047     		bx	lr
+ 508              	.LVL50:
+ 509              	.L18:
+ 510              	.LCFI30:
+ 511              		.cfi_restore_state
+  33:Src/MyMath.c  ****     if (abs < 1.e-30) assert(0);
+ 512              		.loc 1 33 0 discriminator 1
+ 513 00a2 054B     		ldr	r3, .L19+8
+ 514 00a4 054A     		ldr	r2, .L19+12
+ 515 00a6 2121     		movs	r1, #33
+ 516 00a8 0548     		ldr	r0, .L19+16
+ 517 00aa FFF7FEFF 		bl	__assert_func
+ 518              	.LVL51:
+ 519              	.L20:
+ 520 00ae 00BF     		.align	3
+ 521              	.L19:
+ 522 00b0 A0C2EBFE 		.word	-18103648
+ 523 00b4 4B48B439 		.word	968116299
+ 524 00b8 00000000 		.word	.LC0
+ 525 00bc 00000000 		.word	.LANCHOR0
+ 526 00c0 04000000 		.word	.LC1
+ 527              		.cfi_endproc
+ 528              	.LFE72:
+ 530              		.section	.text.cNegate,"ax",%progbits
+ 531              		.align	1
+ 532              		.global	cNegate
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 536              		.fpu softvfp
+ 538              	cNegate:
+ 539              	.LFB73:
+  36:Src/MyMath.c  **** Complex cNegate(Complex a){
+ 540              		.loc 1 36 0
+ 541              		.cfi_startproc
+ 542              		@ args = 0, pretend = 0, frame = 8
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544              	.LVL52:
+ 545 0000 10B5     		push	{r4, lr}
+ 546              	.LCFI31:
+ 547              		.cfi_def_cfa_offset 8
+ 548              		.cfi_offset 4, -8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 11
+
+
+ 549              		.cfi_offset 14, -4
+ 550 0002 82B0     		sub	sp, sp, #8
+ 551              	.LCFI32:
+ 552              		.cfi_def_cfa_offset 16
+ 553 0004 0446     		mov	r4, r0
+ 554 0006 02AB     		add	r3, sp, #8
+ 555 0008 03E90600 		stmdb	r3, {r1, r2}
+  37:Src/MyMath.c  ****     return ComplexMake(-a.re, -a.im);
+ 556              		.loc 1 37 0
+ 557 000c 019A     		ldr	r2, [sp, #4]	@ float
+ 558 000e 02F10042 		add	r2, r2, #-2147483648
+ 559 0012 0099     		ldr	r1, [sp]	@ float
+ 560 0014 01F10041 		add	r1, r1, #-2147483648
+ 561 0018 FFF7FEFF 		bl	ComplexMake
+ 562              	.LVL53:
+  38:Src/MyMath.c  **** }
+ 563              		.loc 1 38 0
+ 564 001c 2046     		mov	r0, r4
+ 565 001e 02B0     		add	sp, sp, #8
+ 566              	.LCFI33:
+ 567              		.cfi_def_cfa_offset 8
+ 568              		@ sp needed
+ 569 0020 10BD     		pop	{r4, pc}
+ 570              		.cfi_endproc
+ 571              	.LFE73:
+ 573              		.global	__aeabi_dmul
+ 574              		.section	.text.cPolarToComplex,"ax",%progbits
+ 575              		.align	1
+ 576              		.global	cPolarToComplex
+ 577              		.syntax unified
+ 578              		.thumb
+ 579              		.thumb_func
+ 580              		.fpu softvfp
+ 582              	cPolarToComplex:
+ 583              	.LFB74:
+  39:Src/MyMath.c  **** Complex cPolarToComplex(Real length, Real angle){
+ 584              		.loc 1 39 0
+ 585              		.cfi_startproc
+ 586              		@ args = 0, pretend = 0, frame = 0
+ 587              		@ frame_needed = 0, uses_anonymous_args = 0
+ 588              	.LVL54:
+ 589 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 590              	.LCFI34:
+ 591              		.cfi_def_cfa_offset 32
+ 592              		.cfi_offset 4, -32
+ 593              		.cfi_offset 5, -28
+ 594              		.cfi_offset 6, -24
+ 595              		.cfi_offset 7, -20
+ 596              		.cfi_offset 8, -16
+ 597              		.cfi_offset 9, -12
+ 598              		.cfi_offset 10, -8
+ 599              		.cfi_offset 14, -4
+ 600 0004 8246     		mov	r10, r0
+ 601 0006 1646     		mov	r6, r2
+  40:Src/MyMath.c  ****     return ComplexMake(length * cos(angle), length * sin(angle));
+ 602              		.loc 1 40 0
+ 603 0008 0846     		mov	r0, r1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 12
+
+
+ 604              	.LVL55:
+ 605 000a FFF7FEFF 		bl	__aeabi_f2d
+ 606              	.LVL56:
+ 607 000e 0446     		mov	r4, r0
+ 608 0010 0D46     		mov	r5, r1
+ 609 0012 3046     		mov	r0, r6
+ 610 0014 FFF7FEFF 		bl	__aeabi_f2d
+ 611              	.LVL57:
+ 612 0018 8046     		mov	r8, r0
+ 613 001a 8946     		mov	r9, r1
+ 614 001c FFF7FEFF 		bl	cos
+ 615              	.LVL58:
+ 616 0020 0246     		mov	r2, r0
+ 617 0022 0B46     		mov	r3, r1
+ 618 0024 2046     		mov	r0, r4
+ 619 0026 2946     		mov	r1, r5
+ 620 0028 FFF7FEFF 		bl	__aeabi_dmul
+ 621              	.LVL59:
+ 622 002c 0646     		mov	r6, r0
+ 623              	.LVL60:
+ 624 002e 0F46     		mov	r7, r1
+ 625 0030 4046     		mov	r0, r8
+ 626 0032 4946     		mov	r1, r9
+ 627 0034 FFF7FEFF 		bl	sin
+ 628              	.LVL61:
+ 629 0038 0246     		mov	r2, r0
+ 630 003a 0B46     		mov	r3, r1
+ 631 003c 2046     		mov	r0, r4
+ 632 003e 2946     		mov	r1, r5
+ 633 0040 FFF7FEFF 		bl	__aeabi_dmul
+ 634              	.LVL62:
+ 635 0044 FFF7FEFF 		bl	__aeabi_d2f
+ 636              	.LVL63:
+ 637 0048 0446     		mov	r4, r0
+ 638 004a 3046     		mov	r0, r6
+ 639 004c 3946     		mov	r1, r7
+ 640 004e FFF7FEFF 		bl	__aeabi_d2f
+ 641              	.LVL64:
+ 642 0052 2246     		mov	r2, r4
+ 643 0054 0146     		mov	r1, r0
+ 644 0056 5046     		mov	r0, r10
+ 645 0058 FFF7FEFF 		bl	ComplexMake
+ 646              	.LVL65:
+  41:Src/MyMath.c  **** }
+ 647              		.loc 1 41 0
+ 648 005c 5046     		mov	r0, r10
+ 649 005e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 650              		.cfi_endproc
+ 651              	.LFE74:
+ 653              		.section	.text.vecAlloc,"ax",%progbits
+ 654              		.align	1
+ 655              		.global	vecAlloc
+ 656              		.syntax unified
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.fpu softvfp
+ 661              	vecAlloc:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 13
+
+
+ 662              	.LFB75:
+  42:Src/MyMath.c  **** vecRef vecAlloc(unsigned long long length) {
+ 663              		.loc 1 42 0
+ 664              		.cfi_startproc
+ 665              		@ args = 0, pretend = 0, frame = 0
+ 666              		@ frame_needed = 0, uses_anonymous_args = 0
+ 667              	.LVL66:
+ 668 0000 70B5     		push	{r4, r5, r6, lr}
+ 669              	.LCFI35:
+ 670              		.cfi_def_cfa_offset 16
+ 671              		.cfi_offset 4, -16
+ 672              		.cfi_offset 5, -12
+ 673              		.cfi_offset 6, -8
+ 674              		.cfi_offset 14, -4
+ 675 0002 0546     		mov	r5, r0
+ 676 0004 0E46     		mov	r6, r1
+  43:Src/MyMath.c  ****     vecRef vector = (vecRef)malloc(sizeof(vec) * 1);
+ 677              		.loc 1 43 0
+ 678 0006 1020     		movs	r0, #16
+ 679              	.LVL67:
+ 680 0008 FFF7FEFF 		bl	malloc
+ 681              	.LVL68:
+ 682 000c 0446     		mov	r4, r0
+ 683              	.LVL69:
+  44:Src/MyMath.c  ****     vector->length = length;
+ 684              		.loc 1 44 0
+ 685 000e 0560     		str	r5, [r0]
+ 686 0010 4660     		str	r6, [r0, #4]
+  45:Src/MyMath.c  ****     vector->arr = (Complex*)calloc(length, sizeof(Complex));
+ 687              		.loc 1 45 0
+ 688 0012 0821     		movs	r1, #8
+ 689 0014 2846     		mov	r0, r5
+ 690              	.LVL70:
+ 691 0016 FFF7FEFF 		bl	calloc
+ 692              	.LVL71:
+ 693 001a A060     		str	r0, [r4, #8]
+  46:Src/MyMath.c  ****     return vector;
+  47:Src/MyMath.c  **** }
+ 694              		.loc 1 47 0
+ 695 001c 2046     		mov	r0, r4
+ 696 001e 70BD     		pop	{r4, r5, r6, pc}
+ 697              		.cfi_endproc
+ 698              	.LFE75:
+ 700              		.section	.text.vecRelease,"ax",%progbits
+ 701              		.align	1
+ 702              		.global	vecRelease
+ 703              		.syntax unified
+ 704              		.thumb
+ 705              		.thumb_func
+ 706              		.fpu softvfp
+ 708              	vecRelease:
+ 709              	.LFB76:
+  48:Src/MyMath.c  **** void vecRelease(vecRef* arr) {
+ 710              		.loc 1 48 0
+ 711              		.cfi_startproc
+ 712              		@ args = 0, pretend = 0, frame = 0
+ 713              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 14
+
+
+ 714              	.LVL72:
+  49:Src/MyMath.c  ****     if (*arr)
+ 715              		.loc 1 49 0
+ 716 0000 0368     		ldr	r3, [r0]
+ 717 0002 4BB1     		cbz	r3, .L31
+  48:Src/MyMath.c  **** void vecRelease(vecRef* arr) {
+ 718              		.loc 1 48 0
+ 719 0004 10B5     		push	{r4, lr}
+ 720              	.LCFI36:
+ 721              		.cfi_def_cfa_offset 8
+ 722              		.cfi_offset 4, -8
+ 723              		.cfi_offset 14, -4
+ 724 0006 0446     		mov	r4, r0
+  50:Src/MyMath.c  ****     {
+  51:Src/MyMath.c  ****         if ((*arr)->arr) free((*arr)->arr);
+ 725              		.loc 1 51 0
+ 726 0008 9868     		ldr	r0, [r3, #8]
+ 727              	.LVL73:
+ 728 000a 08B1     		cbz	r0, .L29
+ 729              		.loc 1 51 0 is_stmt 0 discriminator 1
+ 730 000c FFF7FEFF 		bl	free
+ 731              	.LVL74:
+ 732              	.L29:
+  52:Src/MyMath.c  ****         free(*arr);
+ 733              		.loc 1 52 0 is_stmt 1
+ 734 0010 2068     		ldr	r0, [r4]
+ 735 0012 FFF7FEFF 		bl	free
+ 736              	.LVL75:
+  53:Src/MyMath.c  ****     }
+  54:Src/MyMath.c  **** }
+ 737              		.loc 1 54 0
+ 738 0016 10BD     		pop	{r4, pc}
+ 739              	.LVL76:
+ 740              	.L31:
+ 741              	.LCFI37:
+ 742              		.cfi_def_cfa_offset 0
+ 743              		.cfi_restore 4
+ 744              		.cfi_restore 14
+ 745 0018 7047     		bx	lr
+ 746              		.cfi_endproc
+ 747              	.LFE76:
+ 749              		.section	.text.vadd,"ax",%progbits
+ 750              		.align	1
+ 751              		.global	vadd
+ 752              		.syntax unified
+ 753              		.thumb
+ 754              		.thumb_func
+ 755              		.fpu softvfp
+ 757              	vadd:
+ 758              	.LFB77:
+  55:Src/MyMath.c  **** 
+  56:Src/MyMath.c  **** void vadd(vecRef a, vecRef b, vecRef* output) {
+ 759              		.loc 1 56 0
+ 760              		.cfi_startproc
+ 761              		@ args = 0, pretend = 0, frame = 8
+ 762              		@ frame_needed = 0, uses_anonymous_args = 0
+ 763              	.LVL77:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 15
+
+
+ 764 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 765              	.LCFI38:
+ 766              		.cfi_def_cfa_offset 28
+ 767              		.cfi_offset 4, -28
+ 768              		.cfi_offset 5, -24
+ 769              		.cfi_offset 6, -20
+ 770              		.cfi_offset 7, -16
+ 771              		.cfi_offset 8, -12
+ 772              		.cfi_offset 9, -8
+ 773              		.cfi_offset 14, -4
+ 774 0004 85B0     		sub	sp, sp, #20
+ 775              	.LCFI39:
+ 776              		.cfi_def_cfa_offset 48
+ 777 0006 0646     		mov	r6, r0
+ 778 0008 8846     		mov	r8, r1
+ 779 000a 1746     		mov	r7, r2
+  57:Src/MyMath.c  ****     assert(a->length == b->length);
+ 780              		.loc 1 57 0
+ 781 000c 03C8     		ldmia	r0, {r0-r1}
+ 782              	.LVL78:
+ 783 000e D8E90023 		ldrd	r2, [r8]
+ 784              	.LVL79:
+ 785 0012 9942     		cmp	r1, r3
+ 786 0014 08BF     		it	eq
+ 787 0016 9042     		cmpeq	r0, r2
+ 788 0018 04D1     		bne	.L39
+  58:Src/MyMath.c  ****     (*output)->length = a->length;
+ 789              		.loc 1 58 0
+ 790 001a 3B68     		ldr	r3, [r7]
+ 791 001c C3E90001 		strd	r0, [r3]
+ 792              	.LVL80:
+ 793              	.LBB2:
+  59:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 794              		.loc 1 59 0
+ 795 0020 0024     		movs	r4, #0
+ 796 0022 1FE0     		b	.L36
+ 797              	.LVL81:
+ 798              	.L39:
+ 799              	.LBE2:
+  57:Src/MyMath.c  ****     assert(a->length == b->length);
+ 800              		.loc 1 57 0 discriminator 1
+ 801 0024 144B     		ldr	r3, .L40
+ 802 0026 154A     		ldr	r2, .L40+4
+ 803 0028 3921     		movs	r1, #57
+ 804              	.LVL82:
+ 805 002a 1548     		ldr	r0, .L40+8
+ 806 002c FFF7FEFF 		bl	__assert_func
+ 807              	.LVL83:
+ 808              	.L37:
+ 809              	.LBB3:
+  60:Src/MyMath.c  ****         (*output)->arr[i] = cAdd(a->arr[i], b->arr[i]);
+ 810              		.loc 1 60 0 discriminator 3
+ 811 0030 B268     		ldr	r2, [r6, #8]
+ 812 0032 E300     		lsls	r3, r4, #3
+ 813 0034 1A44     		add	r2, r2, r3
+ 814 0036 D8F80810 		ldr	r1, [r8, #8]
+ 815 003a 01EB030C 		add	ip, r1, r3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 16
+
+
+ 816 003e 3868     		ldr	r0, [r7]
+ 817 0040 8568     		ldr	r5, [r0, #8]
+ 818 0042 1D44     		add	r5, r5, r3
+ 819 0044 0DF10809 		add	r9, sp, #8
+ 820 0048 DCF80430 		ldr	r3, [ip, #4]
+ 821 004c 0093     		str	r3, [sp]
+ 822 004e 51F83430 		ldr	r3, [r1, r4, lsl #3]
+ 823 0052 06CA     		ldm	r2, {r1, r2}
+ 824 0054 4846     		mov	r0, r9
+ 825 0056 FFF7FEFF 		bl	cAdd
+ 826              	.LVL84:
+ 827 005a 99E80300 		ldm	r9, {r0, r1}
+ 828 005e 85E80300 		stm	r5, {r0, r1}
+  59:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 829              		.loc 1 59 0 discriminator 3
+ 830 0062 0134     		adds	r4, r4, #1
+ 831              	.LVL85:
+ 832              	.L36:
+  59:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 833              		.loc 1 59 0 is_stmt 0 discriminator 1
+ 834 0064 D6E90023 		ldrd	r2, [r6]
+ 835 0068 E117     		asrs	r1, r4, #31
+ 836 006a 9942     		cmp	r1, r3
+ 837 006c 08BF     		it	eq
+ 838 006e 9442     		cmpeq	r4, r2
+ 839 0070 DED3     		bcc	.L37
+ 840              	.LBE3:
+  61:Src/MyMath.c  ****     }
+  62:Src/MyMath.c  **** }
+ 841              		.loc 1 62 0 is_stmt 1
+ 842 0072 05B0     		add	sp, sp, #20
+ 843              	.LCFI40:
+ 844              		.cfi_def_cfa_offset 28
+ 845              		@ sp needed
+ 846 0074 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 847              	.LVL86:
+ 848              	.L41:
+ 849              		.align	2
+ 850              	.L40:
+ 851 0078 00000000 		.word	.LC2
+ 852 007c 00000000 		.word	.LANCHOR1
+ 853 0080 04000000 		.word	.LC1
+ 854              		.cfi_endproc
+ 855              	.LFE77:
+ 857              		.section	.text.vsubtract,"ax",%progbits
+ 858              		.align	1
+ 859              		.global	vsubtract
+ 860              		.syntax unified
+ 861              		.thumb
+ 862              		.thumb_func
+ 863              		.fpu softvfp
+ 865              	vsubtract:
+ 866              	.LFB78:
+  63:Src/MyMath.c  **** 
+  64:Src/MyMath.c  **** void vsubtract(vecRef a, vecRef b, vecRef* output) {
+ 867              		.loc 1 64 0
+ 868              		.cfi_startproc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 17
+
+
+ 869              		@ args = 0, pretend = 0, frame = 8
+ 870              		@ frame_needed = 0, uses_anonymous_args = 0
+ 871              	.LVL87:
+ 872 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 873              	.LCFI41:
+ 874              		.cfi_def_cfa_offset 28
+ 875              		.cfi_offset 4, -28
+ 876              		.cfi_offset 5, -24
+ 877              		.cfi_offset 6, -20
+ 878              		.cfi_offset 7, -16
+ 879              		.cfi_offset 8, -12
+ 880              		.cfi_offset 9, -8
+ 881              		.cfi_offset 14, -4
+ 882 0004 85B0     		sub	sp, sp, #20
+ 883              	.LCFI42:
+ 884              		.cfi_def_cfa_offset 48
+ 885 0006 0646     		mov	r6, r0
+ 886 0008 8846     		mov	r8, r1
+ 887 000a 1746     		mov	r7, r2
+  65:Src/MyMath.c  ****     assert(a->length == b->length);
+ 888              		.loc 1 65 0
+ 889 000c 03C8     		ldmia	r0, {r0-r1}
+ 890              	.LVL88:
+ 891 000e D8E90023 		ldrd	r2, [r8]
+ 892              	.LVL89:
+ 893 0012 9942     		cmp	r1, r3
+ 894 0014 08BF     		it	eq
+ 895 0016 9042     		cmpeq	r0, r2
+ 896 0018 04D1     		bne	.L47
+  66:Src/MyMath.c  ****     (*output)->length = a->length;
+ 897              		.loc 1 66 0
+ 898 001a 3B68     		ldr	r3, [r7]
+ 899 001c C3E90001 		strd	r0, [r3]
+ 900              	.LVL90:
+ 901              	.LBB4:
+  67:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 902              		.loc 1 67 0
+ 903 0020 0024     		movs	r4, #0
+ 904 0022 1FE0     		b	.L44
+ 905              	.LVL91:
+ 906              	.L47:
+ 907              	.LBE4:
+  65:Src/MyMath.c  ****     assert(a->length == b->length);
+ 908              		.loc 1 65 0 discriminator 1
+ 909 0024 144B     		ldr	r3, .L48
+ 910 0026 154A     		ldr	r2, .L48+4
+ 911 0028 4121     		movs	r1, #65
+ 912              	.LVL92:
+ 913 002a 1548     		ldr	r0, .L48+8
+ 914 002c FFF7FEFF 		bl	__assert_func
+ 915              	.LVL93:
+ 916              	.L45:
+ 917              	.LBB5:
+  68:Src/MyMath.c  ****         (*output)->arr[i] = cSubtract(a->arr[i], b->arr[i]);
+ 918              		.loc 1 68 0 discriminator 3
+ 919 0030 B268     		ldr	r2, [r6, #8]
+ 920 0032 E300     		lsls	r3, r4, #3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 18
+
+
+ 921 0034 1A44     		add	r2, r2, r3
+ 922 0036 D8F80810 		ldr	r1, [r8, #8]
+ 923 003a 01EB030C 		add	ip, r1, r3
+ 924 003e 3868     		ldr	r0, [r7]
+ 925 0040 8568     		ldr	r5, [r0, #8]
+ 926 0042 1D44     		add	r5, r5, r3
+ 927 0044 0DF10809 		add	r9, sp, #8
+ 928 0048 DCF80430 		ldr	r3, [ip, #4]
+ 929 004c 0093     		str	r3, [sp]
+ 930 004e 51F83430 		ldr	r3, [r1, r4, lsl #3]
+ 931 0052 06CA     		ldm	r2, {r1, r2}
+ 932 0054 4846     		mov	r0, r9
+ 933 0056 FFF7FEFF 		bl	cSubtract
+ 934              	.LVL94:
+ 935 005a 99E80300 		ldm	r9, {r0, r1}
+ 936 005e 85E80300 		stm	r5, {r0, r1}
+  67:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 937              		.loc 1 67 0 discriminator 3
+ 938 0062 0134     		adds	r4, r4, #1
+ 939              	.LVL95:
+ 940              	.L44:
+  67:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 941              		.loc 1 67 0 is_stmt 0 discriminator 1
+ 942 0064 D6E90023 		ldrd	r2, [r6]
+ 943 0068 E117     		asrs	r1, r4, #31
+ 944 006a 9942     		cmp	r1, r3
+ 945 006c 08BF     		it	eq
+ 946 006e 9442     		cmpeq	r4, r2
+ 947 0070 DED3     		bcc	.L45
+ 948              	.LBE5:
+  69:Src/MyMath.c  ****     }
+  70:Src/MyMath.c  **** }
+ 949              		.loc 1 70 0 is_stmt 1
+ 950 0072 05B0     		add	sp, sp, #20
+ 951              	.LCFI43:
+ 952              		.cfi_def_cfa_offset 28
+ 953              		@ sp needed
+ 954 0074 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 955              	.LVL96:
+ 956              	.L49:
+ 957              		.align	2
+ 958              	.L48:
+ 959 0078 00000000 		.word	.LC2
+ 960 007c 00000000 		.word	.LANCHOR2
+ 961 0080 04000000 		.word	.LC1
+ 962              		.cfi_endproc
+ 963              	.LFE78:
+ 965              		.section	.text.vmultiply,"ax",%progbits
+ 966              		.align	1
+ 967              		.global	vmultiply
+ 968              		.syntax unified
+ 969              		.thumb
+ 970              		.thumb_func
+ 971              		.fpu softvfp
+ 973              	vmultiply:
+ 974              	.LFB79:
+  71:Src/MyMath.c  **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 19
+
+
+  72:Src/MyMath.c  **** void vmultiply(vecRef a, vecRef b, vecRef* output) {
+ 975              		.loc 1 72 0
+ 976              		.cfi_startproc
+ 977              		@ args = 0, pretend = 0, frame = 8
+ 978              		@ frame_needed = 0, uses_anonymous_args = 0
+ 979              	.LVL97:
+ 980 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 981              	.LCFI44:
+ 982              		.cfi_def_cfa_offset 28
+ 983              		.cfi_offset 4, -28
+ 984              		.cfi_offset 5, -24
+ 985              		.cfi_offset 6, -20
+ 986              		.cfi_offset 7, -16
+ 987              		.cfi_offset 8, -12
+ 988              		.cfi_offset 9, -8
+ 989              		.cfi_offset 14, -4
+ 990 0004 85B0     		sub	sp, sp, #20
+ 991              	.LCFI45:
+ 992              		.cfi_def_cfa_offset 48
+ 993 0006 0646     		mov	r6, r0
+ 994 0008 8846     		mov	r8, r1
+ 995 000a 1746     		mov	r7, r2
+  73:Src/MyMath.c  ****     assert(a->length == b->length);
+ 996              		.loc 1 73 0
+ 997 000c 03C8     		ldmia	r0, {r0-r1}
+ 998              	.LVL98:
+ 999 000e D8E90023 		ldrd	r2, [r8]
+ 1000              	.LVL99:
+ 1001 0012 9942     		cmp	r1, r3
+ 1002 0014 08BF     		it	eq
+ 1003 0016 9042     		cmpeq	r0, r2
+ 1004 0018 04D1     		bne	.L55
+  74:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1005              		.loc 1 74 0
+ 1006 001a 3B68     		ldr	r3, [r7]
+ 1007 001c C3E90001 		strd	r0, [r3]
+ 1008              	.LVL100:
+ 1009              	.LBB6:
+  75:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1010              		.loc 1 75 0
+ 1011 0020 0024     		movs	r4, #0
+ 1012 0022 1FE0     		b	.L52
+ 1013              	.LVL101:
+ 1014              	.L55:
+ 1015              	.LBE6:
+  73:Src/MyMath.c  ****     assert(a->length == b->length);
+ 1016              		.loc 1 73 0 discriminator 1
+ 1017 0024 144B     		ldr	r3, .L56
+ 1018 0026 154A     		ldr	r2, .L56+4
+ 1019 0028 4921     		movs	r1, #73
+ 1020              	.LVL102:
+ 1021 002a 1548     		ldr	r0, .L56+8
+ 1022 002c FFF7FEFF 		bl	__assert_func
+ 1023              	.LVL103:
+ 1024              	.L53:
+ 1025              	.LBB7:
+  76:Src/MyMath.c  ****         (*output)->arr[i] = cMultiply(a->arr[i], b->arr[i]);
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 20
+
+
+ 1026              		.loc 1 76 0 discriminator 3
+ 1027 0030 B268     		ldr	r2, [r6, #8]
+ 1028 0032 E300     		lsls	r3, r4, #3
+ 1029 0034 1A44     		add	r2, r2, r3
+ 1030 0036 D8F80810 		ldr	r1, [r8, #8]
+ 1031 003a 01EB030C 		add	ip, r1, r3
+ 1032 003e 3868     		ldr	r0, [r7]
+ 1033 0040 8568     		ldr	r5, [r0, #8]
+ 1034 0042 1D44     		add	r5, r5, r3
+ 1035 0044 0DF10809 		add	r9, sp, #8
+ 1036 0048 DCF80430 		ldr	r3, [ip, #4]
+ 1037 004c 0093     		str	r3, [sp]
+ 1038 004e 51F83430 		ldr	r3, [r1, r4, lsl #3]
+ 1039 0052 06CA     		ldm	r2, {r1, r2}
+ 1040 0054 4846     		mov	r0, r9
+ 1041 0056 FFF7FEFF 		bl	cMultiply
+ 1042              	.LVL104:
+ 1043 005a 99E80300 		ldm	r9, {r0, r1}
+ 1044 005e 85E80300 		stm	r5, {r0, r1}
+  75:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1045              		.loc 1 75 0 discriminator 3
+ 1046 0062 0134     		adds	r4, r4, #1
+ 1047              	.LVL105:
+ 1048              	.L52:
+  75:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1049              		.loc 1 75 0 is_stmt 0 discriminator 1
+ 1050 0064 D6E90023 		ldrd	r2, [r6]
+ 1051 0068 E117     		asrs	r1, r4, #31
+ 1052 006a 9942     		cmp	r1, r3
+ 1053 006c 08BF     		it	eq
+ 1054 006e 9442     		cmpeq	r4, r2
+ 1055 0070 DED3     		bcc	.L53
+ 1056              	.LBE7:
+  77:Src/MyMath.c  ****     }
+  78:Src/MyMath.c  **** }
+ 1057              		.loc 1 78 0 is_stmt 1
+ 1058 0072 05B0     		add	sp, sp, #20
+ 1059              	.LCFI46:
+ 1060              		.cfi_def_cfa_offset 28
+ 1061              		@ sp needed
+ 1062 0074 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1063              	.LVL106:
+ 1064              	.L57:
+ 1065              		.align	2
+ 1066              	.L56:
+ 1067 0078 00000000 		.word	.LC2
+ 1068 007c 00000000 		.word	.LANCHOR3
+ 1069 0080 04000000 		.word	.LC1
+ 1070              		.cfi_endproc
+ 1071              	.LFE79:
+ 1073              		.section	.text.vdivide,"ax",%progbits
+ 1074              		.align	1
+ 1075              		.global	vdivide
+ 1076              		.syntax unified
+ 1077              		.thumb
+ 1078              		.thumb_func
+ 1079              		.fpu softvfp
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 21
+
+
+ 1081              	vdivide:
+ 1082              	.LFB80:
+  79:Src/MyMath.c  **** 
+  80:Src/MyMath.c  **** void vdivide(vecRef a, vecRef b, vecRef* output) {
+ 1083              		.loc 1 80 0
+ 1084              		.cfi_startproc
+ 1085              		@ args = 0, pretend = 0, frame = 8
+ 1086              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1087              	.LVL107:
+ 1088 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1089              	.LCFI47:
+ 1090              		.cfi_def_cfa_offset 28
+ 1091              		.cfi_offset 4, -28
+ 1092              		.cfi_offset 5, -24
+ 1093              		.cfi_offset 6, -20
+ 1094              		.cfi_offset 7, -16
+ 1095              		.cfi_offset 8, -12
+ 1096              		.cfi_offset 9, -8
+ 1097              		.cfi_offset 14, -4
+ 1098 0004 85B0     		sub	sp, sp, #20
+ 1099              	.LCFI48:
+ 1100              		.cfi_def_cfa_offset 48
+ 1101 0006 0646     		mov	r6, r0
+ 1102 0008 8846     		mov	r8, r1
+ 1103 000a 1746     		mov	r7, r2
+  81:Src/MyMath.c  ****     assert(a->length == b->length);
+ 1104              		.loc 1 81 0
+ 1105 000c 03C8     		ldmia	r0, {r0-r1}
+ 1106              	.LVL108:
+ 1107 000e D8E90023 		ldrd	r2, [r8]
+ 1108              	.LVL109:
+ 1109 0012 9942     		cmp	r1, r3
+ 1110 0014 08BF     		it	eq
+ 1111 0016 9042     		cmpeq	r0, r2
+ 1112 0018 04D1     		bne	.L63
+  82:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1113              		.loc 1 82 0
+ 1114 001a 3B68     		ldr	r3, [r7]
+ 1115 001c C3E90001 		strd	r0, [r3]
+ 1116              	.LVL110:
+ 1117              	.LBB8:
+  83:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1118              		.loc 1 83 0
+ 1119 0020 0024     		movs	r4, #0
+ 1120 0022 1FE0     		b	.L60
+ 1121              	.LVL111:
+ 1122              	.L63:
+ 1123              	.LBE8:
+  81:Src/MyMath.c  ****     assert(a->length == b->length);
+ 1124              		.loc 1 81 0 discriminator 1
+ 1125 0024 144B     		ldr	r3, .L64
+ 1126 0026 154A     		ldr	r2, .L64+4
+ 1127 0028 5121     		movs	r1, #81
+ 1128              	.LVL112:
+ 1129 002a 1548     		ldr	r0, .L64+8
+ 1130 002c FFF7FEFF 		bl	__assert_func
+ 1131              	.LVL113:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 22
+
+
+ 1132              	.L61:
+ 1133              	.LBB9:
+  84:Src/MyMath.c  ****         (*output)->arr[i] = cDivide(a->arr[i], b->arr[i]);
+ 1134              		.loc 1 84 0 discriminator 3
+ 1135 0030 B268     		ldr	r2, [r6, #8]
+ 1136 0032 E300     		lsls	r3, r4, #3
+ 1137 0034 1A44     		add	r2, r2, r3
+ 1138 0036 D8F80810 		ldr	r1, [r8, #8]
+ 1139 003a 01EB030C 		add	ip, r1, r3
+ 1140 003e 3868     		ldr	r0, [r7]
+ 1141 0040 8568     		ldr	r5, [r0, #8]
+ 1142 0042 1D44     		add	r5, r5, r3
+ 1143 0044 0DF10809 		add	r9, sp, #8
+ 1144 0048 DCF80430 		ldr	r3, [ip, #4]
+ 1145 004c 0093     		str	r3, [sp]
+ 1146 004e 51F83430 		ldr	r3, [r1, r4, lsl #3]
+ 1147 0052 06CA     		ldm	r2, {r1, r2}
+ 1148 0054 4846     		mov	r0, r9
+ 1149 0056 FFF7FEFF 		bl	cDivide
+ 1150              	.LVL114:
+ 1151 005a 99E80300 		ldm	r9, {r0, r1}
+ 1152 005e 85E80300 		stm	r5, {r0, r1}
+  83:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1153              		.loc 1 83 0 discriminator 3
+ 1154 0062 0134     		adds	r4, r4, #1
+ 1155              	.LVL115:
+ 1156              	.L60:
+  83:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1157              		.loc 1 83 0 is_stmt 0 discriminator 1
+ 1158 0064 D6E90023 		ldrd	r2, [r6]
+ 1159 0068 E117     		asrs	r1, r4, #31
+ 1160 006a 9942     		cmp	r1, r3
+ 1161 006c 08BF     		it	eq
+ 1162 006e 9442     		cmpeq	r4, r2
+ 1163 0070 DED3     		bcc	.L61
+ 1164              	.LBE9:
+  85:Src/MyMath.c  ****     }
+  86:Src/MyMath.c  **** }
+ 1165              		.loc 1 86 0 is_stmt 1
+ 1166 0072 05B0     		add	sp, sp, #20
+ 1167              	.LCFI49:
+ 1168              		.cfi_def_cfa_offset 28
+ 1169              		@ sp needed
+ 1170 0074 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1171              	.LVL116:
+ 1172              	.L65:
+ 1173              		.align	2
+ 1174              	.L64:
+ 1175 0078 00000000 		.word	.LC2
+ 1176 007c 00000000 		.word	.LANCHOR4
+ 1177 0080 04000000 		.word	.LC1
+ 1178              		.cfi_endproc
+ 1179              	.LFE80:
+ 1181              		.section	.text.vaddScalar,"ax",%progbits
+ 1182              		.align	1
+ 1183              		.global	vaddScalar
+ 1184              		.syntax unified
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 23
+
+
+ 1185              		.thumb
+ 1186              		.thumb_func
+ 1187              		.fpu softvfp
+ 1189              	vaddScalar:
+ 1190              	.LFB81:
+  87:Src/MyMath.c  **** 
+  88:Src/MyMath.c  **** void vaddScalar(vecRef a, Complex c, vecRef* output) {
+ 1191              		.loc 1 88 0
+ 1192              		.cfi_startproc
+ 1193              		@ args = 0, pretend = 0, frame = 16
+ 1194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1195              	.LVL117:
+ 1196 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1197              	.LCFI50:
+ 1198              		.cfi_def_cfa_offset 24
+ 1199              		.cfi_offset 4, -24
+ 1200              		.cfi_offset 5, -20
+ 1201              		.cfi_offset 6, -16
+ 1202              		.cfi_offset 7, -12
+ 1203              		.cfi_offset 8, -8
+ 1204              		.cfi_offset 14, -4
+ 1205 0004 86B0     		sub	sp, sp, #24
+ 1206              	.LCFI51:
+ 1207              		.cfi_def_cfa_offset 48
+ 1208 0006 0646     		mov	r6, r0
+ 1209 0008 06A8     		add	r0, sp, #24
+ 1210              	.LVL118:
+ 1211 000a 00E90600 		stmdb	r0, {r1, r2}
+ 1212 000e 1F46     		mov	r7, r3
+  89:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1213              		.loc 1 89 0
+ 1214 0010 1968     		ldr	r1, [r3]
+ 1215 0012 D6E90023 		ldrd	r2, [r6]
+ 1216 0016 C1E90023 		strd	r2, [r1]
+ 1217              	.LVL119:
+ 1218              	.LBB10:
+  90:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1219              		.loc 1 90 0
+ 1220 001a 0025     		movs	r5, #0
+ 1221 001c 13E0     		b	.L67
+ 1222              	.LVL120:
+ 1223              	.L68:
+  91:Src/MyMath.c  ****         (*output)->arr[i] = cAdd(a->arr[i], c);
+ 1224              		.loc 1 91 0 discriminator 3
+ 1225 001e B268     		ldr	r2, [r6, #8]
+ 1226 0020 EB00     		lsls	r3, r5, #3
+ 1227 0022 1A44     		add	r2, r2, r3
+ 1228 0024 3968     		ldr	r1, [r7]
+ 1229 0026 8C68     		ldr	r4, [r1, #8]
+ 1230 0028 1C44     		add	r4, r4, r3
+ 1231 002a 0DF10808 		add	r8, sp, #8
+ 1232 002e 059B     		ldr	r3, [sp, #20]
+ 1233 0030 0093     		str	r3, [sp]
+ 1234 0032 049B     		ldr	r3, [sp, #16]
+ 1235 0034 06CA     		ldm	r2, {r1, r2}
+ 1236 0036 4046     		mov	r0, r8
+ 1237 0038 FFF7FEFF 		bl	cAdd
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 24
+
+
+ 1238              	.LVL121:
+ 1239 003c 98E80300 		ldm	r8, {r0, r1}
+ 1240 0040 84E80300 		stm	r4, {r0, r1}
+  90:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1241              		.loc 1 90 0 discriminator 3
+ 1242 0044 0135     		adds	r5, r5, #1
+ 1243              	.LVL122:
+ 1244              	.L67:
+  90:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1245              		.loc 1 90 0 is_stmt 0 discriminator 1
+ 1246 0046 D6E90023 		ldrd	r2, [r6]
+ 1247 004a E917     		asrs	r1, r5, #31
+ 1248 004c 9942     		cmp	r1, r3
+ 1249 004e 08BF     		it	eq
+ 1250 0050 9542     		cmpeq	r5, r2
+ 1251 0052 E4D3     		bcc	.L68
+ 1252              	.LBE10:
+  92:Src/MyMath.c  ****     }
+  93:Src/MyMath.c  **** }
+ 1253              		.loc 1 93 0 is_stmt 1
+ 1254 0054 06B0     		add	sp, sp, #24
+ 1255              	.LCFI52:
+ 1256              		.cfi_def_cfa_offset 24
+ 1257              		@ sp needed
+ 1258 0056 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1259              		.cfi_endproc
+ 1260              	.LFE81:
+ 1262              		.section	.text.vsubScalar,"ax",%progbits
+ 1263              		.align	1
+ 1264              		.global	vsubScalar
+ 1265              		.syntax unified
+ 1266              		.thumb
+ 1267              		.thumb_func
+ 1268              		.fpu softvfp
+ 1270              	vsubScalar:
+ 1271              	.LFB82:
+  94:Src/MyMath.c  **** 
+  95:Src/MyMath.c  **** void vsubScalar(vecRef a, Complex c, vecRef* output) {
+ 1272              		.loc 1 95 0
+ 1273              		.cfi_startproc
+ 1274              		@ args = 0, pretend = 0, frame = 16
+ 1275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1276              	.LVL123:
+ 1277 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1278              	.LCFI53:
+ 1279              		.cfi_def_cfa_offset 24
+ 1280              		.cfi_offset 4, -24
+ 1281              		.cfi_offset 5, -20
+ 1282              		.cfi_offset 6, -16
+ 1283              		.cfi_offset 7, -12
+ 1284              		.cfi_offset 8, -8
+ 1285              		.cfi_offset 14, -4
+ 1286 0004 86B0     		sub	sp, sp, #24
+ 1287              	.LCFI54:
+ 1288              		.cfi_def_cfa_offset 48
+ 1289 0006 0646     		mov	r6, r0
+ 1290 0008 06A8     		add	r0, sp, #24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 25
+
+
+ 1291              	.LVL124:
+ 1292 000a 00E90600 		stmdb	r0, {r1, r2}
+ 1293 000e 1F46     		mov	r7, r3
+  96:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1294              		.loc 1 96 0
+ 1295 0010 1968     		ldr	r1, [r3]
+ 1296 0012 D6E90023 		ldrd	r2, [r6]
+ 1297 0016 C1E90023 		strd	r2, [r1]
+ 1298              	.LVL125:
+ 1299              	.LBB11:
+  97:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1300              		.loc 1 97 0
+ 1301 001a 0025     		movs	r5, #0
+ 1302 001c 13E0     		b	.L71
+ 1303              	.LVL126:
+ 1304              	.L72:
+  98:Src/MyMath.c  ****         (*output)->arr[i] = cSubtract(a->arr[i], c);
+ 1305              		.loc 1 98 0 discriminator 3
+ 1306 001e B268     		ldr	r2, [r6, #8]
+ 1307 0020 EB00     		lsls	r3, r5, #3
+ 1308 0022 1A44     		add	r2, r2, r3
+ 1309 0024 3968     		ldr	r1, [r7]
+ 1310 0026 8C68     		ldr	r4, [r1, #8]
+ 1311 0028 1C44     		add	r4, r4, r3
+ 1312 002a 0DF10808 		add	r8, sp, #8
+ 1313 002e 059B     		ldr	r3, [sp, #20]
+ 1314 0030 0093     		str	r3, [sp]
+ 1315 0032 049B     		ldr	r3, [sp, #16]
+ 1316 0034 06CA     		ldm	r2, {r1, r2}
+ 1317 0036 4046     		mov	r0, r8
+ 1318 0038 FFF7FEFF 		bl	cSubtract
+ 1319              	.LVL127:
+ 1320 003c 98E80300 		ldm	r8, {r0, r1}
+ 1321 0040 84E80300 		stm	r4, {r0, r1}
+  97:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1322              		.loc 1 97 0 discriminator 3
+ 1323 0044 0135     		adds	r5, r5, #1
+ 1324              	.LVL128:
+ 1325              	.L71:
+  97:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1326              		.loc 1 97 0 is_stmt 0 discriminator 1
+ 1327 0046 D6E90023 		ldrd	r2, [r6]
+ 1328 004a E917     		asrs	r1, r5, #31
+ 1329 004c 9942     		cmp	r1, r3
+ 1330 004e 08BF     		it	eq
+ 1331 0050 9542     		cmpeq	r5, r2
+ 1332 0052 E4D3     		bcc	.L72
+ 1333              	.LBE11:
+  99:Src/MyMath.c  ****     }
+ 100:Src/MyMath.c  **** }
+ 1334              		.loc 1 100 0 is_stmt 1
+ 1335 0054 06B0     		add	sp, sp, #24
+ 1336              	.LCFI55:
+ 1337              		.cfi_def_cfa_offset 24
+ 1338              		@ sp needed
+ 1339 0056 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1340              		.cfi_endproc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 26
+
+
+ 1341              	.LFE82:
+ 1343              		.section	.text.vmulScalar,"ax",%progbits
+ 1344              		.align	1
+ 1345              		.global	vmulScalar
+ 1346              		.syntax unified
+ 1347              		.thumb
+ 1348              		.thumb_func
+ 1349              		.fpu softvfp
+ 1351              	vmulScalar:
+ 1352              	.LFB83:
+ 101:Src/MyMath.c  **** 
+ 102:Src/MyMath.c  **** void vmulScalar(vecRef a, Complex c, vecRef* output) {
+ 1353              		.loc 1 102 0
+ 1354              		.cfi_startproc
+ 1355              		@ args = 0, pretend = 0, frame = 16
+ 1356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1357              	.LVL129:
+ 1358 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1359              	.LCFI56:
+ 1360              		.cfi_def_cfa_offset 24
+ 1361              		.cfi_offset 4, -24
+ 1362              		.cfi_offset 5, -20
+ 1363              		.cfi_offset 6, -16
+ 1364              		.cfi_offset 7, -12
+ 1365              		.cfi_offset 8, -8
+ 1366              		.cfi_offset 14, -4
+ 1367 0004 86B0     		sub	sp, sp, #24
+ 1368              	.LCFI57:
+ 1369              		.cfi_def_cfa_offset 48
+ 1370 0006 0646     		mov	r6, r0
+ 1371 0008 06A8     		add	r0, sp, #24
+ 1372              	.LVL130:
+ 1373 000a 00E90600 		stmdb	r0, {r1, r2}
+ 1374 000e 1F46     		mov	r7, r3
+ 103:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1375              		.loc 1 103 0
+ 1376 0010 1968     		ldr	r1, [r3]
+ 1377 0012 D6E90023 		ldrd	r2, [r6]
+ 1378 0016 C1E90023 		strd	r2, [r1]
+ 1379              	.LVL131:
+ 1380              	.LBB12:
+ 104:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1381              		.loc 1 104 0
+ 1382 001a 0025     		movs	r5, #0
+ 1383 001c 13E0     		b	.L75
+ 1384              	.LVL132:
+ 1385              	.L76:
+ 105:Src/MyMath.c  ****         (*output)->arr[i] = cMultiply(a->arr[i], c);
+ 1386              		.loc 1 105 0 discriminator 3
+ 1387 001e B268     		ldr	r2, [r6, #8]
+ 1388 0020 EB00     		lsls	r3, r5, #3
+ 1389 0022 1A44     		add	r2, r2, r3
+ 1390 0024 3968     		ldr	r1, [r7]
+ 1391 0026 8C68     		ldr	r4, [r1, #8]
+ 1392 0028 1C44     		add	r4, r4, r3
+ 1393 002a 0DF10808 		add	r8, sp, #8
+ 1394 002e 059B     		ldr	r3, [sp, #20]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 27
+
+
+ 1395 0030 0093     		str	r3, [sp]
+ 1396 0032 049B     		ldr	r3, [sp, #16]
+ 1397 0034 06CA     		ldm	r2, {r1, r2}
+ 1398 0036 4046     		mov	r0, r8
+ 1399 0038 FFF7FEFF 		bl	cMultiply
+ 1400              	.LVL133:
+ 1401 003c 98E80300 		ldm	r8, {r0, r1}
+ 1402 0040 84E80300 		stm	r4, {r0, r1}
+ 104:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1403              		.loc 1 104 0 discriminator 3
+ 1404 0044 0135     		adds	r5, r5, #1
+ 1405              	.LVL134:
+ 1406              	.L75:
+ 104:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1407              		.loc 1 104 0 is_stmt 0 discriminator 1
+ 1408 0046 D6E90023 		ldrd	r2, [r6]
+ 1409 004a E917     		asrs	r1, r5, #31
+ 1410 004c 9942     		cmp	r1, r3
+ 1411 004e 08BF     		it	eq
+ 1412 0050 9542     		cmpeq	r5, r2
+ 1413 0052 E4D3     		bcc	.L76
+ 1414              	.LBE12:
+ 106:Src/MyMath.c  ****     }
+ 107:Src/MyMath.c  **** }
+ 1415              		.loc 1 107 0 is_stmt 1
+ 1416 0054 06B0     		add	sp, sp, #24
+ 1417              	.LCFI58:
+ 1418              		.cfi_def_cfa_offset 24
+ 1419              		@ sp needed
+ 1420 0056 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1421              		.cfi_endproc
+ 1422              	.LFE83:
+ 1424              		.section	.text.vdivScalar,"ax",%progbits
+ 1425              		.align	1
+ 1426              		.global	vdivScalar
+ 1427              		.syntax unified
+ 1428              		.thumb
+ 1429              		.thumb_func
+ 1430              		.fpu softvfp
+ 1432              	vdivScalar:
+ 1433              	.LFB84:
+ 108:Src/MyMath.c  **** 
+ 109:Src/MyMath.c  **** void vdivScalar(vecRef a, Complex c, vecRef* output) {
+ 1434              		.loc 1 109 0
+ 1435              		.cfi_startproc
+ 1436              		@ args = 0, pretend = 0, frame = 16
+ 1437              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1438              	.LVL135:
+ 1439 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1440              	.LCFI59:
+ 1441              		.cfi_def_cfa_offset 24
+ 1442              		.cfi_offset 4, -24
+ 1443              		.cfi_offset 5, -20
+ 1444              		.cfi_offset 6, -16
+ 1445              		.cfi_offset 7, -12
+ 1446              		.cfi_offset 8, -8
+ 1447              		.cfi_offset 14, -4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 28
+
+
+ 1448 0004 86B0     		sub	sp, sp, #24
+ 1449              	.LCFI60:
+ 1450              		.cfi_def_cfa_offset 48
+ 1451 0006 0646     		mov	r6, r0
+ 1452 0008 06A8     		add	r0, sp, #24
+ 1453              	.LVL136:
+ 1454 000a 00E90600 		stmdb	r0, {r1, r2}
+ 1455 000e 1F46     		mov	r7, r3
+ 110:Src/MyMath.c  ****     (*output)->length = a->length;
+ 1456              		.loc 1 110 0
+ 1457 0010 1968     		ldr	r1, [r3]
+ 1458 0012 D6E90023 		ldrd	r2, [r6]
+ 1459 0016 C1E90023 		strd	r2, [r1]
+ 1460              	.LVL137:
+ 1461              	.LBB13:
+ 111:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1462              		.loc 1 111 0
+ 1463 001a 0025     		movs	r5, #0
+ 1464 001c 13E0     		b	.L79
+ 1465              	.LVL138:
+ 1466              	.L80:
+ 112:Src/MyMath.c  ****         (*output)->arr[i] = cDivide(a->arr[i], c);
+ 1467              		.loc 1 112 0 discriminator 3
+ 1468 001e B268     		ldr	r2, [r6, #8]
+ 1469 0020 EB00     		lsls	r3, r5, #3
+ 1470 0022 1A44     		add	r2, r2, r3
+ 1471 0024 3968     		ldr	r1, [r7]
+ 1472 0026 8C68     		ldr	r4, [r1, #8]
+ 1473 0028 1C44     		add	r4, r4, r3
+ 1474 002a 0DF10808 		add	r8, sp, #8
+ 1475 002e 059B     		ldr	r3, [sp, #20]
+ 1476 0030 0093     		str	r3, [sp]
+ 1477 0032 049B     		ldr	r3, [sp, #16]
+ 1478 0034 06CA     		ldm	r2, {r1, r2}
+ 1479 0036 4046     		mov	r0, r8
+ 1480 0038 FFF7FEFF 		bl	cDivide
+ 1481              	.LVL139:
+ 1482 003c 98E80300 		ldm	r8, {r0, r1}
+ 1483 0040 84E80300 		stm	r4, {r0, r1}
+ 111:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1484              		.loc 1 111 0 discriminator 3
+ 1485 0044 0135     		adds	r5, r5, #1
+ 1486              	.LVL140:
+ 1487              	.L79:
+ 111:Src/MyMath.c  ****     for (int i = 0; i < a->length; i++) {
+ 1488              		.loc 1 111 0 is_stmt 0 discriminator 1
+ 1489 0046 D6E90023 		ldrd	r2, [r6]
+ 1490 004a E917     		asrs	r1, r5, #31
+ 1491 004c 9942     		cmp	r1, r3
+ 1492 004e 08BF     		it	eq
+ 1493 0050 9542     		cmpeq	r5, r2
+ 1494 0052 E4D3     		bcc	.L80
+ 1495              	.LBE13:
+ 113:Src/MyMath.c  ****     }
+ 114:Src/MyMath.c  **** }
+ 1496              		.loc 1 114 0 is_stmt 1
+ 1497 0054 06B0     		add	sp, sp, #24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 29
+
+
+ 1498              	.LCFI61:
+ 1499              		.cfi_def_cfa_offset 24
+ 1500              		@ sp needed
+ 1501 0056 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1502              		.cfi_endproc
+ 1503              	.LFE84:
+ 1505              		.global	__aeabi_ul2d
+ 1506              		.global	__aeabi_ddiv
+ 1507              		.section	.text.dft,"ax",%progbits
+ 1508              		.align	1
+ 1509              		.global	dft
+ 1510              		.syntax unified
+ 1511              		.thumb
+ 1512              		.thumb_func
+ 1513              		.fpu softvfp
+ 1515              	dft:
+ 1516              	.LFB87:
+ 115:Src/MyMath.c  **** void fft(const vecRef input, vecRef *output){
+ 116:Src/MyMath.c  ****     assert(input->length >= 2);
+ 117:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 118:Src/MyMath.c  ****     /*if (checkPowerOfTwo(N) != 1)
+ 119:Src/MyMath.c  ****     {
+ 120:Src/MyMath.c  ****         N = 1 << (int)(round(log2(N))+1);
+ 121:Src/MyMath.c  ****     }*/
+ 122:Src/MyMath.c  ****     int rounds = (int)log2(N);
+ 123:Src/MyMath.c  ****     
+ 124:Src/MyMath.c  ****     // If output is null, we make it
+ 125:Src/MyMath.c  ****     // If output is not null and if it is not power of 2, we reallocate it
+ 126:Src/MyMath.c  ****     // Else, use output
+ 127:Src/MyMath.c  ****     if (*output == NULL || (*output)->length != N)
+ 128:Src/MyMath.c  ****     {
+ 129:Src/MyMath.c  ****         vecRelease(output);
+ 130:Src/MyMath.c  ****         *output = vecAlloc(N);
+ 131:Src/MyMath.c  ****     }
+ 132:Src/MyMath.c  ****     
+ 133:Src/MyMath.c  ****     permutate(rounds, input, output);
+ 134:Src/MyMath.c  **** 	//vecRef tmp = vecAlloc(N);
+ 135:Src/MyMath.c  **** 	//memcpy(tmp->arr, (*output)->arr, sizeof(Complex) * tmp->length);
+ 136:Src/MyMath.c  **** 	for (int q = rounds - 1; q >= 0; q--)
+ 137:Src/MyMath.c  **** 	{
+ 138:Src/MyMath.c  **** 		//vecSwap(output, &tmp);
+ 139:Src/MyMath.c  **** 		computeFFT(q, *output, output);
+ 140:Src/MyMath.c  **** 	}
+ 141:Src/MyMath.c  **** 	//vecRelease(&tmp);
+ 142:Src/MyMath.c  ****     vdivScalar(*output, ComplexMake(sqrt(N), 0.0), output);
+ 143:Src/MyMath.c  **** }
+ 144:Src/MyMath.c  **** void ifft(const vecRef input, vecRef *output){
+ 145:Src/MyMath.c  ****     assert(input->length >= 2);
+ 146:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 147:Src/MyMath.c  ****     if (checkPowerOfTwo(N) != 1)
+ 148:Src/MyMath.c  ****     {
+ 149:Src/MyMath.c  ****         N = 1 << (int)(round(log2(N))+1);
+ 150:Src/MyMath.c  ****     }
+ 151:Src/MyMath.c  ****     int rounds = (int)log2(N);
+ 152:Src/MyMath.c  ****     
+ 153:Src/MyMath.c  ****     // If output is null, we make it
+ 154:Src/MyMath.c  ****     // If output is not null and if it is not power of 2, we reallocate it
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 30
+
+
+ 155:Src/MyMath.c  ****     // Else, use output
+ 156:Src/MyMath.c  ****     if (*output == NULL || (*output)->length != N)
+ 157:Src/MyMath.c  ****     {
+ 158:Src/MyMath.c  ****         vecRelease(output);
+ 159:Src/MyMath.c  ****         *output = vecAlloc(N);
+ 160:Src/MyMath.c  ****     }
+ 161:Src/MyMath.c  ****     
+ 162:Src/MyMath.c  ****     permutate(rounds, input, output);
+ 163:Src/MyMath.c  **** 	//vecRef tmp = vecAlloc(N);
+ 164:Src/MyMath.c  **** 	//memcpy(tmp->arr, (*output)->arr, sizeof(Complex) * tmp->length);
+ 165:Src/MyMath.c  **** 	for (int q = rounds - 1; q >= 0; q--)
+ 166:Src/MyMath.c  **** 	{
+ 167:Src/MyMath.c  **** 		//vecSwap(output, &tmp);
+ 168:Src/MyMath.c  **** 		computeFFT(q, *output, output);
+ 169:Src/MyMath.c  **** 	}
+ 170:Src/MyMath.c  **** 	//vecRelease(&tmp);
+ 171:Src/MyMath.c  ****     vdivScalar(*output, ComplexMake(sqrt(N), 0.0), output);
+ 172:Src/MyMath.c  **** }
+ 173:Src/MyMath.c  **** void dft(const vecRef input, vecRef *output){
+ 1517              		.loc 1 173 0
+ 1518              		.cfi_startproc
+ 1519              		@ args = 0, pretend = 0, frame = 48
+ 1520              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1521              	.LVL141:
+ 1522 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1523              	.LCFI62:
+ 1524              		.cfi_def_cfa_offset 36
+ 1525              		.cfi_offset 4, -36
+ 1526              		.cfi_offset 5, -32
+ 1527              		.cfi_offset 6, -28
+ 1528              		.cfi_offset 7, -24
+ 1529              		.cfi_offset 8, -20
+ 1530              		.cfi_offset 9, -16
+ 1531              		.cfi_offset 10, -12
+ 1532              		.cfi_offset 11, -8
+ 1533              		.cfi_offset 14, -4
+ 1534 0004 8FB0     		sub	sp, sp, #60
+ 1535              	.LCFI63:
+ 1536              		.cfi_def_cfa_offset 96
+ 174:Src/MyMath.c  ****     assert(input->length >= 2);
+ 1537              		.loc 1 174 0
+ 1538 0006 D0E90067 		ldrd	r6, [r0]
+ 1539 000a 002F     		cmp	r7, #0
+ 1540 000c 08BF     		it	eq
+ 1541 000e 022E     		cmpeq	r6, #2
+ 1542 0010 17D3     		bcc	.L91
+ 1543 0012 8246     		mov	r10, r0
+ 1544 0014 8B46     		mov	fp, r1
+ 1545              	.LVL142:
+ 175:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 176:Src/MyMath.c  ****     
+ 177:Src/MyMath.c  ****     // If output is null, we make it
+ 178:Src/MyMath.c  ****     // If output is not null and if it is not power of 2, we reallocate it
+ 179:Src/MyMath.c  ****     // Else, use output
+ 180:Src/MyMath.c  ****     if (*output == NULL || (*output)->length != N)
+ 1546              		.loc 1 180 0
+ 1547 0016 0B68     		ldr	r3, [r1]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 31
+
+
+ 1548 0018 2BB1     		cbz	r3, .L84
+ 1549              		.loc 1 180 0 is_stmt 0 discriminator 1
+ 1550 001a D3E90023 		ldrd	r2, [r3]
+ 1551 001e 9F42     		cmp	r7, r3
+ 1552 0020 08BF     		it	eq
+ 1553 0022 9642     		cmpeq	r6, r2
+ 1554 0024 08D0     		beq	.L85
+ 1555              	.L84:
+ 181:Src/MyMath.c  ****     {
+ 182:Src/MyMath.c  ****         vecRelease(output);
+ 1556              		.loc 1 182 0 is_stmt 1
+ 1557 0026 5846     		mov	r0, fp
+ 1558              	.LVL143:
+ 1559 0028 FFF7FEFF 		bl	vecRelease
+ 1560              	.LVL144:
+ 183:Src/MyMath.c  ****         *output = vecAlloc(N);
+ 1561              		.loc 1 183 0
+ 1562 002c 3046     		mov	r0, r6
+ 1563 002e 3946     		mov	r1, r7
+ 1564 0030 FFF7FEFF 		bl	vecAlloc
+ 1565              	.LVL145:
+ 1566 0034 CBF80000 		str	r0, [fp]
+ 1567              	.L85:
+ 1568              	.LBB14:
+ 1569              	.LBB15:
+ 1570              	.LBB16:
+ 184:Src/MyMath.c  ****     }
+ 185:Src/MyMath.c  ****     
+ 186:Src/MyMath.c  ****     for (unsigned long long i = 0; i < N; i++)
+ 187:Src/MyMath.c  ****     {
+ 188:Src/MyMath.c  ****         Complex tmp = ComplexMake(0, 0);
+ 189:Src/MyMath.c  ****         for (unsigned long long j = 0; j < N; j++)
+ 1571              		.loc 1 189 0 discriminator 1
+ 1572 0038 0023     		movs	r3, #0
+ 1573 003a 0024     		movs	r4, #0
+ 1574 003c CDE90234 		strd	r3, [sp, #8]
+ 1575 0040 62E0     		b	.L86
+ 1576              	.LVL146:
+ 1577              	.L91:
+ 1578              	.LBE16:
+ 1579              	.LBE15:
+ 1580              	.LBE14:
+ 174:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 1581              		.loc 1 174 0 discriminator 1
+ 1582 0042 494B     		ldr	r3, .L93+8
+ 1583 0044 494A     		ldr	r2, .L93+12
+ 1584 0046 AE21     		movs	r1, #174
+ 1585              	.LVL147:
+ 1586 0048 4948     		ldr	r0, .L93+16
+ 1587              	.LVL148:
+ 1588 004a FFF7FEFF 		bl	__assert_func
+ 1589              	.LVL149:
+ 1590              	.L88:
+ 1591              	.LBB22:
+ 1592              	.LBB20:
+ 1593              	.LBB18:
+ 1594              	.LBB17:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 32
+
+
+ 190:Src/MyMath.c  ****         {
+ 191:Src/MyMath.c  ****             Complex wj = cPolarToComplex(1.0, -(2.0*M_PI*i*j)/N);
+ 1595              		.loc 1 191 0 discriminator 3
+ 1596 004e DDE90201 		ldrd	r0, [sp, #8]
+ 1597 0052 FFF7FEFF 		bl	__aeabi_ul2d
+ 1598              	.LVL150:
+ 1599 0056 42A3     		adr	r3, .L93
+ 1600 0058 D3E90023 		ldrd	r2, [r3]
+ 1601 005c FFF7FEFF 		bl	__aeabi_dmul
+ 1602              	.LVL151:
+ 1603 0060 0446     		mov	r4, r0
+ 1604 0062 0D46     		mov	r5, r1
+ 1605 0064 4046     		mov	r0, r8
+ 1606 0066 4946     		mov	r1, r9
+ 1607 0068 FFF7FEFF 		bl	__aeabi_ul2d
+ 1608              	.LVL152:
+ 1609 006c 2246     		mov	r2, r4
+ 1610 006e 2B46     		mov	r3, r5
+ 1611 0070 FFF7FEFF 		bl	__aeabi_dmul
+ 1612              	.LVL153:
+ 1613 0074 0546     		mov	r5, r0
+ 1614 0076 01F10044 		add	r4, r1, #-2147483648
+ 1615 007a 3046     		mov	r0, r6
+ 1616 007c 3946     		mov	r1, r7
+ 1617 007e FFF7FEFF 		bl	__aeabi_ul2d
+ 1618              	.LVL154:
+ 1619 0082 0246     		mov	r2, r0
+ 1620 0084 0B46     		mov	r3, r1
+ 1621 0086 2846     		mov	r0, r5
+ 1622 0088 2146     		mov	r1, r4
+ 1623 008a FFF7FEFF 		bl	__aeabi_ddiv
+ 1624              	.LVL155:
+ 1625 008e FFF7FEFF 		bl	__aeabi_d2f
+ 1626              	.LVL156:
+ 1627 0092 08AC     		add	r4, sp, #32
+ 1628 0094 0246     		mov	r2, r0
+ 1629 0096 4FF07E51 		mov	r1, #1065353216
+ 1630 009a 2046     		mov	r0, r4
+ 1631 009c FFF7FEFF 		bl	cPolarToComplex
+ 1632              	.LVL157:
+ 192:Src/MyMath.c  ****             tmp = cAdd(tmp, cMultiply(wj, input->arr[j]));
+ 1633              		.loc 1 192 0 discriminator 3
+ 1634 00a0 DAF80820 		ldr	r2, [r10, #8]
+ 1635 00a4 4FEAC803 		lsl	r3, r8, #3
+ 1636 00a8 D118     		adds	r1, r2, r3
+ 1637 00aa 4968     		ldr	r1, [r1, #4]
+ 1638 00ac 0091     		str	r1, [sp]
+ 1639 00ae D358     		ldr	r3, [r2, r3]
+ 1640 00b0 94E80600 		ldm	r4, {r1, r2}
+ 1641 00b4 0AA8     		add	r0, sp, #40
+ 1642 00b6 FFF7FEFF 		bl	cMultiply
+ 1643              	.LVL158:
+ 1644 00ba 04AD     		add	r5, sp, #16
+ 1645 00bc 0B9B     		ldr	r3, [sp, #44]
+ 1646 00be 0093     		str	r3, [sp]
+ 1647 00c0 0A9B     		ldr	r3, [sp, #40]
+ 1648 00c2 06AC     		add	r4, sp, #24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 33
+
+
+ 1649 00c4 94E80600 		ldm	r4, {r1, r2}
+ 1650 00c8 2846     		mov	r0, r5
+ 1651 00ca FFF7FEFF 		bl	cAdd
+ 1652              	.LVL159:
+ 1653 00ce 95E80300 		ldm	r5, {r0, r1}
+ 1654 00d2 84E80300 		stm	r4, {r0, r1}
+ 1655              	.LBE17:
+ 189:Src/MyMath.c  ****         {
+ 1656              		.loc 1 189 0 discriminator 3
+ 1657 00d6 18F10108 		adds	r8, r8, #1
+ 1658              	.LVL160:
+ 1659 00da 49F10009 		adc	r9, r9, #0
+ 1660              	.LVL161:
+ 1661              	.L87:
+ 189:Src/MyMath.c  ****         {
+ 1662              		.loc 1 189 0 is_stmt 0 discriminator 1
+ 1663 00de B945     		cmp	r9, r7
+ 1664 00e0 08BF     		it	eq
+ 1665 00e2 B045     		cmpeq	r8, r6
+ 1666 00e4 B3D3     		bcc	.L88
+ 1667              	.LBE18:
+ 193:Src/MyMath.c  ****         }
+ 194:Src/MyMath.c  ****         (*output)->arr[i] = tmp;
+ 1668              		.loc 1 194 0 is_stmt 1 discriminator 2
+ 1669 00e6 DBF80030 		ldr	r3, [fp]
+ 1670 00ea 9B68     		ldr	r3, [r3, #8]
+ 1671 00ec DDE90245 		ldrd	r4, [sp, #8]
+ 1672 00f0 03EBC403 		add	r3, r3, r4, lsl #3
+ 1673 00f4 06AA     		add	r2, sp, #24
+ 1674 00f6 92E80300 		ldm	r2, {r0, r1}
+ 1675 00fa 83E80300 		stm	r3, {r0, r1}
+ 1676              	.LBE20:
+ 186:Src/MyMath.c  ****     {
+ 1677              		.loc 1 186 0 discriminator 2
+ 1678 00fe 0134     		adds	r4, r4, #1
+ 1679 0100 45F10005 		adc	r5, r5, #0
+ 1680 0104 CDE90245 		strd	r4, [sp, #8]
+ 1681              	.LVL162:
+ 1682              	.L86:
+ 186:Src/MyMath.c  ****     {
+ 1683              		.loc 1 186 0 is_stmt 0 discriminator 1
+ 1684 0108 DDE90234 		ldrd	r3, [sp, #8]
+ 1685 010c BC42     		cmp	r4, r7
+ 1686 010e 08BF     		it	eq
+ 1687 0110 B342     		cmpeq	r3, r6
+ 1688 0112 09D2     		bcs	.L92
+ 1689              	.LBB21:
+ 188:Src/MyMath.c  ****         for (unsigned long long j = 0; j < N; j++)
+ 1690              		.loc 1 188 0 is_stmt 1
+ 1691 0114 0021     		movs	r1, #0
+ 1692 0116 0A46     		mov	r2, r1
+ 1693 0118 06A8     		add	r0, sp, #24
+ 1694 011a FFF7FEFF 		bl	ComplexMake
+ 1695              	.LVL163:
+ 1696              	.LBB19:
+ 189:Src/MyMath.c  ****         {
+ 1697              		.loc 1 189 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 34
+
+
+ 1698 011e 4FF00008 		mov	r8, #0
+ 1699 0122 4FF00009 		mov	r9, #0
+ 1700 0126 DAE7     		b	.L87
+ 1701              	.LVL164:
+ 1702              	.L92:
+ 1703              	.LBE19:
+ 1704              	.LBE21:
+ 1705              	.LBE22:
+ 195:Src/MyMath.c  ****     }
+ 196:Src/MyMath.c  ****     vdivScalar(*output, ComplexMake(sqrt(N), 0.0), output);
+ 1706              		.loc 1 196 0
+ 1707 0128 DBF80050 		ldr	r5, [fp]
+ 1708 012c 3046     		mov	r0, r6
+ 1709 012e 3946     		mov	r1, r7
+ 1710 0130 FFF7FEFF 		bl	__aeabi_ul2d
+ 1711              	.LVL165:
+ 1712 0134 FFF7FEFF 		bl	sqrt
+ 1713              	.LVL166:
+ 1714 0138 0CAC     		add	r4, sp, #48
+ 1715 013a FFF7FEFF 		bl	__aeabi_d2f
+ 1716              	.LVL167:
+ 1717 013e 0022     		movs	r2, #0
+ 1718 0140 0146     		mov	r1, r0
+ 1719 0142 2046     		mov	r0, r4
+ 1720 0144 FFF7FEFF 		bl	ComplexMake
+ 1721              	.LVL168:
+ 1722 0148 5B46     		mov	r3, fp
+ 1723 014a 94E80600 		ldm	r4, {r1, r2}
+ 1724 014e 2846     		mov	r0, r5
+ 1725 0150 FFF7FEFF 		bl	vdivScalar
+ 1726              	.LVL169:
+ 197:Src/MyMath.c  **** }
+ 1727              		.loc 1 197 0
+ 1728 0154 0FB0     		add	sp, sp, #60
+ 1729              	.LCFI64:
+ 1730              		.cfi_def_cfa_offset 36
+ 1731              		@ sp needed
+ 1732 0156 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1733              	.LVL170:
+ 1734              	.L94:
+ 1735 015a 00BFAFF3 		.align	3
+ 1735      0080
+ 1736              	.L93:
+ 1737 0160 182D4454 		.word	1413754136
+ 1738 0164 FB211940 		.word	1075388923
+ 1739 0168 00000000 		.word	.LC3
+ 1740 016c 00000000 		.word	.LANCHOR5
+ 1741 0170 04000000 		.word	.LC1
+ 1742              		.cfi_endproc
+ 1743              	.LFE87:
+ 1745              		.section	.text.idft,"ax",%progbits
+ 1746              		.align	1
+ 1747              		.global	idft
+ 1748              		.syntax unified
+ 1749              		.thumb
+ 1750              		.thumb_func
+ 1751              		.fpu softvfp
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 35
+
+
+ 1753              	idft:
+ 1754              	.LFB88:
+ 198:Src/MyMath.c  **** void idft(const vecRef input, vecRef *output){
+ 1755              		.loc 1 198 0
+ 1756              		.cfi_startproc
+ 1757              		@ args = 0, pretend = 0, frame = 48
+ 1758              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1759              	.LVL171:
+ 1760 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1761              	.LCFI65:
+ 1762              		.cfi_def_cfa_offset 36
+ 1763              		.cfi_offset 4, -36
+ 1764              		.cfi_offset 5, -32
+ 1765              		.cfi_offset 6, -28
+ 1766              		.cfi_offset 7, -24
+ 1767              		.cfi_offset 8, -20
+ 1768              		.cfi_offset 9, -16
+ 1769              		.cfi_offset 10, -12
+ 1770              		.cfi_offset 11, -8
+ 1771              		.cfi_offset 14, -4
+ 1772 0004 8FB0     		sub	sp, sp, #60
+ 1773              	.LCFI66:
+ 1774              		.cfi_def_cfa_offset 96
+ 199:Src/MyMath.c  ****     assert(input->length >= 2);
+ 1775              		.loc 1 199 0
+ 1776 0006 D0E900AB 		ldrd	r10, [r0]
+ 1777 000a BBF1000F 		cmp	fp, #0
+ 1778 000e 08BF     		it	eq
+ 1779 0010 BAF1020F 		cmpeq	r10, #2
+ 1780 0014 17D3     		bcc	.L104
+ 1781 0016 8046     		mov	r8, r0
+ 1782 0018 8946     		mov	r9, r1
+ 1783              	.LVL172:
+ 200:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 201:Src/MyMath.c  ****     
+ 202:Src/MyMath.c  ****     // If output is null, we make it
+ 203:Src/MyMath.c  ****     // If output is not null and if it is not power of 2, we reallocate it
+ 204:Src/MyMath.c  ****     // Else, use output
+ 205:Src/MyMath.c  ****     if (*output == NULL || (*output)->length != N)
+ 1784              		.loc 1 205 0
+ 1785 001a 0B68     		ldr	r3, [r1]
+ 1786 001c 2BB1     		cbz	r3, .L97
+ 1787              		.loc 1 205 0 is_stmt 0 discriminator 1
+ 1788 001e D3E90023 		ldrd	r2, [r3]
+ 1789 0022 9B45     		cmp	fp, r3
+ 1790 0024 08BF     		it	eq
+ 1791 0026 9245     		cmpeq	r10, r2
+ 1792 0028 08D0     		beq	.L98
+ 1793              	.L97:
+ 206:Src/MyMath.c  ****     {
+ 207:Src/MyMath.c  ****         vecRelease(output);
+ 1794              		.loc 1 207 0 is_stmt 1
+ 1795 002a 4846     		mov	r0, r9
+ 1796              	.LVL173:
+ 1797 002c FFF7FEFF 		bl	vecRelease
+ 1798              	.LVL174:
+ 208:Src/MyMath.c  ****         *output = vecAlloc(N);
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 36
+
+
+ 1799              		.loc 1 208 0
+ 1800 0030 5046     		mov	r0, r10
+ 1801 0032 5946     		mov	r1, fp
+ 1802 0034 FFF7FEFF 		bl	vecAlloc
+ 1803              	.LVL175:
+ 1804 0038 C9F80000 		str	r0, [r9]
+ 1805              	.L98:
+ 1806              	.LBB23:
+ 1807              	.LBB24:
+ 1808              	.LBB25:
+ 209:Src/MyMath.c  ****     }
+ 210:Src/MyMath.c  ****     
+ 211:Src/MyMath.c  ****     for (unsigned long long i = 0; i < N; i++)
+ 212:Src/MyMath.c  ****     {
+ 213:Src/MyMath.c  ****         Complex tmp = ComplexMake(0, 0);
+ 214:Src/MyMath.c  ****         for (unsigned long long j = 0; j < N; j++)
+ 1809              		.loc 1 214 0 discriminator 1
+ 1810 003c 0023     		movs	r3, #0
+ 1811 003e 0024     		movs	r4, #0
+ 1812 0040 CDE90234 		strd	r3, [sp, #8]
+ 1813 0044 5FE0     		b	.L99
+ 1814              	.LVL176:
+ 1815              	.L104:
+ 1816              	.LBE25:
+ 1817              	.LBE24:
+ 1818              	.LBE23:
+ 199:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 1819              		.loc 1 199 0 discriminator 1
+ 1820 0046 464B     		ldr	r3, .L106+8
+ 1821 0048 464A     		ldr	r2, .L106+12
+ 1822 004a C721     		movs	r1, #199
+ 1823              	.LVL177:
+ 1824 004c 4648     		ldr	r0, .L106+16
+ 1825              	.LVL178:
+ 1826 004e FFF7FEFF 		bl	__assert_func
+ 1827              	.LVL179:
+ 1828              	.L101:
+ 1829              	.LBB31:
+ 1830              	.LBB29:
+ 1831              	.LBB27:
+ 1832              	.LBB26:
+ 215:Src/MyMath.c  ****         {
+ 216:Src/MyMath.c  ****             Complex wj = cPolarToComplex(1.0, (2.0*M_PI*i*j)/N);
+ 1833              		.loc 1 216 0 discriminator 3
+ 1834 0052 DDE90201 		ldrd	r0, [sp, #8]
+ 1835 0056 FFF7FEFF 		bl	__aeabi_ul2d
+ 1836              	.LVL180:
+ 1837 005a 3FA3     		adr	r3, .L106
+ 1838 005c D3E90023 		ldrd	r2, [r3]
+ 1839 0060 FFF7FEFF 		bl	__aeabi_dmul
+ 1840              	.LVL181:
+ 1841 0064 0646     		mov	r6, r0
+ 1842 0066 0F46     		mov	r7, r1
+ 1843 0068 2046     		mov	r0, r4
+ 1844 006a 2946     		mov	r1, r5
+ 1845 006c FFF7FEFF 		bl	__aeabi_ul2d
+ 1846              	.LVL182:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 37
+
+
+ 1847 0070 3246     		mov	r2, r6
+ 1848 0072 3B46     		mov	r3, r7
+ 1849 0074 FFF7FEFF 		bl	__aeabi_dmul
+ 1850              	.LVL183:
+ 1851 0078 0646     		mov	r6, r0
+ 1852 007a 0F46     		mov	r7, r1
+ 1853 007c 5046     		mov	r0, r10
+ 1854 007e 5946     		mov	r1, fp
+ 1855 0080 FFF7FEFF 		bl	__aeabi_ul2d
+ 1856              	.LVL184:
+ 1857 0084 0246     		mov	r2, r0
+ 1858 0086 0B46     		mov	r3, r1
+ 1859 0088 3046     		mov	r0, r6
+ 1860 008a 3946     		mov	r1, r7
+ 1861 008c FFF7FEFF 		bl	__aeabi_ddiv
+ 1862              	.LVL185:
+ 1863 0090 FFF7FEFF 		bl	__aeabi_d2f
+ 1864              	.LVL186:
+ 1865 0094 08AE     		add	r6, sp, #32
+ 1866 0096 0246     		mov	r2, r0
+ 1867 0098 4FF07E51 		mov	r1, #1065353216
+ 1868 009c 3046     		mov	r0, r6
+ 1869 009e FFF7FEFF 		bl	cPolarToComplex
+ 1870              	.LVL187:
+ 217:Src/MyMath.c  ****             tmp = cAdd(tmp, cMultiply(wj, input->arr[j]));
+ 1871              		.loc 1 217 0 discriminator 3
+ 1872 00a2 D8F80820 		ldr	r2, [r8, #8]
+ 1873 00a6 E300     		lsls	r3, r4, #3
+ 1874 00a8 D118     		adds	r1, r2, r3
+ 1875 00aa 4968     		ldr	r1, [r1, #4]
+ 1876 00ac 0091     		str	r1, [sp]
+ 1877 00ae D358     		ldr	r3, [r2, r3]
+ 1878 00b0 96E80600 		ldm	r6, {r1, r2}
+ 1879 00b4 0AA8     		add	r0, sp, #40
+ 1880 00b6 FFF7FEFF 		bl	cMultiply
+ 1881              	.LVL188:
+ 1882 00ba 04AF     		add	r7, sp, #16
+ 1883 00bc 0B9B     		ldr	r3, [sp, #44]
+ 1884 00be 0093     		str	r3, [sp]
+ 1885 00c0 0A9B     		ldr	r3, [sp, #40]
+ 1886 00c2 06AE     		add	r6, sp, #24
+ 1887 00c4 96E80600 		ldm	r6, {r1, r2}
+ 1888 00c8 3846     		mov	r0, r7
+ 1889 00ca FFF7FEFF 		bl	cAdd
+ 1890              	.LVL189:
+ 1891 00ce 97E80300 		ldm	r7, {r0, r1}
+ 1892 00d2 86E80300 		stm	r6, {r0, r1}
+ 1893              	.LBE26:
+ 214:Src/MyMath.c  ****         {
+ 1894              		.loc 1 214 0 discriminator 3
+ 1895 00d6 0134     		adds	r4, r4, #1
+ 1896              	.LVL190:
+ 1897 00d8 45F10005 		adc	r5, r5, #0
+ 1898              	.LVL191:
+ 1899              	.L100:
+ 214:Src/MyMath.c  ****         {
+ 1900              		.loc 1 214 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 38
+
+
+ 1901 00dc 5D45     		cmp	r5, fp
+ 1902 00de 08BF     		it	eq
+ 1903 00e0 5445     		cmpeq	r4, r10
+ 1904 00e2 B6D3     		bcc	.L101
+ 1905              	.LBE27:
+ 218:Src/MyMath.c  ****         }
+ 219:Src/MyMath.c  ****         (*output)->arr[i] = tmp;
+ 1906              		.loc 1 219 0 is_stmt 1 discriminator 2
+ 1907 00e4 D9F80030 		ldr	r3, [r9]
+ 1908 00e8 9B68     		ldr	r3, [r3, #8]
+ 1909 00ea DDE90245 		ldrd	r4, [sp, #8]
+ 1910              	.LVL192:
+ 1911 00ee 03EBC403 		add	r3, r3, r4, lsl #3
+ 1912 00f2 06AA     		add	r2, sp, #24
+ 1913 00f4 92E80300 		ldm	r2, {r0, r1}
+ 1914 00f8 83E80300 		stm	r3, {r0, r1}
+ 1915              	.LBE29:
+ 211:Src/MyMath.c  ****     {
+ 1916              		.loc 1 211 0 discriminator 2
+ 1917 00fc 0134     		adds	r4, r4, #1
+ 1918 00fe 45F10005 		adc	r5, r5, #0
+ 1919 0102 CDE90245 		strd	r4, [sp, #8]
+ 1920              	.LVL193:
+ 1921              	.L99:
+ 211:Src/MyMath.c  ****     {
+ 1922              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 1923 0106 DDE90234 		ldrd	r3, [sp, #8]
+ 1924 010a 5C45     		cmp	r4, fp
+ 1925 010c 08BF     		it	eq
+ 1926 010e 5345     		cmpeq	r3, r10
+ 1927 0110 07D2     		bcs	.L105
+ 1928              	.LBB30:
+ 213:Src/MyMath.c  ****         for (unsigned long long j = 0; j < N; j++)
+ 1929              		.loc 1 213 0 is_stmt 1
+ 1930 0112 0021     		movs	r1, #0
+ 1931 0114 0A46     		mov	r2, r1
+ 1932 0116 06A8     		add	r0, sp, #24
+ 1933 0118 FFF7FEFF 		bl	ComplexMake
+ 1934              	.LVL194:
+ 1935              	.LBB28:
+ 214:Src/MyMath.c  ****         {
+ 1936              		.loc 1 214 0
+ 1937 011c 0024     		movs	r4, #0
+ 1938 011e 0025     		movs	r5, #0
+ 1939 0120 DCE7     		b	.L100
+ 1940              	.LVL195:
+ 1941              	.L105:
+ 1942              	.LBE28:
+ 1943              	.LBE30:
+ 1944              	.LBE31:
+ 220:Src/MyMath.c  ****     }
+ 221:Src/MyMath.c  ****     vdivScalar(*output, ComplexMake(sqrt(N), 0.0), output);
+ 1945              		.loc 1 221 0
+ 1946 0122 D9F80050 		ldr	r5, [r9]
+ 1947 0126 5046     		mov	r0, r10
+ 1948 0128 5946     		mov	r1, fp
+ 1949 012a FFF7FEFF 		bl	__aeabi_ul2d
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 39
+
+
+ 1950              	.LVL196:
+ 1951 012e FFF7FEFF 		bl	sqrt
+ 1952              	.LVL197:
+ 1953 0132 0CAC     		add	r4, sp, #48
+ 1954 0134 FFF7FEFF 		bl	__aeabi_d2f
+ 1955              	.LVL198:
+ 1956 0138 0022     		movs	r2, #0
+ 1957 013a 0146     		mov	r1, r0
+ 1958 013c 2046     		mov	r0, r4
+ 1959 013e FFF7FEFF 		bl	ComplexMake
+ 1960              	.LVL199:
+ 1961 0142 4B46     		mov	r3, r9
+ 1962 0144 94E80600 		ldm	r4, {r1, r2}
+ 1963 0148 2846     		mov	r0, r5
+ 1964 014a FFF7FEFF 		bl	vdivScalar
+ 1965              	.LVL200:
+ 222:Src/MyMath.c  **** }
+ 1966              		.loc 1 222 0
+ 1967 014e 0FB0     		add	sp, sp, #60
+ 1968              	.LCFI67:
+ 1969              		.cfi_def_cfa_offset 36
+ 1970              		@ sp needed
+ 1971 0150 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1972              	.LVL201:
+ 1973              	.L107:
+ 1974 0154 AFF30080 		.align	3
+ 1975              	.L106:
+ 1976 0158 182D4454 		.word	1413754136
+ 1977 015c FB211940 		.word	1075388923
+ 1978 0160 00000000 		.word	.LC3
+ 1979 0164 00000000 		.word	.LANCHOR6
+ 1980 0168 04000000 		.word	.LC1
+ 1981              		.cfi_endproc
+ 1982              	.LFE88:
+ 1984              		.section	.text.vecSwap,"ax",%progbits
+ 1985              		.align	1
+ 1986              		.global	vecSwap
+ 1987              		.syntax unified
+ 1988              		.thumb
+ 1989              		.thumb_func
+ 1990              		.fpu softvfp
+ 1992              	vecSwap:
+ 1993              	.LFB89:
+ 223:Src/MyMath.c  **** void vecSwap(vecRef *a, vecRef *b){
+ 1994              		.loc 1 223 0
+ 1995              		.cfi_startproc
+ 1996              		@ args = 0, pretend = 0, frame = 0
+ 1997              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1998              		@ link register save eliminated.
+ 1999              	.LVL202:
+ 224:Src/MyMath.c  ****     vecRef tmp = *a;
+ 2000              		.loc 1 224 0
+ 2001 0000 0368     		ldr	r3, [r0]
+ 2002              	.LVL203:
+ 225:Src/MyMath.c  ****     *a = *b;
+ 2003              		.loc 1 225 0
+ 2004 0002 0A68     		ldr	r2, [r1]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 40
+
+
+ 2005 0004 0260     		str	r2, [r0]
+ 226:Src/MyMath.c  ****     *b = tmp;
+ 2006              		.loc 1 226 0
+ 2007 0006 0B60     		str	r3, [r1]
+ 227:Src/MyMath.c  **** }
+ 2008              		.loc 1 227 0
+ 2009 0008 7047     		bx	lr
+ 2010              		.cfi_endproc
+ 2011              	.LFE89:
+ 2013              		.section	.text.checkPowerOfTwo,"ax",%progbits
+ 2014              		.align	1
+ 2015              		.global	checkPowerOfTwo
+ 2016              		.syntax unified
+ 2017              		.thumb
+ 2018              		.thumb_func
+ 2019              		.fpu softvfp
+ 2021              	checkPowerOfTwo:
+ 2022              	.LFB90:
+ 228:Src/MyMath.c  **** int checkPowerOfTwo(const unsigned long long n){
+ 2023              		.loc 1 228 0
+ 2024              		.cfi_startproc
+ 2025              		@ args = 0, pretend = 0, frame = 0
+ 2026              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2027              		@ link register save eliminated.
+ 2028              	.LVL204:
+ 2029              	.L110:
+ 229:Src/MyMath.c  ****     unsigned long long k = n;
+ 230:Src/MyMath.c  ****     while(k > 1)
+ 2030              		.loc 1 230 0
+ 2031 0000 0029     		cmp	r1, #0
+ 2032 0002 08BF     		it	eq
+ 2033 0004 0228     		cmpeq	r0, #2
+ 2034 0006 08D3     		bcc	.L114
+ 231:Src/MyMath.c  ****     {
+ 232:Src/MyMath.c  ****         if (k % 2 == 1) return 0;
+ 2035              		.loc 1 232 0
+ 2036 0008 00F00102 		and	r2, r0, #1
+ 2037 000c 0023     		movs	r3, #0
+ 2038 000e 1343     		orrs	r3, r2, r3
+ 2039 0010 05D1     		bne	.L113
+ 233:Src/MyMath.c  ****         k /= 2;
+ 2040              		.loc 1 233 0
+ 2041 0012 4908     		movs	r1, r1, lsr #1
+ 2042 0014 4FEA3000 		mov	r0, r0, rrx
+ 2043              	.LVL205:
+ 2044 0018 F2E7     		b	.L110
+ 2045              	.L114:
+ 234:Src/MyMath.c  ****     }
+ 235:Src/MyMath.c  ****     return 1;
+ 2046              		.loc 1 235 0
+ 2047 001a 0120     		movs	r0, #1
+ 2048              	.LVL206:
+ 2049 001c 7047     		bx	lr
+ 2050              	.LVL207:
+ 2051              	.L113:
+ 232:Src/MyMath.c  ****         k /= 2;
+ 2052              		.loc 1 232 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 41
+
+
+ 2053 001e 0020     		movs	r0, #0
+ 2054              	.LVL208:
+ 236:Src/MyMath.c  **** }
+ 2055              		.loc 1 236 0
+ 2056 0020 7047     		bx	lr
+ 2057              		.cfi_endproc
+ 2058              	.LFE90:
+ 2060              		.section	.text.reverse,"ax",%progbits
+ 2061              		.align	1
+ 2062              		.global	reverse
+ 2063              		.syntax unified
+ 2064              		.thumb
+ 2065              		.thumb_func
+ 2066              		.fpu softvfp
+ 2068              	reverse:
+ 2069              	.LFB91:
+ 237:Src/MyMath.c  **** // http://stackoverflow.com/a/34236981
+ 238:Src/MyMath.c  **** unsigned long long reverse(const unsigned long long n, const unsigned long long k){
+ 2070              		.loc 1 238 0
+ 2071              		.cfi_startproc
+ 2072              		@ args = 0, pretend = 0, frame = 16
+ 2073              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2074              	.LVL209:
+ 2075 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 2076              	.LCFI68:
+ 2077              		.cfi_def_cfa_offset 36
+ 2078              		.cfi_offset 4, -36
+ 2079              		.cfi_offset 5, -32
+ 2080              		.cfi_offset 6, -28
+ 2081              		.cfi_offset 7, -24
+ 2082              		.cfi_offset 8, -20
+ 2083              		.cfi_offset 9, -16
+ 2084              		.cfi_offset 10, -12
+ 2085              		.cfi_offset 11, -8
+ 2086              		.cfi_offset 14, -4
+ 2087 0004 85B0     		sub	sp, sp, #20
+ 2088              	.LCFI69:
+ 2089              		.cfi_def_cfa_offset 56
+ 2090 0006 9246     		mov	r10, r2
+ 2091 0008 9B46     		mov	fp, r3
+ 2092              	.LVL210:
+ 239:Src/MyMath.c  ****     unsigned long long r, i;
+ 240:Src/MyMath.c  ****     for (r = 0, i = 0; i < k; ++i)
+ 2093              		.loc 1 240 0
+ 2094 000a 0022     		movs	r2, #0
+ 2095              	.LVL211:
+ 2096 000c 0023     		movs	r3, #0
+ 2097 000e CDE90023 		strd	r2, [sp]
+ 2098 0012 0390     		str	r0, [sp, #12]
+ 2099 0014 30E0     		b	.L116
+ 2100              	.LVL212:
+ 2101              	.L117:
+ 241:Src/MyMath.c  ****         r |= ((n >> i) & 1) << (k - i - 1);
+ 2102              		.loc 1 241 0 discriminator 3
+ 2103 0016 C2F1200E 		rsb	lr, r2, #32
+ 2104 001a A2F1200C 		sub	ip, r2, #32
+ 2105 001e 0398     		ldr	r0, [sp, #12]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 42
+
+
+ 2106 0020 20FA02F4 		lsr	r4, r0, r2
+ 2107 0024 01FA0EFE 		lsl	lr, r1, lr
+ 2108 0028 44EA0E04 		orr	r4, r4, lr
+ 2109 002c 21FA0CFC 		lsr	ip, r1, ip
+ 2110 0030 44EA0C04 		orr	r4, r4, ip
+ 2111 0034 04F00108 		and	r8, r4, #1
+ 2112 0038 4FF00009 		mov	r9, #0
+ 2113 003c AAEB020C 		sub	ip, r10, r2
+ 2114 0040 0CF1FF3E 		add	lr, ip, #-1
+ 2115 0044 ACF1210C 		sub	ip, ip, #33
+ 2116 0048 CEF12000 		rsb	r0, lr, #32
+ 2117 004c 09FA0EF7 		lsl	r7, r9, lr
+ 2118 0050 08FA0CFC 		lsl	ip, r8, ip
+ 2119 0054 47EA0C07 		orr	r7, r7, ip
+ 2120 0058 28FA00F0 		lsr	r0, r8, r0
+ 2121 005c 0743     		orrs	r7, r7, r0
+ 2122 005e 08FA0EF6 		lsl	r6, r8, lr
+ 2123 0062 DDE90089 		ldrd	r8, [sp]
+ 2124 0066 48EA0608 		orr	r8, r8, r6
+ 2125 006a 49EA0709 		orr	r9, r9, r7
+ 2126 006e CDE90089 		strd	r8, [sp]
+ 2127              	.LVL213:
+ 240:Src/MyMath.c  ****         r |= ((n >> i) & 1) << (k - i - 1);
+ 2128              		.loc 1 240 0 discriminator 3
+ 2129 0072 0132     		adds	r2, r2, #1
+ 2130              	.LVL214:
+ 2131 0074 43F10003 		adc	r3, r3, #0
+ 2132              	.LVL215:
+ 2133              	.L116:
+ 240:Src/MyMath.c  ****         r |= ((n >> i) & 1) << (k - i - 1);
+ 2134              		.loc 1 240 0 is_stmt 0 discriminator 1
+ 2135 0078 5B45     		cmp	r3, fp
+ 2136 007a 08BF     		it	eq
+ 2137 007c 5245     		cmpeq	r2, r10
+ 2138 007e CAD3     		bcc	.L117
+ 242:Src/MyMath.c  ****     return r;
+ 243:Src/MyMath.c  **** }
+ 2139              		.loc 1 243 0 is_stmt 1
+ 2140 0080 DDE90001 		ldrd	r0, [sp]
+ 2141 0084 05B0     		add	sp, sp, #20
+ 2142              	.LCFI70:
+ 2143              		.cfi_def_cfa_offset 36
+ 2144              	.LVL216:
+ 2145              		@ sp needed
+ 2146 0086 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 2147              		.cfi_endproc
+ 2148              	.LFE91:
+ 2150              		.section	.text.permutate,"ax",%progbits
+ 2151              		.align	1
+ 2152              		.global	permutate
+ 2153              		.syntax unified
+ 2154              		.thumb
+ 2155              		.thumb_func
+ 2156              		.fpu softvfp
+ 2158              	permutate:
+ 2159              	.LFB92:
+ 244:Src/MyMath.c  **** void permutate(const int q, const vecRef input, vecRef *output){
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 43
+
+
+ 2160              		.loc 1 244 0
+ 2161              		.cfi_startproc
+ 2162              		@ args = 0, pretend = 0, frame = 0
+ 2163              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2164              	.LVL217:
+ 2165 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 2166              	.LCFI71:
+ 2167              		.cfi_def_cfa_offset 32
+ 2168              		.cfi_offset 3, -32
+ 2169              		.cfi_offset 4, -28
+ 2170              		.cfi_offset 5, -24
+ 2171              		.cfi_offset 6, -20
+ 2172              		.cfi_offset 7, -16
+ 2173              		.cfi_offset 8, -12
+ 2174              		.cfi_offset 9, -8
+ 2175              		.cfi_offset 14, -4
+ 2176 0004 0646     		mov	r6, r0
+ 2177 0006 8846     		mov	r8, r1
+ 2178 0008 1746     		mov	r7, r2
+ 2179              	.LVL218:
+ 2180              	.LBB32:
+ 245:Src/MyMath.c  ****     for (unsigned long long i = 0; i < (1 << q); i++)
+ 2181              		.loc 1 245 0
+ 2182 000a 0024     		movs	r4, #0
+ 2183 000c 0025     		movs	r5, #0
+ 2184 000e 13E0     		b	.L120
+ 2185              	.LVL219:
+ 2186              	.L121:
+ 246:Src/MyMath.c  ****     {
+ 247:Src/MyMath.c  ****         (*output)->arr[i] = input->arr[reverse(i, q)];
+ 2187              		.loc 1 247 0 discriminator 3
+ 2188 0010 D8F80890 		ldr	r9, [r8, #8]
+ 2189 0014 3246     		mov	r2, r6
+ 2190 0016 F317     		asrs	r3, r6, #31
+ 2191 0018 2046     		mov	r0, r4
+ 2192 001a 2946     		mov	r1, r5
+ 2193 001c FFF7FEFF 		bl	reverse
+ 2194              	.LVL220:
+ 2195 0020 09EBC000 		add	r0, r9, r0, lsl #3
+ 2196 0024 3B68     		ldr	r3, [r7]
+ 2197 0026 9B68     		ldr	r3, [r3, #8]
+ 2198 0028 03EBC403 		add	r3, r3, r4, lsl #3
+ 2199 002c 03C8     		ldm	r0, {r0, r1}
+ 2200 002e 83E80300 		stm	r3, {r0, r1}
+ 245:Src/MyMath.c  ****     for (unsigned long long i = 0; i < (1 << q); i++)
+ 2201              		.loc 1 245 0 discriminator 3
+ 2202 0032 0134     		adds	r4, r4, #1
+ 2203              	.LVL221:
+ 2204 0034 45F10005 		adc	r5, r5, #0
+ 2205              	.LVL222:
+ 2206              	.L120:
+ 245:Src/MyMath.c  ****     for (unsigned long long i = 0; i < (1 << q); i++)
+ 2207              		.loc 1 245 0 is_stmt 0 discriminator 1
+ 2208 0038 0122     		movs	r2, #1
+ 2209 003a B240     		lsls	r2, r2, r6
+ 2210 003c D317     		asrs	r3, r2, #31
+ 2211 003e 9D42     		cmp	r5, r3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 44
+
+
+ 2212 0040 08BF     		it	eq
+ 2213 0042 9442     		cmpeq	r4, r2
+ 2214 0044 E4D3     		bcc	.L121
+ 2215              	.LBE32:
+ 248:Src/MyMath.c  ****     }
+ 249:Src/MyMath.c  **** }
+ 2216              		.loc 1 249 0 is_stmt 1
+ 2217 0046 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 2218              		.cfi_endproc
+ 2219              	.LFE92:
+ 2221              		.global	__aeabi_uldivmod
+ 2222              		.global	__aeabi_i2d
+ 2223              		.section	.text.compute,"ax",%progbits
+ 2224              		.align	1
+ 2225              		.global	compute
+ 2226              		.syntax unified
+ 2227              		.thumb
+ 2228              		.thumb_func
+ 2229              		.fpu softvfp
+ 2231              	compute:
+ 2232              	.LFB93:
+ 250:Src/MyMath.c  **** void compute(const int q, int sign, const vecRef input, vecRef *output){
+ 2233              		.loc 1 250 0
+ 2234              		.cfi_startproc
+ 2235              		@ args = 0, pretend = 0, frame = 80
+ 2236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2237              	.LVL223:
+ 2238 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 2239              	.LCFI72:
+ 2240              		.cfi_def_cfa_offset 36
+ 2241              		.cfi_offset 4, -36
+ 2242              		.cfi_offset 5, -32
+ 2243              		.cfi_offset 6, -28
+ 2244              		.cfi_offset 7, -24
+ 2245              		.cfi_offset 8, -20
+ 2246              		.cfi_offset 9, -16
+ 2247              		.cfi_offset 10, -12
+ 2248              		.cfi_offset 11, -8
+ 2249              		.cfi_offset 14, -4
+ 2250 0004 97B0     		sub	sp, sp, #92
+ 2251              	.LCFI73:
+ 2252              		.cfi_def_cfa_offset 128
+ 2253 0006 0C46     		mov	r4, r1
+ 2254 0008 0A92     		str	r2, [sp, #40]
+ 2255 000a 9A46     		mov	r10, r3
+ 251:Src/MyMath.c  ****     const unsigned long long countBlock = 1 << q;
+ 2256              		.loc 1 251 0
+ 2257 000c 0123     		movs	r3, #1
+ 2258              	.LVL224:
+ 2259 000e 03FA00F0 		lsl	r0, r3, r0
+ 2260              	.LVL225:
+ 2261 0012 0246     		mov	r2, r0
+ 2262              	.LVL226:
+ 2263 0014 C317     		asrs	r3, r0, #31
+ 2264 0016 CDE90823 		strd	r2, [sp, #32]
+ 2265              	.LVL227:
+ 252:Src/MyMath.c  ****     const unsigned long long lenBlock = (*output)->length / countBlock;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 45
+
+
+ 2266              		.loc 1 252 0
+ 2267 001a DAF80010 		ldr	r1, [r10]
+ 2268              	.LVL228:
+ 2269 001e D1E90001 		ldrd	r0, [r1]
+ 2270 0022 FFF7FEFF 		bl	__aeabi_uldivmod
+ 2271              	.LVL229:
+ 2272 0026 8046     		mov	r8, r0
+ 2273 0028 8946     		mov	r9, r1
+ 2274              	.LVL230:
+ 253:Src/MyMath.c  ****     if (sign >= 0) sign = 1;
+ 2275              		.loc 1 253 0
+ 2276 002a 002C     		cmp	r4, #0
+ 2277 002c 07DB     		blt	.L129
+ 2278 002e 0123     		movs	r3, #1
+ 2279 0030 0B93     		str	r3, [sp, #44]
+ 2280              	.L124:
+ 2281              	.LVL231:
+ 2282              	.LBB33:
+ 254:Src/MyMath.c  ****     if (sign < 0) sign = -1;
+ 255:Src/MyMath.c  ****     
+ 256:Src/MyMath.c  ****     for (unsigned long long baseIdx = 0; baseIdx < lenBlock/2; baseIdx++)
+ 2283              		.loc 1 256 0
+ 2284 0032 0023     		movs	r3, #0
+ 2285 0034 0024     		movs	r4, #0
+ 2286 0036 CDE90434 		strd	r3, [sp, #16]
+ 2287 003a D346     		mov	fp, r10
+ 2288 003c 59E0     		b	.L125
+ 2289              	.LVL232:
+ 2290              	.L129:
+ 2291              	.LBE33:
+ 254:Src/MyMath.c  ****     if (sign < 0) sign = -1;
+ 2292              		.loc 1 254 0
+ 2293 003e 4FF0FF33 		mov	r3, #-1
+ 2294 0042 0B93     		str	r3, [sp, #44]
+ 2295 0044 F5E7     		b	.L124
+ 2296              	.LVL233:
+ 2297              	.L127:
+ 2298              	.LBB39:
+ 2299              	.LBB34:
+ 2300              	.LBB35:
+ 2301              	.LBB36:
+ 257:Src/MyMath.c  ****     {
+ 258:Src/MyMath.c  ****         const Complex w = cPolarToComplex(1.0, sign * (M_PI * baseIdx)/(lenBlock/2));
+ 259:Src/MyMath.c  ****         for (unsigned long long block = 0; block < countBlock; block++)
+ 260:Src/MyMath.c  ****         {
+ 261:Src/MyMath.c  ****             const unsigned long long idx = baseIdx + block * lenBlock;
+ 2302              		.loc 1 261 0 discriminator 3
+ 2303 0046 A6FB0845 		umull	r4, r5, r6, r8
+ 2304 004a DDE90423 		ldrd	r2, [sp, #16]
+ 2305 004e 1219     		adds	r2, r2, r4
+ 2306 0050 1446     		mov	r4, r2
+ 262:Src/MyMath.c  ****             const Complex a = input->arr[idx];
+ 2307              		.loc 1 262 0 discriminator 3
+ 2308 0052 0A9B     		ldr	r3, [sp, #40]
+ 2309 0054 9B68     		ldr	r3, [r3, #8]
+ 2310 0056 D200     		lsls	r2, r2, #3
+ 2311 0058 0392     		str	r2, [sp, #12]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 46
+
+
+ 2312 005a 9A18     		adds	r2, r3, r2
+ 2313 005c 0DF1400A 		add	r10, sp, #64
+ 2314 0060 92E80300 		ldm	r2, {r0, r1}
+ 2315 0064 8AE80300 		stm	r10, {r0, r1}
+ 263:Src/MyMath.c  ****             const Complex b = input->arr[idx + lenBlock/2];
+ 2316              		.loc 1 263 0 discriminator 3
+ 2317 0068 069A     		ldr	r2, [sp, #24]
+ 2318 006a 1444     		add	r4, r4, r2
+ 2319 006c E400     		lsls	r4, r4, #3
+ 2320 006e 2344     		add	r3, r3, r4
+ 2321 0070 12AA     		add	r2, sp, #72
+ 2322 0072 93E80300 		ldm	r3, {r0, r1}
+ 2323 0076 82E80300 		stm	r2, {r0, r1}
+ 264:Src/MyMath.c  ****             const Complex wB = cMultiply(w, b);
+ 2324              		.loc 1 264 0 discriminator 3
+ 2325 007a 139B     		ldr	r3, [sp, #76]
+ 2326 007c 0093     		str	r3, [sp]
+ 2327 007e 0346     		mov	r3, r0
+ 2328 0080 0EAA     		add	r2, sp, #56
+ 2329 0082 06CA     		ldm	r2, {r1, r2}
+ 2330 0084 14A8     		add	r0, sp, #80
+ 2331 0086 FFF7FEFF 		bl	cMultiply
+ 2332              	.LVL234:
+ 265:Src/MyMath.c  ****             // Upper part
+ 266:Src/MyMath.c  ****             (*output)->arr[idx] = cAdd(a, wB);
+ 2333              		.loc 1 266 0 discriminator 3
+ 2334 008a DBF80030 		ldr	r3, [fp]
+ 2335 008e 9B68     		ldr	r3, [r3, #8]
+ 2336 0090 039A     		ldr	r2, [sp, #12]
+ 2337 0092 1344     		add	r3, r3, r2
+ 2338 0094 0393     		str	r3, [sp, #12]
+ 2339 0096 0CAD     		add	r5, sp, #48
+ 2340 0098 159B     		ldr	r3, [sp, #84]
+ 2341 009a 0093     		str	r3, [sp]
+ 2342 009c 149B     		ldr	r3, [sp, #80]
+ 2343 009e 9AE80600 		ldm	r10, {r1, r2}
+ 2344 00a2 2846     		mov	r0, r5
+ 2345 00a4 FFF7FEFF 		bl	cAdd
+ 2346              	.LVL235:
+ 2347 00a8 95E80300 		ldm	r5, {r0, r1}
+ 2348 00ac 039B     		ldr	r3, [sp, #12]
+ 2349 00ae 83E80300 		stm	r3, {r0, r1}
+ 267:Src/MyMath.c  ****             // Lower part
+ 268:Src/MyMath.c  ****             (*output)->arr[idx + lenBlock/2] = cSubtract(a, wB);
+ 2350              		.loc 1 268 0 discriminator 3
+ 2351 00b2 DBF80030 		ldr	r3, [fp]
+ 2352 00b6 9B68     		ldr	r3, [r3, #8]
+ 2353 00b8 1C44     		add	r4, r4, r3
+ 2354 00ba 159B     		ldr	r3, [sp, #84]
+ 2355 00bc 0093     		str	r3, [sp]
+ 2356 00be 149B     		ldr	r3, [sp, #80]
+ 2357 00c0 9AE80600 		ldm	r10, {r1, r2}
+ 2358 00c4 2846     		mov	r0, r5
+ 2359 00c6 FFF7FEFF 		bl	cSubtract
+ 2360              	.LVL236:
+ 2361 00ca 95E80300 		ldm	r5, {r0, r1}
+ 2362 00ce 84E80300 		stm	r4, {r0, r1}
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 47
+
+
+ 2363              	.LBE36:
+ 259:Src/MyMath.c  ****         {
+ 2364              		.loc 1 259 0 discriminator 3
+ 2365 00d2 0136     		adds	r6, r6, #1
+ 2366              	.LVL237:
+ 2367 00d4 47F10007 		adc	r7, r7, #0
+ 2368              	.LVL238:
+ 2369              	.L126:
+ 259:Src/MyMath.c  ****         {
+ 2370              		.loc 1 259 0 is_stmt 0 discriminator 1
+ 2371 00d8 DDE90834 		ldrd	r3, [sp, #32]
+ 2372 00dc A742     		cmp	r7, r4
+ 2373 00de 08BF     		it	eq
+ 2374 00e0 9E42     		cmpeq	r6, r3
+ 2375 00e2 B0D3     		bcc	.L127
+ 2376              	.LBE35:
+ 2377              	.LBE34:
+ 256:Src/MyMath.c  ****     {
+ 2378              		.loc 1 256 0 is_stmt 1 discriminator 2
+ 2379 00e4 DDE90434 		ldrd	r3, [sp, #16]
+ 2380 00e8 0133     		adds	r3, r3, #1
+ 2381 00ea 44F10004 		adc	r4, r4, #0
+ 2382 00ee CDE90434 		strd	r3, [sp, #16]
+ 2383              	.LVL239:
+ 2384              	.L125:
+ 256:Src/MyMath.c  ****     {
+ 2385              		.loc 1 256 0 is_stmt 0 discriminator 1
+ 2386 00f2 5FEA5904 		movs	r4, r9, lsr #1
+ 2387 00f6 4FEA3803 		mov	r3, r8, rrx
+ 2388 00fa CDE90634 		strd	r3, [sp, #24]
+ 2389 00fe DDE90412 		ldrd	r1, [sp, #16]
+ 2390 0102 A242     		cmp	r2, r4
+ 2391 0104 08BF     		it	eq
+ 2392 0106 9942     		cmpeq	r1, r3
+ 2393 0108 28D2     		bcs	.L131
+ 2394              	.LBB38:
+ 258:Src/MyMath.c  ****         for (unsigned long long block = 0; block < countBlock; block++)
+ 2395              		.loc 1 258 0 is_stmt 1
+ 2396 010a DDE90401 		ldrd	r0, [sp, #16]
+ 2397 010e FFF7FEFF 		bl	__aeabi_ul2d
+ 2398              	.LVL240:
+ 2399 0112 15A3     		adr	r3, .L132
+ 2400 0114 D3E90023 		ldrd	r2, [r3]
+ 2401 0118 FFF7FEFF 		bl	__aeabi_dmul
+ 2402              	.LVL241:
+ 2403 011c 0446     		mov	r4, r0
+ 2404 011e 0D46     		mov	r5, r1
+ 2405 0120 0B98     		ldr	r0, [sp, #44]
+ 2406 0122 FFF7FEFF 		bl	__aeabi_i2d
+ 2407              	.LVL242:
+ 2408 0126 2246     		mov	r2, r4
+ 2409 0128 2B46     		mov	r3, r5
+ 2410 012a FFF7FEFF 		bl	__aeabi_dmul
+ 2411              	.LVL243:
+ 2412 012e 0446     		mov	r4, r0
+ 2413 0130 0D46     		mov	r5, r1
+ 2414 0132 DDE90601 		ldrd	r0, [sp, #24]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 48
+
+
+ 2415 0136 FFF7FEFF 		bl	__aeabi_ul2d
+ 2416              	.LVL244:
+ 2417 013a 0246     		mov	r2, r0
+ 2418 013c 0B46     		mov	r3, r1
+ 2419 013e 2046     		mov	r0, r4
+ 2420 0140 2946     		mov	r1, r5
+ 2421 0142 FFF7FEFF 		bl	__aeabi_ddiv
+ 2422              	.LVL245:
+ 2423 0146 FFF7FEFF 		bl	__aeabi_d2f
+ 2424              	.LVL246:
+ 2425 014a 0246     		mov	r2, r0
+ 2426 014c 4FF07E51 		mov	r1, #1065353216
+ 2427 0150 0EA8     		add	r0, sp, #56
+ 2428 0152 FFF7FEFF 		bl	cPolarToComplex
+ 2429              	.LVL247:
+ 2430              	.LBB37:
+ 259:Src/MyMath.c  ****         {
+ 2431              		.loc 1 259 0
+ 2432 0156 0026     		movs	r6, #0
+ 2433 0158 0027     		movs	r7, #0
+ 2434 015a BDE7     		b	.L126
+ 2435              	.LVL248:
+ 2436              	.L131:
+ 2437              	.LBE37:
+ 2438              	.LBE38:
+ 2439              	.LBE39:
+ 269:Src/MyMath.c  ****         }
+ 270:Src/MyMath.c  ****     }
+ 271:Src/MyMath.c  **** }
+ 2440              		.loc 1 271 0
+ 2441 015c 17B0     		add	sp, sp, #92
+ 2442              	.LCFI74:
+ 2443              		.cfi_def_cfa_offset 36
+ 2444              		@ sp needed
+ 2445 015e BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 2446              	.LVL249:
+ 2447              	.L133:
+ 2448 0162 00BFAFF3 		.align	3
+ 2448      0080
+ 2449              	.L132:
+ 2450 0168 182D4454 		.word	1413754136
+ 2451 016c FB210940 		.word	1074340347
+ 2452              		.cfi_endproc
+ 2453              	.LFE93:
+ 2455              		.section	.text.computeFFT,"ax",%progbits
+ 2456              		.align	1
+ 2457              		.global	computeFFT
+ 2458              		.syntax unified
+ 2459              		.thumb
+ 2460              		.thumb_func
+ 2461              		.fpu softvfp
+ 2463              	computeFFT:
+ 2464              	.LFB94:
+ 272:Src/MyMath.c  **** void computeFFT(const int q, const vecRef input, vecRef *output){
+ 2465              		.loc 1 272 0
+ 2466              		.cfi_startproc
+ 2467              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 49
+
+
+ 2468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2469              	.LVL250:
+ 2470 0000 08B5     		push	{r3, lr}
+ 2471              	.LCFI75:
+ 2472              		.cfi_def_cfa_offset 8
+ 2473              		.cfi_offset 3, -8
+ 2474              		.cfi_offset 14, -4
+ 273:Src/MyMath.c  ****     compute(q, -1, input, output);
+ 2475              		.loc 1 273 0
+ 2476 0002 1346     		mov	r3, r2
+ 2477 0004 0A46     		mov	r2, r1
+ 2478              	.LVL251:
+ 2479 0006 4FF0FF31 		mov	r1, #-1
+ 2480              	.LVL252:
+ 2481 000a FFF7FEFF 		bl	compute
+ 2482              	.LVL253:
+ 274:Src/MyMath.c  **** }
+ 2483              		.loc 1 274 0
+ 2484 000e 08BD     		pop	{r3, pc}
+ 2485              		.cfi_endproc
+ 2486              	.LFE94:
+ 2488              		.global	__aeabi_d2iz
+ 2489              		.section	.text.fft,"ax",%progbits
+ 2490              		.align	1
+ 2491              		.global	fft
+ 2492              		.syntax unified
+ 2493              		.thumb
+ 2494              		.thumb_func
+ 2495              		.fpu softvfp
+ 2497              	fft:
+ 2498              	.LFB85:
+ 115:Src/MyMath.c  ****     assert(input->length >= 2);
+ 2499              		.loc 1 115 0
+ 2500              		.cfi_startproc
+ 2501              		@ args = 0, pretend = 0, frame = 8
+ 2502              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2503              	.LVL254:
+ 2504 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 2505              	.LCFI76:
+ 2506              		.cfi_def_cfa_offset 32
+ 2507              		.cfi_offset 4, -32
+ 2508              		.cfi_offset 5, -28
+ 2509              		.cfi_offset 6, -24
+ 2510              		.cfi_offset 7, -20
+ 2511              		.cfi_offset 8, -16
+ 2512              		.cfi_offset 9, -12
+ 2513              		.cfi_offset 10, -8
+ 2514              		.cfi_offset 14, -4
+ 2515 0004 82B0     		sub	sp, sp, #8
+ 2516              	.LCFI77:
+ 2517              		.cfi_def_cfa_offset 40
+ 116:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 2518              		.loc 1 116 0
+ 2519 0006 D0E90089 		ldrd	r8, [r0]
+ 2520 000a B9F1000F 		cmp	r9, #0
+ 2521 000e 08BF     		it	eq
+ 2522 0010 B8F1020F 		cmpeq	r8, #2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 50
+
+
+ 2523 0014 28D3     		bcc	.L143
+ 2524 0016 8246     		mov	r10, r0
+ 2525 0018 0D46     		mov	r5, r1
+ 2526              	.LVL255:
+ 122:Src/MyMath.c  ****     
+ 2527              		.loc 1 122 0
+ 2528 001a 4046     		mov	r0, r8
+ 2529              	.LVL256:
+ 2530 001c 4946     		mov	r1, r9
+ 2531              	.LVL257:
+ 2532 001e FFF7FEFF 		bl	__aeabi_ul2d
+ 2533              	.LVL258:
+ 2534 0022 0646     		mov	r6, r0
+ 2535 0024 0F46     		mov	r7, r1
+ 2536 0026 FFF7FEFF 		bl	log
+ 2537              	.LVL259:
+ 2538 002a 23A3     		adr	r3, .L144
+ 2539 002c D3E90023 		ldrd	r2, [r3]
+ 2540 0030 FFF7FEFF 		bl	__aeabi_ddiv
+ 2541              	.LVL260:
+ 2542 0034 FFF7FEFF 		bl	__aeabi_d2iz
+ 2543              	.LVL261:
+ 2544 0038 0446     		mov	r4, r0
+ 2545              	.LVL262:
+ 127:Src/MyMath.c  ****     {
+ 2546              		.loc 1 127 0
+ 2547 003a 2B68     		ldr	r3, [r5]
+ 2548 003c 2BB1     		cbz	r3, .L138
+ 127:Src/MyMath.c  ****     {
+ 2549              		.loc 1 127 0 is_stmt 0 discriminator 1
+ 2550 003e D3E90023 		ldrd	r2, [r3]
+ 2551 0042 9945     		cmp	r9, r3
+ 2552 0044 08BF     		it	eq
+ 2553 0046 9045     		cmpeq	r8, r2
+ 2554 0048 07D0     		beq	.L139
+ 2555              	.L138:
+ 129:Src/MyMath.c  ****         *output = vecAlloc(N);
+ 2556              		.loc 1 129 0 is_stmt 1
+ 2557 004a 2846     		mov	r0, r5
+ 2558              	.LVL263:
+ 2559 004c FFF7FEFF 		bl	vecRelease
+ 2560              	.LVL264:
+ 130:Src/MyMath.c  ****     }
+ 2561              		.loc 1 130 0
+ 2562 0050 4046     		mov	r0, r8
+ 2563 0052 4946     		mov	r1, r9
+ 2564 0054 FFF7FEFF 		bl	vecAlloc
+ 2565              	.LVL265:
+ 2566 0058 2860     		str	r0, [r5]
+ 2567              	.L139:
+ 133:Src/MyMath.c  **** 	//vecRef tmp = vecAlloc(N);
+ 2568              		.loc 1 133 0
+ 2569 005a 2A46     		mov	r2, r5
+ 2570 005c 5146     		mov	r1, r10
+ 2571 005e 2046     		mov	r0, r4
+ 2572 0060 FFF7FEFF 		bl	permutate
+ 2573              	.LVL266:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 51
+
+
+ 2574              	.LBB40:
+ 136:Src/MyMath.c  **** 	{
+ 2575              		.loc 1 136 0
+ 2576 0064 013C     		subs	r4, r4, #1
+ 2577              	.LVL267:
+ 2578 0066 0BE0     		b	.L140
+ 2579              	.LVL268:
+ 2580              	.L143:
+ 2581              	.LBE40:
+ 116:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 2582              		.loc 1 116 0 discriminator 1
+ 2583 0068 154B     		ldr	r3, .L144+8
+ 2584 006a 164A     		ldr	r2, .L144+12
+ 2585 006c 7421     		movs	r1, #116
+ 2586              	.LVL269:
+ 2587 006e 1648     		ldr	r0, .L144+16
+ 2588              	.LVL270:
+ 2589 0070 FFF7FEFF 		bl	__assert_func
+ 2590              	.LVL271:
+ 2591              	.L141:
+ 2592              	.LBB41:
+ 139:Src/MyMath.c  **** 	}
+ 2593              		.loc 1 139 0 discriminator 3
+ 2594 0074 2A46     		mov	r2, r5
+ 2595 0076 2968     		ldr	r1, [r5]
+ 2596 0078 2046     		mov	r0, r4
+ 2597 007a FFF7FEFF 		bl	computeFFT
+ 2598              	.LVL272:
+ 136:Src/MyMath.c  **** 	{
+ 2599              		.loc 1 136 0 discriminator 3
+ 2600 007e 013C     		subs	r4, r4, #1
+ 2601              	.LVL273:
+ 2602              	.L140:
+ 136:Src/MyMath.c  **** 	{
+ 2603              		.loc 1 136 0 is_stmt 0 discriminator 1
+ 2604 0080 002C     		cmp	r4, #0
+ 2605 0082 F7DA     		bge	.L141
+ 2606              	.LBE41:
+ 142:Src/MyMath.c  **** }
+ 2607              		.loc 1 142 0 is_stmt 1
+ 2608 0084 D5F80080 		ldr	r8, [r5]
+ 2609              	.LVL274:
+ 2610 0088 3046     		mov	r0, r6
+ 2611 008a 3946     		mov	r1, r7
+ 2612 008c FFF7FEFF 		bl	sqrt
+ 2613              	.LVL275:
+ 2614 0090 6C46     		mov	r4, sp
+ 2615              	.LVL276:
+ 2616 0092 FFF7FEFF 		bl	__aeabi_d2f
+ 2617              	.LVL277:
+ 2618 0096 0022     		movs	r2, #0
+ 2619 0098 0146     		mov	r1, r0
+ 2620 009a 2046     		mov	r0, r4
+ 2621 009c FFF7FEFF 		bl	ComplexMake
+ 2622              	.LVL278:
+ 2623 00a0 2B46     		mov	r3, r5
+ 2624 00a2 94E80600 		ldm	r4, {r1, r2}
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 52
+
+
+ 2625 00a6 4046     		mov	r0, r8
+ 2626 00a8 FFF7FEFF 		bl	vdivScalar
+ 2627              	.LVL279:
+ 143:Src/MyMath.c  **** void ifft(const vecRef input, vecRef *output){
+ 2628              		.loc 1 143 0
+ 2629 00ac 02B0     		add	sp, sp, #8
+ 2630              	.LCFI78:
+ 2631              		.cfi_def_cfa_offset 32
+ 2632              		@ sp needed
+ 2633 00ae BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 2634              	.LVL280:
+ 2635              	.L145:
+ 2636 00b2 00BFAFF3 		.align	3
+ 2636      0080
+ 2637              	.L144:
+ 2638 00b8 EF39FAFE 		.word	-17155601
+ 2639 00bc 422EE63F 		.word	1072049730
+ 2640 00c0 00000000 		.word	.LC3
+ 2641 00c4 00000000 		.word	.LANCHOR7
+ 2642 00c8 04000000 		.word	.LC1
+ 2643              		.cfi_endproc
+ 2644              	.LFE85:
+ 2646              		.global	__aeabi_dadd
+ 2647              		.section	.text.ifft,"ax",%progbits
+ 2648              		.align	1
+ 2649              		.global	ifft
+ 2650              		.syntax unified
+ 2651              		.thumb
+ 2652              		.thumb_func
+ 2653              		.fpu softvfp
+ 2655              	ifft:
+ 2656              	.LFB86:
+ 144:Src/MyMath.c  ****     assert(input->length >= 2);
+ 2657              		.loc 1 144 0
+ 2658              		.cfi_startproc
+ 2659              		@ args = 0, pretend = 0, frame = 8
+ 2660              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2661              	.LVL281:
+ 2662 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 2663              	.LCFI79:
+ 2664              		.cfi_def_cfa_offset 32
+ 2665              		.cfi_offset 4, -32
+ 2666              		.cfi_offset 5, -28
+ 2667              		.cfi_offset 6, -24
+ 2668              		.cfi_offset 7, -20
+ 2669              		.cfi_offset 8, -16
+ 2670              		.cfi_offset 9, -12
+ 2671              		.cfi_offset 10, -8
+ 2672              		.cfi_offset 14, -4
+ 2673 0004 82B0     		sub	sp, sp, #8
+ 2674              	.LCFI80:
+ 2675              		.cfi_def_cfa_offset 40
+ 145:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 2676              		.loc 1 145 0
+ 2677 0006 D0E90089 		ldrd	r8, [r0]
+ 2678 000a B9F1000F 		cmp	r9, #0
+ 2679 000e 08BF     		it	eq
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 53
+
+
+ 2680 0010 B8F1020F 		cmpeq	r8, #2
+ 2681 0014 2ED3     		bcc	.L154
+ 2682 0016 8246     		mov	r10, r0
+ 2683 0018 0D46     		mov	r5, r1
+ 2684              	.LVL282:
+ 147:Src/MyMath.c  ****     {
+ 2685              		.loc 1 147 0
+ 2686 001a 4046     		mov	r0, r8
+ 2687              	.LVL283:
+ 2688 001c 4946     		mov	r1, r9
+ 2689              	.LVL284:
+ 2690 001e FFF7FEFF 		bl	checkPowerOfTwo
+ 2691              	.LVL285:
+ 2692 0022 0128     		cmp	r0, #1
+ 2693 0024 2CD1     		bne	.L155
+ 2694              	.L148:
+ 151:Src/MyMath.c  ****     
+ 2695              		.loc 1 151 0
+ 2696 0026 4046     		mov	r0, r8
+ 2697 0028 4946     		mov	r1, r9
+ 2698 002a FFF7FEFF 		bl	__aeabi_ul2d
+ 2699              	.LVL286:
+ 2700 002e 0646     		mov	r6, r0
+ 2701 0030 0F46     		mov	r7, r1
+ 2702 0032 FFF7FEFF 		bl	log
+ 2703              	.LVL287:
+ 2704 0036 30A3     		adr	r3, .L156
+ 2705 0038 D3E90023 		ldrd	r2, [r3]
+ 2706 003c FFF7FEFF 		bl	__aeabi_ddiv
+ 2707              	.LVL288:
+ 2708 0040 FFF7FEFF 		bl	__aeabi_d2iz
+ 2709              	.LVL289:
+ 2710 0044 0446     		mov	r4, r0
+ 2711              	.LVL290:
+ 156:Src/MyMath.c  ****     {
+ 2712              		.loc 1 156 0
+ 2713 0046 2B68     		ldr	r3, [r5]
+ 2714 0048 2BB1     		cbz	r3, .L149
+ 156:Src/MyMath.c  ****     {
+ 2715              		.loc 1 156 0 is_stmt 0 discriminator 1
+ 2716 004a D3E90023 		ldrd	r2, [r3]
+ 2717 004e 4B45     		cmp	r3, r9
+ 2718 0050 08BF     		it	eq
+ 2719 0052 4245     		cmpeq	r2, r8
+ 2720 0054 07D0     		beq	.L150
+ 2721              	.L149:
+ 158:Src/MyMath.c  ****         *output = vecAlloc(N);
+ 2722              		.loc 1 158 0 is_stmt 1
+ 2723 0056 2846     		mov	r0, r5
+ 2724              	.LVL291:
+ 2725 0058 FFF7FEFF 		bl	vecRelease
+ 2726              	.LVL292:
+ 159:Src/MyMath.c  ****     }
+ 2727              		.loc 1 159 0
+ 2728 005c 4046     		mov	r0, r8
+ 2729 005e 4946     		mov	r1, r9
+ 2730 0060 FFF7FEFF 		bl	vecAlloc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 54
+
+
+ 2731              	.LVL293:
+ 2732 0064 2860     		str	r0, [r5]
+ 2733              	.L150:
+ 162:Src/MyMath.c  **** 	//vecRef tmp = vecAlloc(N);
+ 2734              		.loc 1 162 0
+ 2735 0066 2A46     		mov	r2, r5
+ 2736 0068 5146     		mov	r1, r10
+ 2737 006a 2046     		mov	r0, r4
+ 2738 006c FFF7FEFF 		bl	permutate
+ 2739              	.LVL294:
+ 2740              	.LBB42:
+ 165:Src/MyMath.c  **** 	{
+ 2741              		.loc 1 165 0
+ 2742 0070 013C     		subs	r4, r4, #1
+ 2743              	.LVL295:
+ 2744 0072 25E0     		b	.L151
+ 2745              	.LVL296:
+ 2746              	.L154:
+ 2747              	.LBE42:
+ 145:Src/MyMath.c  ****     unsigned long long N = input->length;
+ 2748              		.loc 1 145 0 discriminator 1
+ 2749 0074 224B     		ldr	r3, .L156+8
+ 2750 0076 234A     		ldr	r2, .L156+12
+ 2751 0078 9121     		movs	r1, #145
+ 2752              	.LVL297:
+ 2753 007a 2348     		ldr	r0, .L156+16
+ 2754              	.LVL298:
+ 2755 007c FFF7FEFF 		bl	__assert_func
+ 2756              	.LVL299:
+ 2757              	.L155:
+ 149:Src/MyMath.c  ****     }
+ 2758              		.loc 1 149 0
+ 2759 0080 4046     		mov	r0, r8
+ 2760 0082 4946     		mov	r1, r9
+ 2761 0084 FFF7FEFF 		bl	__aeabi_ul2d
+ 2762              	.LVL300:
+ 2763 0088 FFF7FEFF 		bl	log
+ 2764              	.LVL301:
+ 2765 008c 1AA3     		adr	r3, .L156
+ 2766 008e D3E90023 		ldrd	r2, [r3]
+ 2767 0092 FFF7FEFF 		bl	__aeabi_ddiv
+ 2768              	.LVL302:
+ 2769 0096 FFF7FEFF 		bl	round
+ 2770              	.LVL303:
+ 2771 009a 0022     		movs	r2, #0
+ 2772 009c 1B4B     		ldr	r3, .L156+20
+ 2773 009e FFF7FEFF 		bl	__aeabi_dadd
+ 2774              	.LVL304:
+ 2775 00a2 FFF7FEFF 		bl	__aeabi_d2iz
+ 2776              	.LVL305:
+ 2777 00a6 4FF00108 		mov	r8, #1
+ 2778              	.LVL306:
+ 2779 00aa 08FA00F8 		lsl	r8, r8, r0
+ 2780 00ae 4FEAE879 		asr	r9, r8, #31
+ 2781              	.LVL307:
+ 2782 00b2 B8E7     		b	.L148
+ 2783              	.LVL308:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 55
+
+
+ 2784              	.L152:
+ 2785              	.LBB43:
+ 168:Src/MyMath.c  **** 	}
+ 2786              		.loc 1 168 0 discriminator 3
+ 2787 00b4 2A46     		mov	r2, r5
+ 2788 00b6 2968     		ldr	r1, [r5]
+ 2789 00b8 2046     		mov	r0, r4
+ 2790 00ba FFF7FEFF 		bl	computeFFT
+ 2791              	.LVL309:
+ 165:Src/MyMath.c  **** 	{
+ 2792              		.loc 1 165 0 discriminator 3
+ 2793 00be 013C     		subs	r4, r4, #1
+ 2794              	.LVL310:
+ 2795              	.L151:
+ 165:Src/MyMath.c  **** 	{
+ 2796              		.loc 1 165 0 is_stmt 0 discriminator 1
+ 2797 00c0 002C     		cmp	r4, #0
+ 2798 00c2 F7DA     		bge	.L152
+ 2799              	.LBE43:
+ 171:Src/MyMath.c  **** }
+ 2800              		.loc 1 171 0 is_stmt 1
+ 2801 00c4 D5F80080 		ldr	r8, [r5]
+ 2802              	.LVL311:
+ 2803 00c8 3046     		mov	r0, r6
+ 2804 00ca 3946     		mov	r1, r7
+ 2805 00cc FFF7FEFF 		bl	sqrt
+ 2806              	.LVL312:
+ 2807 00d0 6C46     		mov	r4, sp
+ 2808              	.LVL313:
+ 2809 00d2 FFF7FEFF 		bl	__aeabi_d2f
+ 2810              	.LVL314:
+ 2811 00d6 0022     		movs	r2, #0
+ 2812 00d8 0146     		mov	r1, r0
+ 2813 00da 2046     		mov	r0, r4
+ 2814 00dc FFF7FEFF 		bl	ComplexMake
+ 2815              	.LVL315:
+ 2816 00e0 2B46     		mov	r3, r5
+ 2817 00e2 94E80600 		ldm	r4, {r1, r2}
+ 2818 00e6 4046     		mov	r0, r8
+ 2819 00e8 FFF7FEFF 		bl	vdivScalar
+ 2820              	.LVL316:
+ 172:Src/MyMath.c  **** void dft(const vecRef input, vecRef *output){
+ 2821              		.loc 1 172 0
+ 2822 00ec 02B0     		add	sp, sp, #8
+ 2823              	.LCFI81:
+ 2824              		.cfi_def_cfa_offset 32
+ 2825              		@ sp needed
+ 2826 00ee BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 2827              	.LVL317:
+ 2828              	.L157:
+ 2829 00f2 00BFAFF3 		.align	3
+ 2829      0080
+ 2830              	.L156:
+ 2831 00f8 EF39FAFE 		.word	-17155601
+ 2832 00fc 422EE63F 		.word	1072049730
+ 2833 0100 00000000 		.word	.LC3
+ 2834 0104 00000000 		.word	.LANCHOR8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 56
+
+
+ 2835 0108 04000000 		.word	.LC1
+ 2836 010c 0000F03F 		.word	1072693248
+ 2837              		.cfi_endproc
+ 2838              	.LFE86:
+ 2840              		.section	.text.computeIFFT,"ax",%progbits
+ 2841              		.align	1
+ 2842              		.global	computeIFFT
+ 2843              		.syntax unified
+ 2844              		.thumb
+ 2845              		.thumb_func
+ 2846              		.fpu softvfp
+ 2848              	computeIFFT:
+ 2849              	.LFB95:
+ 275:Src/MyMath.c  **** void computeIFFT(const int q, const vecRef input, vecRef *output){
+ 2850              		.loc 1 275 0
+ 2851              		.cfi_startproc
+ 2852              		@ args = 0, pretend = 0, frame = 0
+ 2853              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2854              	.LVL318:
+ 2855 0000 08B5     		push	{r3, lr}
+ 2856              	.LCFI82:
+ 2857              		.cfi_def_cfa_offset 8
+ 2858              		.cfi_offset 3, -8
+ 2859              		.cfi_offset 14, -4
+ 276:Src/MyMath.c  ****     compute(q, 1, input, output);
+ 2860              		.loc 1 276 0
+ 2861 0002 1346     		mov	r3, r2
+ 2862 0004 0A46     		mov	r2, r1
+ 2863              	.LVL319:
+ 2864 0006 0121     		movs	r1, #1
+ 2865              	.LVL320:
+ 2866 0008 FFF7FEFF 		bl	compute
+ 2867              	.LVL321:
+ 277:Src/MyMath.c  **** }...
+ 2868              		.loc 1 277 0
+ 2869 000c 08BD     		pop	{r3, pc}
+ 2870              		.cfi_endproc
+ 2871              	.LFE95:
+ 2873              		.section	.rodata.__func__.7750,"a",%progbits
+ 2874              		.align	2
+ 2875              		.set	.LANCHOR0,. + 0
+ 2878              	__func__.7750:
+ 2879 0000 63446976 		.ascii	"cDivide\000"
+ 2879      69646500 
+ 2880              		.section	.rodata.__func__.7770,"a",%progbits
+ 2881              		.align	2
+ 2882              		.set	.LANCHOR1,. + 0
+ 2885              	__func__.7770:
+ 2886 0000 76616464 		.ascii	"vadd\000"
+ 2886      00
+ 2887              		.section	.rodata.__func__.7780,"a",%progbits
+ 2888              		.align	2
+ 2889              		.set	.LANCHOR2,. + 0
+ 2892              	__func__.7780:
+ 2893 0000 76737562 		.ascii	"vsubtract\000"
+ 2893      74726163 
+ 2893      7400
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 57
+
+
+ 2894              		.section	.rodata.__func__.7790,"a",%progbits
+ 2895              		.align	2
+ 2896              		.set	.LANCHOR3,. + 0
+ 2899              	__func__.7790:
+ 2900 0000 766D756C 		.ascii	"vmultiply\000"
+ 2900      7469706C 
+ 2900      7900
+ 2901              		.section	.rodata.__func__.7800,"a",%progbits
+ 2902              		.align	2
+ 2903              		.set	.LANCHOR4,. + 0
+ 2906              	__func__.7800:
+ 2907 0000 76646976 		.ascii	"vdivide\000"
+ 2907      69646500 
+ 2908              		.section	.rodata.__func__.7845,"a",%progbits
+ 2909              		.align	2
+ 2910              		.set	.LANCHOR7,. + 0
+ 2913              	__func__.7845:
+ 2914 0000 66667400 		.ascii	"fft\000"
+ 2915              		.section	.rodata.__func__.7856,"a",%progbits
+ 2916              		.align	2
+ 2917              		.set	.LANCHOR8,. + 0
+ 2920              	__func__.7856:
+ 2921 0000 69666674 		.ascii	"ifft\000"
+ 2921      00
+ 2922              		.section	.rodata.__func__.7867,"a",%progbits
+ 2923              		.align	2
+ 2924              		.set	.LANCHOR5,. + 0
+ 2927              	__func__.7867:
+ 2928 0000 64667400 		.ascii	"dft\000"
+ 2929              		.section	.rodata.__func__.7883,"a",%progbits
+ 2930              		.align	2
+ 2931              		.set	.LANCHOR6,. + 0
+ 2934              	__func__.7883:
+ 2935 0000 69646674 		.ascii	"idft\000"
+ 2935      00
+ 2936              		.section	.rodata.cDivide.str1.4,"aMS",%progbits,1
+ 2937              		.align	2
+ 2938              	.LC0:
+ 2939 0000 3000     		.ascii	"0\000"
+ 2940 0002 0000     		.space	2
+ 2941              	.LC1:
+ 2942 0004 5372632F 		.ascii	"Src/MyMath.c\000"
+ 2942      4D794D61 
+ 2942      74682E63 
+ 2942      00
+ 2943              		.section	.rodata.dft.str1.4,"aMS",%progbits,1
+ 2944              		.align	2
+ 2945              	.LC3:
+ 2946 0000 696E7075 		.ascii	"input->length >= 2\000"
+ 2946      742D3E6C 
+ 2946      656E6774 
+ 2946      68203E3D 
+ 2946      203200
+ 2947              		.section	.rodata.vadd.str1.4,"aMS",%progbits,1
+ 2948              		.align	2
+ 2949              	.LC2:
+ 2950 0000 612D3E6C 		.ascii	"a->length == b->length\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 58
+
+
+ 2950      656E6774 
+ 2950      68203D3D 
+ 2950      20622D3E 
+ 2950      6C656E67 
+ 2951              		.text
+ 2952              	.Letext0:
+ 2953              		.file 2 "Inc/MyMath.h"
+ 2954              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2955              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2956              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2957              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 2958              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2959              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2960              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2961              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2962              		.file 11 "Drivers/CMSIS/Include/core_cm3.h"
+ 2963              		.file 12 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 2964              		.file 13 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 59
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 MyMath.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:16     .text.ComplexMake:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:23     .text.ComplexMake:00000000 ComplexMake
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:45     .text.cAbsolute:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:52     .text.cAbsolute:00000000 cAbsolute
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:98     .text.cArgument:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:105    .text.cArgument:00000000 cArgument
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:147    .text.cAdd:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:154    .text.cAdd:00000000 cAdd
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:215    .text.cSubtract:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:222    .text.cSubtract:00000000 cSubtract
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:282    .text.cMultiply:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:289    .text.cMultiply:00000000 cMultiply
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:384    .text.cDivide:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:391    .text.cDivide:00000000 cDivide
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:522    .text.cDivide:000000b0 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:531    .text.cNegate:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:538    .text.cNegate:00000000 cNegate
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:575    .text.cPolarToComplex:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:582    .text.cPolarToComplex:00000000 cPolarToComplex
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:654    .text.vecAlloc:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:661    .text.vecAlloc:00000000 vecAlloc
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:701    .text.vecRelease:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:708    .text.vecRelease:00000000 vecRelease
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:750    .text.vadd:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:757    .text.vadd:00000000 vadd
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:851    .text.vadd:00000078 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:858    .text.vsubtract:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:865    .text.vsubtract:00000000 vsubtract
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:959    .text.vsubtract:00000078 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:966    .text.vmultiply:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:973    .text.vmultiply:00000000 vmultiply
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1067   .text.vmultiply:00000078 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1074   .text.vdivide:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1081   .text.vdivide:00000000 vdivide
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1175   .text.vdivide:00000078 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1182   .text.vaddScalar:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1189   .text.vaddScalar:00000000 vaddScalar
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1263   .text.vsubScalar:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1270   .text.vsubScalar:00000000 vsubScalar
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1344   .text.vmulScalar:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1351   .text.vmulScalar:00000000 vmulScalar
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1425   .text.vdivScalar:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1432   .text.vdivScalar:00000000 vdivScalar
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1508   .text.dft:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1515   .text.dft:00000000 dft
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1737   .text.dft:00000160 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1746   .text.idft:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1753   .text.idft:00000000 idft
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1976   .text.idft:00000158 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1985   .text.vecSwap:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:1992   .text.vecSwap:00000000 vecSwap
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2014   .text.checkPowerOfTwo:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2021   .text.checkPowerOfTwo:00000000 checkPowerOfTwo
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2061   .text.reverse:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2068   .text.reverse:00000000 reverse
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 60
+
+
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2151   .text.permutate:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2158   .text.permutate:00000000 permutate
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2224   .text.compute:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2231   .text.compute:00000000 compute
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2450   .text.compute:00000168 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2456   .text.computeFFT:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2463   .text.computeFFT:00000000 computeFFT
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2490   .text.fft:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2497   .text.fft:00000000 fft
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2638   .text.fft:000000b8 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2648   .text.ifft:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2655   .text.ifft:00000000 ifft
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2831   .text.ifft:000000f8 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2841   .text.computeIFFT:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2848   .text.computeIFFT:00000000 computeIFFT
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2874   .rodata.__func__.7750:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2878   .rodata.__func__.7750:00000000 __func__.7750
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2881   .rodata.__func__.7770:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2885   .rodata.__func__.7770:00000000 __func__.7770
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2888   .rodata.__func__.7780:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2892   .rodata.__func__.7780:00000000 __func__.7780
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2895   .rodata.__func__.7790:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2899   .rodata.__func__.7790:00000000 __func__.7790
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2902   .rodata.__func__.7800:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2906   .rodata.__func__.7800:00000000 __func__.7800
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2909   .rodata.__func__.7845:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2913   .rodata.__func__.7845:00000000 __func__.7845
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2916   .rodata.__func__.7856:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2920   .rodata.__func__.7856:00000000 __func__.7856
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2923   .rodata.__func__.7867:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2927   .rodata.__func__.7867:00000000 __func__.7867
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2930   .rodata.__func__.7883:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2934   .rodata.__func__.7883:00000000 __func__.7883
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2937   .rodata.cDivide.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2944   .rodata.dft.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s:2948   .rodata.vadd.str1.4:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_fmul
+__aeabi_fadd
+__aeabi_f2d
+__aeabi_d2f
+sqrt
+atan2
+__aeabi_fsub
+__aeabi_dcmplt
+__aeabi_fdiv
+__assert_func
+__aeabi_dmul
+cos
+sin
+malloc
+calloc
+free
+__aeabi_ul2d
+__aeabi_ddiv
+__aeabi_uldivmod
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccwLGkdp.s 			page 61
+
+
+__aeabi_i2d
+__aeabi_d2iz
+log
+__aeabi_dadd
+round

@@ -1,0 +1,2867 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	MX_GPIO_Init:
+  23              	.LFB75:
+  24              		.file 1 "Src/main.c"
+   1:Src/main.c    **** /**
+   2:Src/main.c    ****   ******************************************************************************
+   3:Src/main.c    ****   * File Name          : main.c
+   4:Src/main.c    ****   * Description        : Main program body
+   5:Src/main.c    ****   ******************************************************************************
+   6:Src/main.c    ****   ** This notice applies to any and all portions of this file
+   7:Src/main.c    ****   * that are not between comment pairs USER CODE BEGIN and
+   8:Src/main.c    ****   * USER CODE END. Other portions of this file, whether 
+   9:Src/main.c    ****   * inserted by the user or by software development tools
+  10:Src/main.c    ****   * are owned by their respective copyright owners.
+  11:Src/main.c    ****   *
+  12:Src/main.c    ****   * COPYRIGHT(c) 2018 STMicroelectronics
+  13:Src/main.c    ****   *
+  14:Src/main.c    ****   * Redistribution and use in source and binary forms, with or without modification,
+  15:Src/main.c    ****   * are permitted provided that the following conditions are met:
+  16:Src/main.c    ****   *   1. Redistributions of source code must retain the above copyright notice,
+  17:Src/main.c    ****   *      this list of conditions and the following disclaimer.
+  18:Src/main.c    ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
+  19:Src/main.c    ****   *      this list of conditions and the following disclaimer in the documentation
+  20:Src/main.c    ****   *      and/or other materials provided with the distribution.
+  21:Src/main.c    ****   *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  22:Src/main.c    ****   *      may be used to endorse or promote products derived from this software
+  23:Src/main.c    ****   *      without specific prior written permission.
+  24:Src/main.c    ****   *
+  25:Src/main.c    ****   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  26:Src/main.c    ****   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  27:Src/main.c    ****   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  28:Src/main.c    ****   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  29:Src/main.c    ****   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  30:Src/main.c    ****   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  31:Src/main.c    ****   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  32:Src/main.c    ****   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  33:Src/main.c    ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  34:Src/main.c    ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 2
+
+
+  35:Src/main.c    ****   *
+  36:Src/main.c    ****   ******************************************************************************
+  37:Src/main.c    ****   */
+  38:Src/main.c    **** 
+  39:Src/main.c    **** /* Includes ------------------------------------------------------------------*/
+  40:Src/main.c    **** #include "main.h"
+  41:Src/main.c    **** #include "stm32f1xx_hal.h"
+  42:Src/main.c    **** 
+  43:Src/main.c    **** /* USER CODE BEGIN Includes */
+  44:Src/main.c    **** #include <stdio.h>
+  45:Src/main.c    **** #include <stdlib.h>
+  46:Src/main.c    **** #include <stdint.h>
+  47:Src/main.c    **** #include <string.h>
+  48:Src/main.c    **** #include <assert.h>
+  49:Src/main.c    **** #include <math.h>
+  50:Src/main.c    **** #include "MyMath.h"
+  51:Src/main.c    **** #include "MyOLED.h"
+  52:Src/main.c    **** /* USER CODE END Includes */
+  53:Src/main.c    **** 
+  54:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  55:Src/main.c    **** SPI_HandleTypeDef hspi1;
+  56:Src/main.c    **** SPI_HandleTypeDef hspi2;
+  57:Src/main.c    **** 
+  58:Src/main.c    **** /* USER CODE BEGIN PV */
+  59:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  60:Src/main.c    **** 
+  61:Src/main.c    **** /* USER CODE END PV */
+  62:Src/main.c    **** 
+  63:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  64:Src/main.c    **** void SystemClock_Config(void);
+  65:Src/main.c    **** static void MX_GPIO_Init(void);
+  66:Src/main.c    **** static void MX_SPI1_Init(void);
+  67:Src/main.c    **** static void MX_SPI2_Init(void);
+  68:Src/main.c    **** 
+  69:Src/main.c    **** /* USER CODE BEGIN PFP */
+  70:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  71:Src/main.c    **** /* USER CODE END PFP */
+  72:Src/main.c    **** 
+  73:Src/main.c    **** /* USER CODE BEGIN 0 */
+  74:Src/main.c    **** uint16_t MCP3202_GetData(SPI_HandleTypeDef* MCP3202SPI){
+  75:Src/main.c    **** 	uint16_t Data = 0;
+  76:Src/main.c    **** 	uint8_t send[3],receive[3];
+  77:Src/main.c    **** 	GPIOA->BSRR = SPI1_SS_Pin<<16;
+  78:Src/main.c    **** 	send[0] = 0x01;send[1] = 0xE0;send[2] = 0xFF;
+  79:Src/main.c    **** 	HAL_SPI_TransmitReceive(MCP3202SPI,send,receive,3,100);
+  80:Src/main.c    **** 	GPIOA->BSRR = SPI1_SS_Pin;
+  81:Src/main.c    **** 	Data = (receive[1]&0xf)<<8 | receive[2];
+  82:Src/main.c    **** 	return Data;
+  83:Src/main.c    **** }
+  84:Src/main.c    **** char Str[250] = {0,};
+  85:Src/main.c    **** uint16_t Sample[512];
+  86:Src/main.c    **** uint32_t AmountSum = 0;
+  87:Src/main.c    **** int Button[5] = {0,};
+  88:Src/main.c    **** void OLED_SPI_Transmit(unsigned char *pData, uint16_t Size, uint32_t Timeout){
+  89:Src/main.c    **** 	HAL_SPI_Transmit(&hspi2, pData, Size, Timeout);
+  90:Src/main.c    **** }
+  91:Src/main.c    **** float pow2(float Value){
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 3
+
+
+  92:Src/main.c    **** 	return Value*Value;
+  93:Src/main.c    **** }
+  94:Src/main.c    **** float VecDistance(Complex Vect){
+  95:Src/main.c    **** 	return sqrt(pow2(Vect.re)+pow2(Vect.im));
+  96:Src/main.c    **** }
+  97:Src/main.c    **** uint32_t Delay=0;
+  98:Src/main.c    **** #define delay(time) Delay=time;while(Delay--){;}
+  99:Src/main.c    **** #define UpBt		if(GPIOA->IDR&(1<<(8)))Button[0]++;else
+ 100:Src/main.c    **** #define DnBt		if(GPIOA->IDR&(1<<(9)))Button[1]++;else
+ 101:Src/main.c    **** #define ModeBt		if(GPIOB->IDR&(1<<(3)))Button[2]++;else Button[2]=0;if(Button[2]==1)
+ 102:Src/main.c    **** #define RenderBt	if(GPIOA->IDR&(1<<(11)))Button[3]++;else Button[3]=0;if(Button[3]==1)
+ 103:Src/main.c    **** #define Bt1Bt		if(GPIOB->IDR&(1<<(4)))Button[4]++;else Button[4]=0;if(Button[4]==1)
+ 104:Src/main.c    **** uint32_t tick0 = 0,Getms = 0,GetFTms=0;
+ 105:Src/main.c    **** int bufflen = 512,Autorender=0,mode=0,Getdelaytime = 500,displaymode = 0,AddDot=0;
+ 106:Src/main.c    **** double Sensitivity = 1.0;//°¨µµ
+ 107:Src/main.c    **** vecRef input = 0;
+ 108:Src/main.c    **** void FTRender(){
+ 109:Src/main.c    **** 	input = vecAlloc(bufflen);
+ 110:Src/main.c    **** 	tick0 = HAL_GetTick();
+ 111:Src/main.c    **** 	for(int i=0;i<bufflen;i++){
+ 112:Src/main.c    **** 		input->arr[i].re = (double)((double)MCP3202_GetData(&hspi1)-2048.0)/128.0;
+ 113:Src/main.c    **** 		delay(Getdelaytime);
+ 114:Src/main.c    **** 	}
+ 115:Src/main.c    **** 	Getms = HAL_GetTick()-tick0;
+ 116:Src/main.c    **** 	tick0 = HAL_GetTick();
+ 117:Src/main.c    **** 	if(displaymode==0)fft(input, &input);
+ 118:Src/main.c    **** 	GetFTms = HAL_GetTick()-tick0;
+ 119:Src/main.c    **** }
+ 120:Src/main.c    **** uint8_t HzBuf[5] = {0xAE,0xA2,0xE4,0xA8,0xAE};
+ 121:Src/main.c    **** uint8_t CommaBuf[5] = {0x00,0x00,0x00,0x40,0x40};
+ 122:Src/main.c    **** uint8_t AutoBuf[6] = {0xf8,0xd8,0xa8,0x88,0xa8,0xf8};
+ 123:Src/main.c    **** uint8_t StatusBarBuf[4][14] = {
+ 124:Src/main.c    **** 	{0xff,0xfc
+ 125:Src/main.c    **** 		,0x90,0x24
+ 126:Src/main.c    **** 		,0xa0,0x14
+ 127:Src/main.c    **** 		,0xff,0xfc
+ 128:Src/main.c    **** 		,0xa0,0x14
+ 129:Src/main.c    **** 		,0x90,0x24
+ 130:Src/main.c    **** 		,0xff,0xfc
+ 131:Src/main.c    **** 	},{0xff,0xfc
+ 132:Src/main.c    **** 		,0x90,0x04
+ 133:Src/main.c    **** 		,0x90,0x04
+ 134:Src/main.c    **** 		,0xfc,0xfc
+ 135:Src/main.c    **** 		,0x90,0x04
+ 136:Src/main.c    **** 		,0x90,0x04
+ 137:Src/main.c    **** 		,0xff,0xfc
+ 138:Src/main.c    **** 	},{0xff,0xfc
+ 139:Src/main.c    **** 		,0x90,0x24
+ 140:Src/main.c    **** 		,0xb8,0x24
+ 141:Src/main.c    **** 		,0xd4,0xac
+ 142:Src/main.c    **** 		,0x90,0x74
+ 143:Src/main.c    **** 		,0x90,0x24
+ 144:Src/main.c    **** 		,0xff,0xfc
+ 145:Src/main.c    **** 	},{0xff,0xfc
+ 146:Src/main.c    **** 		,0xbf,0x6c
+ 147:Src/main.c    **** 		,0xbe,0xc4
+ 148:Src/main.c    **** 		,0x94,0x6c
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 4
+
+
+ 149:Src/main.c    **** 		,0xa4,0xfc
+ 150:Src/main.c    **** 		,0x8a,0xc4
+ 151:Src/main.c    **** 		,0xff,0xfc
+ 152:Src/main.c    **** 	}
+ 153:Src/main.c    **** };
+ 154:Src/main.c    **** /* USER CODE END 0 */
+ 155:Src/main.c    **** 
+ 156:Src/main.c    **** int main(void)
+ 157:Src/main.c    **** {
+ 158:Src/main.c    **** 
+ 159:Src/main.c    ****   /* USER CODE BEGIN 1 */
+ 160:Src/main.c    ****   //{begin
+ 161:Src/main.c    ****   SetRESPin((void*)GPIOB, 11);
+ 162:Src/main.c    ****   SetDCPin((void*)GPIOB, 12);
+ 163:Src/main.c    ****   SetSSPin((void*)GPIOB, 14);
+ 164:Src/main.c    **** 
+ 165:Src/main.c    ****   /* USER CODE END 1 */
+ 166:Src/main.c    **** 
+ 167:Src/main.c    ****   /* MCU Configuration----------------------------------------------------------*/
+ 168:Src/main.c    **** 
+ 169:Src/main.c    ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 170:Src/main.c    ****   HAL_Init();
+ 171:Src/main.c    **** 
+ 172:Src/main.c    ****   /* USER CODE BEGIN Init */
+ 173:Src/main.c    **** 
+ 174:Src/main.c    ****   /* USER CODE END Init */
+ 175:Src/main.c    **** 
+ 176:Src/main.c    ****   /* Configure the system clock */
+ 177:Src/main.c    ****   SystemClock_Config();
+ 178:Src/main.c    **** 
+ 179:Src/main.c    ****   /* USER CODE BEGIN SysInit */
+ 180:Src/main.c    **** 
+ 181:Src/main.c    ****   /* USER CODE END SysInit */
+ 182:Src/main.c    **** 
+ 183:Src/main.c    ****   /* Initialize all configured peripherals */
+ 184:Src/main.c    ****   MX_GPIO_Init();
+ 185:Src/main.c    ****   MX_SPI1_Init();
+ 186:Src/main.c    ****   MX_SPI2_Init();
+ 187:Src/main.c    **** 
+ 188:Src/main.c    ****   /* USER CODE BEGIN 2 */
+ 189:Src/main.c    ****   HAL_Delay(100);
+ 190:Src/main.c    **** 	OLEDinit();
+ 191:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"STM32F103 FT V1");
+ 192:Src/main.c    **** 	ShowBuffer();HAL_Delay(2000);
+ 193:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"FourierTransform");ShowBuffer();HAL_Delay(1000);ClearBuffer(0)
+ 194:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"STM32F103 FT V1");
+ 195:Src/main.c    **** 	NoShowDrawString(0,24,OLED_Char8X16,"    Made by");ShowBuffer();HAL_Delay(1000);
+ 196:Src/main.c    **** 	NoShowDrawString(0,40,OLED_Char8X16,"  Park Giyong.");ShowBuffer();HAL_Delay(1000);
+ 197:Src/main.c    **** 	NoShowDrawString(0,56,OLED_Char6X8,"  2018.03.04 21:55");ShowBuffer();HAL_Delay(2000);
+ 198:Src/main.c    **** 	FTRender();
+ 199:Src/main.c    ****   /* USER CODE END 2 */
+ 200:Src/main.c    **** 
+ 201:Src/main.c    ****   /* Infinite loop */
+ 202:Src/main.c    ****   /* USER CODE BEGIN WHILE */
+ 203:Src/main.c    ****   //}
+ 204:Src/main.c    ****   int len=0;
+ 205:Src/main.c    ****   while (1)
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 5
+
+
+ 206:Src/main.c    ****   {
+ 207:Src/main.c    ****   /* USER CODE END WHILE */
+ 208:Src/main.c    **** 
+ 209:Src/main.c    ****   /* USER CODE BEGIN 3 */
+ 210:Src/main.c    ****   len=0;
+ 211:Src/main.c    **** 	ModeBt{if(mode!=3)mode++;else mode=0;}
+ 212:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 213:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 214:Src/main.c    **** 	Bt1Bt{if(Autorender)Autorender=0;else Autorender=1;}
+ 215:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 216:Src/main.c    **** 	//sprintf(Str,"%d %d %d %d %d %d %d %d",Button[0],Button[1],Button[2],Button[3],Button[4],Autorend
+ 217:Src/main.c    **** 	//NoShowDrawNumStr(1, 6, OLED_Num3X5, Str, 0);
+ 218:Src/main.c    **** 	//NoShowDrawPicture((len<<2)+1, 0, 3, 5, CommaBuf, 1);len++;
+ 219:Src/main.c    **** 	//sprintf(Str,"%ld",GetFTms);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);len+=strlen(Str)
+ 220:Src/main.c    **** 	//NoShowDrawPicture((len<<2)+1, 0, 3, 5, CommaBuf, 1);len++;
+ 221:Src/main.c    **** 	sprintf(Str,"%ld",(uint32_t)((1000.0/(double)Getms)*(AddDot+1)));NoShowDrawNumStr((len<<2)+1, 0, O
+ 222:Src/main.c    **** 	NoShowDrawPicture((len<<2)+1, 0, 7, 5, HzBuf, 1);len+=2;
+ 223:Src/main.c    **** 	sprintf(Str," %ld",(uint32_t)((1000.0/(double)Getms)*(128.0+AddDot)));NoShowDrawNumStr((len<<2)+1,
+ 224:Src/main.c    **** 	NoShowDrawPicture((len<<2)+1, 0, 7, 5, HzBuf, 1);len+=2;
+ 225:Src/main.c    **** 	sprintf(Str," %d",Button[0]+Button[1]+Button[2]+Button[3]+Button[4]);NoShowDrawNumStr((len<<2)+1, 
+ 226:Src/main.c    **** 	if(mode==0){sprintf(Str," %d",AddDot);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);len+=st
+ 227:Src/main.c    **** 	else if(mode==1){sprintf(Str," %d",Getdelaytime);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str,
+ 228:Src/main.c    **** 	else if(mode==2){sprintf(Str," %ld",(uint32_t)Sensitivity);NoShowDrawNumStr((len<<2)+1, 0, OLED_Nu
+ 229:Src/main.c    **** 	else if(mode==3){sprintf(Str," %d",bufflen);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);l
+ 230:Src/main.c    **** 	NoShowDrawPicture(105, 0, 14, 7, StatusBarBuf[mode], 1);
+ 231:Src/main.c    **** 	UpBt{
+ 232:Src/main.c    **** 		switch(mode){
+ 233:Src/main.c    **** 		case 0:if(AddDot+Button[0]<=bufflen-128)AddDot+=Button[0];break;
+ 234:Src/main.c    **** 		case 1:Getdelaytime+=Button[0];break;
+ 235:Src/main.c    **** 		case 2:Sensitivity *= 1.5;break;
+ 236:Src/main.c    **** 		case 3:if(bufflen+Button[0] <= 2048)bufflen+=Button[0];break;
+ 237:Src/main.c    **** 		}
+ 238:Src/main.c    **** 		Button[0]=0;
+ 239:Src/main.c    **** 	}
+ 240:Src/main.c    **** 	DnBt{
+ 241:Src/main.c    **** 		switch(mode){
+ 242:Src/main.c    **** 		case 0:if(AddDot-Button[1]>=0)AddDot-=Button[1];break;
+ 243:Src/main.c    **** 		case 1:if(Getdelaytime-Button[1] >= 0)Getdelaytime-=Button[1];break;
+ 244:Src/main.c    **** 		case 2:Sensitivity /= 1.5;break;
+ 245:Src/main.c    **** 		case 3:if(bufflen-Button[1] >= 0)bufflen-=Button[1];break;
+ 246:Src/main.c    **** 		}
+ 247:Src/main.c    **** 		Button[1]=0;
+ 248:Src/main.c    **** 	}
+ 249:Src/main.c    **** 	if(displaymode){
+ 250:Src/main.c    **** 		for(int i=0;i<127;i++){
+ 251:Src/main.c    **** 			NoShowDrawLine(i,60-(input->arr[i+AddDot].re+1.0)*22.5*Sensitivity,i+1,60-(input->arr[i+1+AddDot
+ 252:Src/main.c    **** 		}
+ 253:Src/main.c    **** 	}else{
+ 254:Src/main.c    **** 		for(int i=0;i<127;i++){
+ 255:Src/main.c    **** 			NoShowDrawLine(i,60-VecDistance(input->arr[i+AddDot])*22.5*Sensitivity,i+1,60-VecDistance(input-
+ 256:Src/main.c    **** 		}
+ 257:Src/main.c    **** 	}
+ 258:Src/main.c    **** 	ShowBuffer();ClearBuffer(0);
+ 259:Src/main.c    ****     vecRelease(&input);
+ 260:Src/main.c    ****   }
+ 261:Src/main.c    ****   /* USER CODE END 3 */
+ 262:Src/main.c    **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 6
+
+
+ 263:Src/main.c    **** }
+ 264:Src/main.c    **** 
+ 265:Src/main.c    **** /** System Clock Configuration
+ 266:Src/main.c    **** */
+ 267:Src/main.c    **** void SystemClock_Config(void)
+ 268:Src/main.c    **** {
+ 269:Src/main.c    **** 
+ 270:Src/main.c    ****   RCC_OscInitTypeDef RCC_OscInitStruct;
+ 271:Src/main.c    ****   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+ 272:Src/main.c    **** 
+ 273:Src/main.c    ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 274:Src/main.c    ****     */
+ 275:Src/main.c    ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 276:Src/main.c    ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 277:Src/main.c    ****   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+ 278:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 279:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 280:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 281:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+ 282:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 283:Src/main.c    ****   {
+ 284:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 285:Src/main.c    ****   }
+ 286:Src/main.c    **** 
+ 287:Src/main.c    ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 288:Src/main.c    ****     */
+ 289:Src/main.c    ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 290:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 291:Src/main.c    ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+ 292:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 293:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+ 294:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 295:Src/main.c    **** 
+ 296:Src/main.c    ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+ 297:Src/main.c    ****   {
+ 298:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 299:Src/main.c    ****   }
+ 300:Src/main.c    **** 
+ 301:Src/main.c    ****     /**Configure the Systick interrupt time 
+ 302:Src/main.c    ****     */
+ 303:Src/main.c    ****   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+ 304:Src/main.c    **** 
+ 305:Src/main.c    ****     /**Configure the Systick 
+ 306:Src/main.c    ****     */
+ 307:Src/main.c    ****   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+ 308:Src/main.c    **** 
+ 309:Src/main.c    ****   /* SysTick_IRQn interrupt configuration */
+ 310:Src/main.c    ****   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+ 311:Src/main.c    **** }
+ 312:Src/main.c    **** 
+ 313:Src/main.c    **** /* SPI1 init function */
+ 314:Src/main.c    **** static void MX_SPI1_Init(void)
+ 315:Src/main.c    **** {
+ 316:Src/main.c    **** 
+ 317:Src/main.c    ****   /* SPI1 parameter configuration*/
+ 318:Src/main.c    ****   hspi1.Instance = SPI1;
+ 319:Src/main.c    ****   hspi1.Init.Mode = SPI_MODE_MASTER;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 7
+
+
+ 320:Src/main.c    ****   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+ 321:Src/main.c    ****   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+ 322:Src/main.c    ****   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 323:Src/main.c    ****   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 324:Src/main.c    ****   hspi1.Init.NSS = SPI_NSS_SOFT;
+ 325:Src/main.c    ****   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+ 326:Src/main.c    ****   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 327:Src/main.c    ****   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+ 328:Src/main.c    ****   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 329:Src/main.c    ****   hspi1.Init.CRCPolynomial = 10;
+ 330:Src/main.c    ****   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+ 331:Src/main.c    ****   {
+ 332:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 333:Src/main.c    ****   }
+ 334:Src/main.c    **** 
+ 335:Src/main.c    **** }
+ 336:Src/main.c    **** 
+ 337:Src/main.c    **** /* SPI2 init function */
+ 338:Src/main.c    **** static void MX_SPI2_Init(void)
+ 339:Src/main.c    **** {
+ 340:Src/main.c    **** 
+ 341:Src/main.c    ****   /* SPI2 parameter configuration*/
+ 342:Src/main.c    ****   hspi2.Instance = SPI2;
+ 343:Src/main.c    ****   hspi2.Init.Mode = SPI_MODE_MASTER;
+ 344:Src/main.c    ****   hspi2.Init.Direction = SPI_DIRECTION_1LINE;
+ 345:Src/main.c    ****   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+ 346:Src/main.c    ****   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 347:Src/main.c    ****   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 348:Src/main.c    ****   hspi2.Init.NSS = SPI_NSS_SOFT;
+ 349:Src/main.c    ****   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+ 350:Src/main.c    ****   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 351:Src/main.c    ****   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+ 352:Src/main.c    ****   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 353:Src/main.c    ****   hspi2.Init.CRCPolynomial = 10;
+ 354:Src/main.c    ****   if (HAL_SPI_Init(&hspi2) != HAL_OK)
+ 355:Src/main.c    ****   {
+ 356:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 357:Src/main.c    ****   }
+ 358:Src/main.c    **** 
+ 359:Src/main.c    **** }
+ 360:Src/main.c    **** 
+ 361:Src/main.c    **** /** Configure pins as 
+ 362:Src/main.c    ****         * Analog 
+ 363:Src/main.c    ****         * Input 
+ 364:Src/main.c    ****         * Output
+ 365:Src/main.c    ****         * EVENT_OUT
+ 366:Src/main.c    ****         * EXTI
+ 367:Src/main.c    **** */
+ 368:Src/main.c    **** static void MX_GPIO_Init(void)
+ 369:Src/main.c    **** {
+  25              		.loc 1 369 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 32
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  30              	.LCFI0:
+  31              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 8
+
+
+  32              		.cfi_offset 4, -24
+  33              		.cfi_offset 5, -20
+  34              		.cfi_offset 6, -16
+  35              		.cfi_offset 7, -12
+  36              		.cfi_offset 8, -8
+  37              		.cfi_offset 14, -4
+  38 0004 88B0     		sub	sp, sp, #32
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 56
+  41              	.LBB2:
+ 370:Src/main.c    **** 
+ 371:Src/main.c    ****   GPIO_InitTypeDef GPIO_InitStruct;
+ 372:Src/main.c    **** 
+ 373:Src/main.c    ****   /* GPIO Ports Clock Enable */
+ 374:Src/main.c    ****   __HAL_RCC_GPIOC_CLK_ENABLE();
+  42              		.loc 1 374 0
+  43 0006 364B     		ldr	r3, .L3
+  44 0008 9A69     		ldr	r2, [r3, #24]
+  45 000a 42F01002 		orr	r2, r2, #16
+  46 000e 9A61     		str	r2, [r3, #24]
+  47 0010 9A69     		ldr	r2, [r3, #24]
+  48 0012 02F01002 		and	r2, r2, #16
+  49 0016 0092     		str	r2, [sp]
+  50 0018 009A     		ldr	r2, [sp]
+  51              	.LBE2:
+  52              	.LBB3:
+ 375:Src/main.c    ****   __HAL_RCC_GPIOD_CLK_ENABLE();
+  53              		.loc 1 375 0
+  54 001a 9A69     		ldr	r2, [r3, #24]
+  55 001c 42F02002 		orr	r2, r2, #32
+  56 0020 9A61     		str	r2, [r3, #24]
+  57 0022 9A69     		ldr	r2, [r3, #24]
+  58 0024 02F02002 		and	r2, r2, #32
+  59 0028 0192     		str	r2, [sp, #4]
+  60 002a 019A     		ldr	r2, [sp, #4]
+  61              	.LBE3:
+  62              	.LBB4:
+ 376:Src/main.c    ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+  63              		.loc 1 376 0
+  64 002c 9A69     		ldr	r2, [r3, #24]
+  65 002e 42F00402 		orr	r2, r2, #4
+  66 0032 9A61     		str	r2, [r3, #24]
+  67 0034 9A69     		ldr	r2, [r3, #24]
+  68 0036 02F00402 		and	r2, r2, #4
+  69 003a 0292     		str	r2, [sp, #8]
+  70 003c 029A     		ldr	r2, [sp, #8]
+  71              	.LBE4:
+  72              	.LBB5:
+ 377:Src/main.c    ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+  73              		.loc 1 377 0
+  74 003e 9A69     		ldr	r2, [r3, #24]
+  75 0040 42F00802 		orr	r2, r2, #8
+  76 0044 9A61     		str	r2, [r3, #24]
+  77 0046 9B69     		ldr	r3, [r3, #24]
+  78 0048 03F00803 		and	r3, r3, #8
+  79 004c 0393     		str	r3, [sp, #12]
+  80 004e 039B     		ldr	r3, [sp, #12]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 9
+
+
+  81              	.LBE5:
+ 378:Src/main.c    **** 
+ 379:Src/main.c    ****   /*Configure GPIO pin Output Level */
+ 380:Src/main.c    ****   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  82              		.loc 1 380 0
+  83 0050 DFF89880 		ldr	r8, .L3+12
+  84 0054 0022     		movs	r2, #0
+  85 0056 4FF40051 		mov	r1, #8192
+  86 005a 4046     		mov	r0, r8
+  87 005c FFF7FEFF 		bl	HAL_GPIO_WritePin
+  88              	.LVL0:
+ 381:Src/main.c    **** 
+ 382:Src/main.c    ****   /*Configure GPIO pin Output Level */
+ 383:Src/main.c    ****   HAL_GPIO_WritePin(SPI1_SS_GPIO_Port, SPI1_SS_Pin, GPIO_PIN_RESET);
+  89              		.loc 1 383 0
+  90 0060 204E     		ldr	r6, .L3+4
+  91 0062 0022     		movs	r2, #0
+  92 0064 1021     		movs	r1, #16
+  93 0066 3046     		mov	r0, r6
+  94 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  95              	.LVL1:
+ 384:Src/main.c    **** 
+ 385:Src/main.c    ****   /*Configure GPIO pin Output Level */
+ 386:Src/main.c    ****   HAL_GPIO_WritePin(GPIOB, OLED_RES_Pin|OLED_DC_Pin|OLED_SS_Pin, GPIO_PIN_RESET);
+  96              		.loc 1 386 0
+  97 006c 1E4D     		ldr	r5, .L3+8
+  98 006e 0022     		movs	r2, #0
+  99 0070 4FF4B041 		mov	r1, #22528
+ 100 0074 2846     		mov	r0, r5
+ 101 0076 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 102              	.LVL2:
+ 387:Src/main.c    **** 
+ 388:Src/main.c    ****   /*Configure GPIO pin : PC13 */
+ 389:Src/main.c    ****   GPIO_InitStruct.Pin = GPIO_PIN_13;
+ 103              		.loc 1 389 0
+ 104 007a 4FF40053 		mov	r3, #8192
+ 105 007e 0493     		str	r3, [sp, #16]
+ 390:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 106              		.loc 1 390 0
+ 107 0080 0127     		movs	r7, #1
+ 108 0082 0597     		str	r7, [sp, #20]
+ 391:Src/main.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 109              		.loc 1 391 0
+ 110 0084 0224     		movs	r4, #2
+ 111 0086 0794     		str	r4, [sp, #28]
+ 392:Src/main.c    ****   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 112              		.loc 1 392 0
+ 113 0088 04A9     		add	r1, sp, #16
+ 114 008a 4046     		mov	r0, r8
+ 115 008c FFF7FEFF 		bl	HAL_GPIO_Init
+ 116              	.LVL3:
+ 393:Src/main.c    **** 
+ 394:Src/main.c    ****   /*Configure GPIO pin : SPI1_SS_Pin */
+ 395:Src/main.c    ****   GPIO_InitStruct.Pin = SPI1_SS_Pin;
+ 117              		.loc 1 395 0
+ 118 0090 1023     		movs	r3, #16
+ 119 0092 0493     		str	r3, [sp, #16]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 10
+
+
+ 396:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 120              		.loc 1 396 0
+ 121 0094 0597     		str	r7, [sp, #20]
+ 397:Src/main.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 122              		.loc 1 397 0
+ 123 0096 0794     		str	r4, [sp, #28]
+ 398:Src/main.c    ****   HAL_GPIO_Init(SPI1_SS_GPIO_Port, &GPIO_InitStruct);
+ 124              		.loc 1 398 0
+ 125 0098 0DEB0301 		add	r1, sp, r3
+ 126 009c 3046     		mov	r0, r6
+ 127 009e FFF7FEFF 		bl	HAL_GPIO_Init
+ 128              	.LVL4:
+ 399:Src/main.c    **** 
+ 400:Src/main.c    ****   /*Configure GPIO pins : OLED_RES_Pin OLED_DC_Pin OLED_SS_Pin */
+ 401:Src/main.c    ****   GPIO_InitStruct.Pin = OLED_RES_Pin|OLED_DC_Pin|OLED_SS_Pin;
+ 129              		.loc 1 401 0
+ 130 00a2 4FF4B043 		mov	r3, #22528
+ 131 00a6 0493     		str	r3, [sp, #16]
+ 402:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 132              		.loc 1 402 0
+ 133 00a8 0597     		str	r7, [sp, #20]
+ 403:Src/main.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 134              		.loc 1 403 0
+ 135 00aa 0794     		str	r4, [sp, #28]
+ 404:Src/main.c    ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 136              		.loc 1 404 0
+ 137 00ac 04A9     		add	r1, sp, #16
+ 138 00ae 2846     		mov	r0, r5
+ 139 00b0 FFF7FEFF 		bl	HAL_GPIO_Init
+ 140              	.LVL5:
+ 405:Src/main.c    **** 
+ 406:Src/main.c    ****   /*Configure GPIO pins : Up_Pin Down_Pin render_Pin */
+ 407:Src/main.c    ****   GPIO_InitStruct.Pin = Up_Pin|Down_Pin|render_Pin;
+ 141              		.loc 1 407 0
+ 142 00b4 4FF43063 		mov	r3, #2816
+ 143 00b8 0493     		str	r3, [sp, #16]
+ 408:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 144              		.loc 1 408 0
+ 145 00ba 0027     		movs	r7, #0
+ 146 00bc 0597     		str	r7, [sp, #20]
+ 409:Src/main.c    ****   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+ 147              		.loc 1 409 0
+ 148 00be 0694     		str	r4, [sp, #24]
+ 410:Src/main.c    ****   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 149              		.loc 1 410 0
+ 150 00c0 04A9     		add	r1, sp, #16
+ 151 00c2 3046     		mov	r0, r6
+ 152 00c4 FFF7FEFF 		bl	HAL_GPIO_Init
+ 153              	.LVL6:
+ 411:Src/main.c    **** 
+ 412:Src/main.c    ****   /*Configure GPIO pins : mode_Pin Bt1_Pin */
+ 413:Src/main.c    ****   GPIO_InitStruct.Pin = mode_Pin|Bt1_Pin;
+ 154              		.loc 1 413 0
+ 155 00c8 1823     		movs	r3, #24
+ 156 00ca 0493     		str	r3, [sp, #16]
+ 414:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 157              		.loc 1 414 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 11
+
+
+ 158 00cc 0597     		str	r7, [sp, #20]
+ 415:Src/main.c    ****   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+ 159              		.loc 1 415 0
+ 160 00ce 0694     		str	r4, [sp, #24]
+ 416:Src/main.c    ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 161              		.loc 1 416 0
+ 162 00d0 04A9     		add	r1, sp, #16
+ 163 00d2 2846     		mov	r0, r5
+ 164 00d4 FFF7FEFF 		bl	HAL_GPIO_Init
+ 165              	.LVL7:
+ 417:Src/main.c    **** 
+ 418:Src/main.c    **** }
+ 166              		.loc 1 418 0
+ 167 00d8 08B0     		add	sp, sp, #32
+ 168              	.LCFI2:
+ 169              		.cfi_def_cfa_offset 24
+ 170              		@ sp needed
+ 171 00da BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 172              	.L4:
+ 173 00de 00BF     		.align	2
+ 174              	.L3:
+ 175 00e0 00100240 		.word	1073876992
+ 176 00e4 00080140 		.word	1073809408
+ 177 00e8 000C0140 		.word	1073810432
+ 178 00ec 00100140 		.word	1073811456
+ 179              		.cfi_endproc
+ 180              	.LFE75:
+ 182              		.section	.text.MCP3202_GetData,"ax",%progbits
+ 183              		.align	1
+ 184              		.global	MCP3202_GetData
+ 185              		.syntax unified
+ 186              		.thumb
+ 187              		.thumb_func
+ 188              		.fpu softvfp
+ 190              	MCP3202_GetData:
+ 191              	.LFB66:
+  74:Src/main.c    **** 	uint16_t Data = 0;
+ 192              		.loc 1 74 0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 8
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              	.LVL8:
+ 197 0000 10B5     		push	{r4, lr}
+ 198              	.LCFI3:
+ 199              		.cfi_def_cfa_offset 8
+ 200              		.cfi_offset 4, -8
+ 201              		.cfi_offset 14, -4
+ 202 0002 84B0     		sub	sp, sp, #16
+ 203              	.LCFI4:
+ 204              		.cfi_def_cfa_offset 24
+ 205              	.LVL9:
+  77:Src/main.c    **** 	send[0] = 0x01;send[1] = 0xE0;send[2] = 0xFF;
+ 206              		.loc 1 77 0
+ 207 0004 0F4C     		ldr	r4, .L7
+ 208 0006 4FF48013 		mov	r3, #1048576
+ 209 000a 2361     		str	r3, [r4, #16]
+  78:Src/main.c    **** 	HAL_SPI_TransmitReceive(MCP3202SPI,send,receive,3,100);
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 12
+
+
+ 210              		.loc 1 78 0
+ 211 000c 0123     		movs	r3, #1
+ 212 000e 8DF80C30 		strb	r3, [sp, #12]
+ 213 0012 E023     		movs	r3, #224
+ 214 0014 8DF80D30 		strb	r3, [sp, #13]
+ 215 0018 FF23     		movs	r3, #255
+ 216 001a 8DF80E30 		strb	r3, [sp, #14]
+  79:Src/main.c    **** 	GPIOA->BSRR = SPI1_SS_Pin;
+ 217              		.loc 1 79 0
+ 218 001e 6423     		movs	r3, #100
+ 219 0020 0093     		str	r3, [sp]
+ 220 0022 0323     		movs	r3, #3
+ 221 0024 02AA     		add	r2, sp, #8
+ 222 0026 03A9     		add	r1, sp, #12
+ 223 0028 FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+ 224              	.LVL10:
+  80:Src/main.c    **** 	Data = (receive[1]&0xf)<<8 | receive[2];
+ 225              		.loc 1 80 0
+ 226 002c 1023     		movs	r3, #16
+ 227 002e 2361     		str	r3, [r4, #16]
+  81:Src/main.c    **** 	return Data;
+ 228              		.loc 1 81 0
+ 229 0030 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2
+ 230 0034 1B02     		lsls	r3, r3, #8
+ 231 0036 03F47063 		and	r3, r3, #3840
+ 232 003a 9DF80A00 		ldrb	r0, [sp, #10]	@ zero_extendqisi2
+ 233              	.LVL11:
+  83:Src/main.c    **** char Str[250] = {0,};
+ 234              		.loc 1 83 0
+ 235 003e 1843     		orrs	r0, r0, r3
+ 236              	.LVL12:
+ 237 0040 04B0     		add	sp, sp, #16
+ 238              	.LCFI5:
+ 239              		.cfi_def_cfa_offset 8
+ 240              		@ sp needed
+ 241 0042 10BD     		pop	{r4, pc}
+ 242              	.L8:
+ 243              		.align	2
+ 244              	.L7:
+ 245 0044 00080140 		.word	1073809408
+ 246              		.cfi_endproc
+ 247              	.LFE66:
+ 249              		.section	.text.OLED_SPI_Transmit,"ax",%progbits
+ 250              		.align	1
+ 251              		.global	OLED_SPI_Transmit
+ 252              		.syntax unified
+ 253              		.thumb
+ 254              		.thumb_func
+ 255              		.fpu softvfp
+ 257              	OLED_SPI_Transmit:
+ 258              	.LFB67:
+  88:Src/main.c    **** 	HAL_SPI_Transmit(&hspi2, pData, Size, Timeout);
+ 259              		.loc 1 88 0
+ 260              		.cfi_startproc
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263              	.LVL13:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 13
+
+
+ 264 0000 08B5     		push	{r3, lr}
+ 265              	.LCFI6:
+ 266              		.cfi_def_cfa_offset 8
+ 267              		.cfi_offset 3, -8
+ 268              		.cfi_offset 14, -4
+  89:Src/main.c    **** }
+ 269              		.loc 1 89 0
+ 270 0002 1346     		mov	r3, r2
+ 271 0004 0A46     		mov	r2, r1
+ 272              	.LVL14:
+ 273 0006 0146     		mov	r1, r0
+ 274              	.LVL15:
+ 275 0008 0148     		ldr	r0, .L11
+ 276              	.LVL16:
+ 277 000a FFF7FEFF 		bl	HAL_SPI_Transmit
+ 278              	.LVL17:
+  90:Src/main.c    **** float pow2(float Value){
+ 279              		.loc 1 90 0
+ 280 000e 08BD     		pop	{r3, pc}
+ 281              	.L12:
+ 282              		.align	2
+ 283              	.L11:
+ 284 0010 00000000 		.word	hspi2
+ 285              		.cfi_endproc
+ 286              	.LFE67:
+ 288              		.global	__aeabi_fmul
+ 289              		.section	.text.pow2,"ax",%progbits
+ 290              		.align	1
+ 291              		.global	pow2
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 295              		.fpu softvfp
+ 297              	pow2:
+ 298              	.LFB68:
+  91:Src/main.c    **** 	return Value*Value;
+ 299              		.loc 1 91 0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              	.LVL18:
+ 304 0000 08B5     		push	{r3, lr}
+ 305              	.LCFI7:
+ 306              		.cfi_def_cfa_offset 8
+ 307              		.cfi_offset 3, -8
+ 308              		.cfi_offset 14, -4
+  92:Src/main.c    **** }
+ 309              		.loc 1 92 0
+ 310 0002 0146     		mov	r1, r0
+ 311 0004 FFF7FEFF 		bl	__aeabi_fmul
+ 312              	.LVL19:
+  93:Src/main.c    **** float VecDistance(Complex Vect){
+ 313              		.loc 1 93 0
+ 314 0008 08BD     		pop	{r3, pc}
+ 315              		.cfi_endproc
+ 316              	.LFE68:
+ 318              		.global	__aeabi_fadd
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 14
+
+
+ 319              		.global	__aeabi_f2d
+ 320              		.global	__aeabi_d2f
+ 321              		.section	.text.VecDistance,"ax",%progbits
+ 322              		.align	1
+ 323              		.global	VecDistance
+ 324              		.syntax unified
+ 325              		.thumb
+ 326              		.thumb_func
+ 327              		.fpu softvfp
+ 329              	VecDistance:
+ 330              	.LFB69:
+  94:Src/main.c    **** 	return sqrt(pow2(Vect.re)+pow2(Vect.im));
+ 331              		.loc 1 94 0
+ 332              		.cfi_startproc
+ 333              		@ args = 0, pretend = 0, frame = 8
+ 334              		@ frame_needed = 0, uses_anonymous_args = 0
+ 335 0000 10B5     		push	{r4, lr}
+ 336              	.LCFI8:
+ 337              		.cfi_def_cfa_offset 8
+ 338              		.cfi_offset 4, -8
+ 339              		.cfi_offset 14, -4
+ 340 0002 82B0     		sub	sp, sp, #8
+ 341              	.LCFI9:
+ 342              		.cfi_def_cfa_offset 16
+ 343 0004 02AB     		add	r3, sp, #8
+ 344 0006 03E90300 		stmdb	r3, {r0, r1}
+  95:Src/main.c    **** }
+ 345              		.loc 1 95 0
+ 346 000a 0098     		ldr	r0, [sp]	@ float
+ 347 000c FFF7FEFF 		bl	pow2
+ 348              	.LVL20:
+ 349 0010 0446     		mov	r4, r0
+ 350 0012 0198     		ldr	r0, [sp, #4]	@ float
+ 351 0014 FFF7FEFF 		bl	pow2
+ 352              	.LVL21:
+ 353 0018 0146     		mov	r1, r0
+ 354 001a 2046     		mov	r0, r4
+ 355 001c FFF7FEFF 		bl	__aeabi_fadd
+ 356              	.LVL22:
+ 357 0020 FFF7FEFF 		bl	__aeabi_f2d
+ 358              	.LVL23:
+ 359 0024 FFF7FEFF 		bl	sqrt
+ 360              	.LVL24:
+ 361 0028 FFF7FEFF 		bl	__aeabi_d2f
+ 362              	.LVL25:
+  96:Src/main.c    **** uint32_t Delay=0;
+ 363              		.loc 1 96 0
+ 364 002c 02B0     		add	sp, sp, #8
+ 365              	.LCFI10:
+ 366              		.cfi_def_cfa_offset 8
+ 367              		@ sp needed
+ 368 002e 10BD     		pop	{r4, pc}
+ 369              		.cfi_endproc
+ 370              	.LFE69:
+ 372              		.global	__aeabi_ui2d
+ 373              		.global	__aeabi_dsub
+ 374              		.global	__aeabi_dmul
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 15
+
+
+ 375              		.section	.text.FTRender,"ax",%progbits
+ 376              		.align	1
+ 377              		.global	FTRender
+ 378              		.syntax unified
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.fpu softvfp
+ 383              	FTRender:
+ 384              	.LFB70:
+ 108:Src/main.c    **** 	input = vecAlloc(bufflen);
+ 385              		.loc 1 108 0
+ 386              		.cfi_startproc
+ 387              		@ args = 0, pretend = 0, frame = 0
+ 388              		@ frame_needed = 0, uses_anonymous_args = 0
+ 389 0000 38B5     		push	{r3, r4, r5, lr}
+ 390              	.LCFI11:
+ 391              		.cfi_def_cfa_offset 16
+ 392              		.cfi_offset 3, -16
+ 393              		.cfi_offset 4, -12
+ 394              		.cfi_offset 5, -8
+ 395              		.cfi_offset 14, -4
+ 109:Src/main.c    **** 	tick0 = HAL_GetTick();
+ 396              		.loc 1 109 0
+ 397 0002 264B     		ldr	r3, .L24
+ 398 0004 1868     		ldr	r0, [r3]
+ 399 0006 C117     		asrs	r1, r0, #31
+ 400 0008 FFF7FEFF 		bl	vecAlloc
+ 401              	.LVL26:
+ 402 000c 244B     		ldr	r3, .L24+4
+ 403 000e 1860     		str	r0, [r3]
+ 110:Src/main.c    **** 	for(int i=0;i<bufflen;i++){
+ 404              		.loc 1 110 0
+ 405 0010 FFF7FEFF 		bl	HAL_GetTick
+ 406              	.LVL27:
+ 407 0014 234B     		ldr	r3, .L24+8
+ 408 0016 1860     		str	r0, [r3]
+ 409              	.LVL28:
+ 410              	.LBB6:
+ 111:Src/main.c    **** 		input->arr[i].re = (double)((double)MCP3202_GetData(&hspi1)-2048.0)/128.0;
+ 411              		.loc 1 111 0
+ 412 0018 0024     		movs	r4, #0
+ 413 001a 1FE0     		b	.L18
+ 414              	.LVL29:
+ 415              	.L20:
+ 112:Src/main.c    **** 		delay(Getdelaytime);
+ 416              		.loc 1 112 0
+ 417 001c 2248     		ldr	r0, .L24+12
+ 418 001e FFF7FEFF 		bl	MCP3202_GetData
+ 419              	.LVL30:
+ 420 0022 FFF7FEFF 		bl	__aeabi_ui2d
+ 421              	.LVL31:
+ 422 0026 0022     		movs	r2, #0
+ 423 0028 204B     		ldr	r3, .L24+16
+ 424 002a FFF7FEFF 		bl	__aeabi_dsub
+ 425              	.LVL32:
+ 426 002e 1C4B     		ldr	r3, .L24+4
+ 427 0030 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 16
+
+
+ 428 0032 9D68     		ldr	r5, [r3, #8]
+ 429 0034 0022     		movs	r2, #0
+ 430 0036 4FF07E53 		mov	r3, #1065353216
+ 431 003a FFF7FEFF 		bl	__aeabi_dmul
+ 432              	.LVL33:
+ 433 003e FFF7FEFF 		bl	__aeabi_d2f
+ 434              	.LVL34:
+ 435 0042 45F83400 		str	r0, [r5, r4, lsl #3]	@ float
+ 113:Src/main.c    **** 	}
+ 436              		.loc 1 113 0
+ 437 0046 1A4B     		ldr	r3, .L24+20
+ 438 0048 1A68     		ldr	r2, [r3]
+ 439 004a 1A4B     		ldr	r3, .L24+24
+ 440 004c 1A60     		str	r2, [r3]
+ 441              	.L19:
+ 113:Src/main.c    **** 	}
+ 442              		.loc 1 113 0 is_stmt 0 discriminator 2
+ 443 004e 194A     		ldr	r2, .L24+24
+ 444 0050 1368     		ldr	r3, [r2]
+ 445 0052 591E     		subs	r1, r3, #1
+ 446 0054 1160     		str	r1, [r2]
+ 447 0056 002B     		cmp	r3, #0
+ 448 0058 F9D1     		bne	.L19
+ 111:Src/main.c    **** 		input->arr[i].re = (double)((double)MCP3202_GetData(&hspi1)-2048.0)/128.0;
+ 449              		.loc 1 111 0 is_stmt 1 discriminator 2
+ 450 005a 0134     		adds	r4, r4, #1
+ 451              	.LVL35:
+ 452              	.L18:
+ 111:Src/main.c    **** 		input->arr[i].re = (double)((double)MCP3202_GetData(&hspi1)-2048.0)/128.0;
+ 453              		.loc 1 111 0 is_stmt 0 discriminator 1
+ 454 005c 0F4B     		ldr	r3, .L24
+ 455 005e 1B68     		ldr	r3, [r3]
+ 456 0060 A342     		cmp	r3, r4
+ 457 0062 DBDC     		bgt	.L20
+ 458              	.LBE6:
+ 115:Src/main.c    **** 	tick0 = HAL_GetTick();
+ 459              		.loc 1 115 0 is_stmt 1
+ 460 0064 FFF7FEFF 		bl	HAL_GetTick
+ 461              	.LVL36:
+ 462 0068 0E4C     		ldr	r4, .L24+8
+ 463              	.LVL37:
+ 464 006a 2368     		ldr	r3, [r4]
+ 465 006c C01A     		subs	r0, r0, r3
+ 466 006e 124B     		ldr	r3, .L24+28
+ 467 0070 1860     		str	r0, [r3]
+ 116:Src/main.c    **** 	if(displaymode==0)fft(input, &input);
+ 468              		.loc 1 116 0
+ 469 0072 FFF7FEFF 		bl	HAL_GetTick
+ 470              	.LVL38:
+ 471 0076 2060     		str	r0, [r4]
+ 117:Src/main.c    **** 	GetFTms = HAL_GetTick()-tick0;
+ 472              		.loc 1 117 0
+ 473 0078 104B     		ldr	r3, .L24+32
+ 474 007a 1B68     		ldr	r3, [r3]
+ 475 007c 3BB1     		cbz	r3, .L23
+ 476              	.L21:
+ 118:Src/main.c    **** }
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 17
+
+
+ 477              		.loc 1 118 0
+ 478 007e FFF7FEFF 		bl	HAL_GetTick
+ 479              	.LVL39:
+ 480 0082 084B     		ldr	r3, .L24+8
+ 481 0084 1B68     		ldr	r3, [r3]
+ 482 0086 C01A     		subs	r0, r0, r3
+ 483 0088 0D4B     		ldr	r3, .L24+36
+ 484 008a 1860     		str	r0, [r3]
+ 119:Src/main.c    **** uint8_t HzBuf[5] = {0xAE,0xA2,0xE4,0xA8,0xAE};
+ 485              		.loc 1 119 0
+ 486 008c 38BD     		pop	{r3, r4, r5, pc}
+ 487              	.L23:
+ 117:Src/main.c    **** 	GetFTms = HAL_GetTick()-tick0;
+ 488              		.loc 1 117 0 discriminator 1
+ 489 008e 044B     		ldr	r3, .L24+4
+ 490 0090 1946     		mov	r1, r3
+ 491 0092 1868     		ldr	r0, [r3]
+ 492 0094 FFF7FEFF 		bl	fft
+ 493              	.LVL40:
+ 494 0098 F1E7     		b	.L21
+ 495              	.L25:
+ 496 009a 00BF     		.align	2
+ 497              	.L24:
+ 498 009c 00000000 		.word	.LANCHOR0
+ 499 00a0 00000000 		.word	.LANCHOR1
+ 500 00a4 00000000 		.word	.LANCHOR2
+ 501 00a8 00000000 		.word	hspi1
+ 502 00ac 0000A040 		.word	1084227584
+ 503 00b0 00000000 		.word	.LANCHOR4
+ 504 00b4 00000000 		.word	.LANCHOR3
+ 505 00b8 00000000 		.word	.LANCHOR5
+ 506 00bc 00000000 		.word	.LANCHOR6
+ 507 00c0 00000000 		.word	.LANCHOR7
+ 508              		.cfi_endproc
+ 509              	.LFE70:
+ 511              		.section	.text._Error_Handler,"ax",%progbits
+ 512              		.align	1
+ 513              		.global	_Error_Handler
+ 514              		.syntax unified
+ 515              		.thumb
+ 516              		.thumb_func
+ 517              		.fpu softvfp
+ 519              	_Error_Handler:
+ 520              	.LFB76:
+ 419:Src/main.c    **** 
+ 420:Src/main.c    **** /* USER CODE BEGIN 4 */
+ 421:Src/main.c    **** 
+ 422:Src/main.c    **** /* USER CODE END 4 */
+ 423:Src/main.c    **** 
+ 424:Src/main.c    **** /**
+ 425:Src/main.c    ****   * @brief  This function is executed in case of error occurrence.
+ 426:Src/main.c    ****   * @param  None
+ 427:Src/main.c    ****   * @retval None
+ 428:Src/main.c    ****   */
+ 429:Src/main.c    **** void _Error_Handler(char * file, int line)
+ 430:Src/main.c    **** {
+ 521              		.loc 1 430 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 18
+
+
+ 522              		.cfi_startproc
+ 523              		@ Volatile: function does not return.
+ 524              		@ args = 0, pretend = 0, frame = 0
+ 525              		@ frame_needed = 0, uses_anonymous_args = 0
+ 526              		@ link register save eliminated.
+ 527              	.LVL41:
+ 528              	.L27:
+ 529 0000 FEE7     		b	.L27
+ 530              		.cfi_endproc
+ 531              	.LFE76:
+ 533              		.section	.text.MX_SPI1_Init,"ax",%progbits
+ 534              		.align	1
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 538              		.fpu softvfp
+ 540              	MX_SPI1_Init:
+ 541              	.LFB73:
+ 315:Src/main.c    **** 
+ 542              		.loc 1 315 0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 315:Src/main.c    **** 
+ 546              		.loc 1 315 0
+ 547 0000 08B5     		push	{r3, lr}
+ 548              	.LCFI12:
+ 549              		.cfi_def_cfa_offset 8
+ 550              		.cfi_offset 3, -8
+ 551              		.cfi_offset 14, -4
+ 318:Src/main.c    ****   hspi1.Init.Mode = SPI_MODE_MASTER;
+ 552              		.loc 1 318 0
+ 553 0002 0F48     		ldr	r0, .L32
+ 554 0004 0F4B     		ldr	r3, .L32+4
+ 555 0006 0360     		str	r3, [r0]
+ 319:Src/main.c    ****   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+ 556              		.loc 1 319 0
+ 557 0008 4FF48273 		mov	r3, #260
+ 558 000c 4360     		str	r3, [r0, #4]
+ 320:Src/main.c    ****   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+ 559              		.loc 1 320 0
+ 560 000e 0023     		movs	r3, #0
+ 561 0010 8360     		str	r3, [r0, #8]
+ 321:Src/main.c    ****   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 562              		.loc 1 321 0
+ 563 0012 C360     		str	r3, [r0, #12]
+ 322:Src/main.c    ****   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 564              		.loc 1 322 0
+ 565 0014 0361     		str	r3, [r0, #16]
+ 323:Src/main.c    ****   hspi1.Init.NSS = SPI_NSS_SOFT;
+ 566              		.loc 1 323 0
+ 567 0016 4361     		str	r3, [r0, #20]
+ 324:Src/main.c    ****   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+ 568              		.loc 1 324 0
+ 569 0018 4FF40072 		mov	r2, #512
+ 570 001c 8261     		str	r2, [r0, #24]
+ 325:Src/main.c    ****   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 19
+
+
+ 571              		.loc 1 325 0
+ 572 001e 2822     		movs	r2, #40
+ 573 0020 C261     		str	r2, [r0, #28]
+ 326:Src/main.c    ****   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+ 574              		.loc 1 326 0
+ 575 0022 0362     		str	r3, [r0, #32]
+ 327:Src/main.c    ****   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 576              		.loc 1 327 0
+ 577 0024 4362     		str	r3, [r0, #36]
+ 328:Src/main.c    ****   hspi1.Init.CRCPolynomial = 10;
+ 578              		.loc 1 328 0
+ 579 0026 8362     		str	r3, [r0, #40]
+ 329:Src/main.c    ****   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+ 580              		.loc 1 329 0
+ 581 0028 0A23     		movs	r3, #10
+ 582 002a C362     		str	r3, [r0, #44]
+ 330:Src/main.c    ****   {
+ 583              		.loc 1 330 0
+ 584 002c FFF7FEFF 		bl	HAL_SPI_Init
+ 585              	.LVL42:
+ 586 0030 00B9     		cbnz	r0, .L31
+ 335:Src/main.c    **** 
+ 587              		.loc 1 335 0
+ 588 0032 08BD     		pop	{r3, pc}
+ 589              	.L31:
+ 332:Src/main.c    ****   }
+ 590              		.loc 1 332 0
+ 591 0034 4FF4A671 		mov	r1, #332
+ 592 0038 0348     		ldr	r0, .L32+8
+ 593 003a FFF7FEFF 		bl	_Error_Handler
+ 594              	.LVL43:
+ 595              	.L33:
+ 596 003e 00BF     		.align	2
+ 597              	.L32:
+ 598 0040 00000000 		.word	hspi1
+ 599 0044 00300140 		.word	1073819648
+ 600 0048 00000000 		.word	.LC0
+ 601              		.cfi_endproc
+ 602              	.LFE73:
+ 604              		.section	.text.MX_SPI2_Init,"ax",%progbits
+ 605              		.align	1
+ 606              		.syntax unified
+ 607              		.thumb
+ 608              		.thumb_func
+ 609              		.fpu softvfp
+ 611              	MX_SPI2_Init:
+ 612              	.LFB74:
+ 339:Src/main.c    **** 
+ 613              		.loc 1 339 0
+ 614              		.cfi_startproc
+ 615              		@ args = 0, pretend = 0, frame = 0
+ 616              		@ frame_needed = 0, uses_anonymous_args = 0
+ 617 0000 08B5     		push	{r3, lr}
+ 618              	.LCFI13:
+ 619              		.cfi_def_cfa_offset 8
+ 620              		.cfi_offset 3, -8
+ 621              		.cfi_offset 14, -4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 20
+
+
+ 342:Src/main.c    ****   hspi2.Init.Mode = SPI_MODE_MASTER;
+ 622              		.loc 1 342 0
+ 623 0002 0F48     		ldr	r0, .L38
+ 624 0004 0F4B     		ldr	r3, .L38+4
+ 625 0006 0360     		str	r3, [r0]
+ 343:Src/main.c    ****   hspi2.Init.Direction = SPI_DIRECTION_1LINE;
+ 626              		.loc 1 343 0
+ 627 0008 4FF48273 		mov	r3, #260
+ 628 000c 4360     		str	r3, [r0, #4]
+ 344:Src/main.c    ****   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+ 629              		.loc 1 344 0
+ 630 000e 4FF40043 		mov	r3, #32768
+ 631 0012 8360     		str	r3, [r0, #8]
+ 345:Src/main.c    ****   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 632              		.loc 1 345 0
+ 633 0014 0023     		movs	r3, #0
+ 634 0016 C360     		str	r3, [r0, #12]
+ 346:Src/main.c    ****   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 635              		.loc 1 346 0
+ 636 0018 0361     		str	r3, [r0, #16]
+ 347:Src/main.c    ****   hspi2.Init.NSS = SPI_NSS_SOFT;
+ 637              		.loc 1 347 0
+ 638 001a 4361     		str	r3, [r0, #20]
+ 348:Src/main.c    ****   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+ 639              		.loc 1 348 0
+ 640 001c 4FF40072 		mov	r2, #512
+ 641 0020 8261     		str	r2, [r0, #24]
+ 349:Src/main.c    ****   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 642              		.loc 1 349 0
+ 643 0022 C361     		str	r3, [r0, #28]
+ 350:Src/main.c    ****   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+ 644              		.loc 1 350 0
+ 645 0024 0362     		str	r3, [r0, #32]
+ 351:Src/main.c    ****   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 646              		.loc 1 351 0
+ 647 0026 4362     		str	r3, [r0, #36]
+ 352:Src/main.c    ****   hspi2.Init.CRCPolynomial = 10;
+ 648              		.loc 1 352 0
+ 649 0028 8362     		str	r3, [r0, #40]
+ 353:Src/main.c    ****   if (HAL_SPI_Init(&hspi2) != HAL_OK)
+ 650              		.loc 1 353 0
+ 651 002a 0A23     		movs	r3, #10
+ 652 002c C362     		str	r3, [r0, #44]
+ 354:Src/main.c    ****   {
+ 653              		.loc 1 354 0
+ 654 002e FFF7FEFF 		bl	HAL_SPI_Init
+ 655              	.LVL44:
+ 656 0032 00B9     		cbnz	r0, .L37
+ 359:Src/main.c    **** 
+ 657              		.loc 1 359 0
+ 658 0034 08BD     		pop	{r3, pc}
+ 659              	.L37:
+ 356:Src/main.c    ****   }
+ 660              		.loc 1 356 0
+ 661 0036 4FF4B271 		mov	r1, #356
+ 662 003a 0348     		ldr	r0, .L38+8
+ 663 003c FFF7FEFF 		bl	_Error_Handler
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 21
+
+
+ 664              	.LVL45:
+ 665              	.L39:
+ 666              		.align	2
+ 667              	.L38:
+ 668 0040 00000000 		.word	hspi2
+ 669 0044 00380040 		.word	1073756160
+ 670 0048 00000000 		.word	.LC0
+ 671              		.cfi_endproc
+ 672              	.LFE74:
+ 674              		.section	.text.SystemClock_Config,"ax",%progbits
+ 675              		.align	1
+ 676              		.global	SystemClock_Config
+ 677              		.syntax unified
+ 678              		.thumb
+ 679              		.thumb_func
+ 680              		.fpu softvfp
+ 682              	SystemClock_Config:
+ 683              	.LFB72:
+ 268:Src/main.c    **** 
+ 684              		.loc 1 268 0
+ 685              		.cfi_startproc
+ 686              		@ args = 0, pretend = 0, frame = 64
+ 687              		@ frame_needed = 0, uses_anonymous_args = 0
+ 688 0000 00B5     		push	{lr}
+ 689              	.LCFI14:
+ 690              		.cfi_def_cfa_offset 4
+ 691              		.cfi_offset 14, -4
+ 692 0002 91B0     		sub	sp, sp, #68
+ 693              	.LCFI15:
+ 694              		.cfi_def_cfa_offset 72
+ 275:Src/main.c    ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 695              		.loc 1 275 0
+ 696 0004 0122     		movs	r2, #1
+ 697 0006 0692     		str	r2, [sp, #24]
+ 276:Src/main.c    ****   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+ 698              		.loc 1 276 0
+ 699 0008 4FF48033 		mov	r3, #65536
+ 700 000c 0793     		str	r3, [sp, #28]
+ 277:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 701              		.loc 1 277 0
+ 702 000e 0021     		movs	r1, #0
+ 703 0010 0891     		str	r1, [sp, #32]
+ 278:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 704              		.loc 1 278 0
+ 705 0012 0A92     		str	r2, [sp, #40]
+ 279:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 706              		.loc 1 279 0
+ 707 0014 0222     		movs	r2, #2
+ 708 0016 0D92     		str	r2, [sp, #52]
+ 280:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+ 709              		.loc 1 280 0
+ 710 0018 0E93     		str	r3, [sp, #56]
+ 281:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 711              		.loc 1 281 0
+ 712 001a 4FF4E013 		mov	r3, #1835008
+ 713 001e 0F93     		str	r3, [sp, #60]
+ 282:Src/main.c    ****   {
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 22
+
+
+ 714              		.loc 1 282 0
+ 715 0020 06A8     		add	r0, sp, #24
+ 716 0022 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 717              	.LVL46:
+ 718 0026 08BB     		cbnz	r0, .L44
+ 289:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 719              		.loc 1 289 0
+ 720 0028 0F23     		movs	r3, #15
+ 721 002a 0193     		str	r3, [sp, #4]
+ 291:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 722              		.loc 1 291 0
+ 723 002c 0221     		movs	r1, #2
+ 724 002e 0291     		str	r1, [sp, #8]
+ 292:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+ 725              		.loc 1 292 0
+ 726 0030 0023     		movs	r3, #0
+ 727 0032 0393     		str	r3, [sp, #12]
+ 293:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 728              		.loc 1 293 0
+ 729 0034 4FF48062 		mov	r2, #1024
+ 730 0038 0492     		str	r2, [sp, #16]
+ 294:Src/main.c    **** 
+ 731              		.loc 1 294 0
+ 732 003a 0593     		str	r3, [sp, #20]
+ 296:Src/main.c    ****   {
+ 733              		.loc 1 296 0
+ 734 003c 01A8     		add	r0, sp, #4
+ 735 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 736              	.LVL47:
+ 737 0042 C0B9     		cbnz	r0, .L45
+ 303:Src/main.c    **** 
+ 738              		.loc 1 303 0
+ 739 0044 FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
+ 740              	.LVL48:
+ 741 0048 0D4B     		ldr	r3, .L46
+ 742 004a A3FB0030 		umull	r3, r0, r3, r0
+ 743 004e 8009     		lsrs	r0, r0, #6
+ 744 0050 FFF7FEFF 		bl	HAL_SYSTICK_Config
+ 745              	.LVL49:
+ 307:Src/main.c    **** 
+ 746              		.loc 1 307 0
+ 747 0054 0420     		movs	r0, #4
+ 748 0056 FFF7FEFF 		bl	HAL_SYSTICK_CLKSourceConfig
+ 749              	.LVL50:
+ 310:Src/main.c    **** }
+ 750              		.loc 1 310 0
+ 751 005a 0022     		movs	r2, #0
+ 752 005c 1146     		mov	r1, r2
+ 753 005e 4FF0FF30 		mov	r0, #-1
+ 754 0062 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 755              	.LVL51:
+ 311:Src/main.c    **** 
+ 756              		.loc 1 311 0
+ 757 0066 11B0     		add	sp, sp, #68
+ 758              	.LCFI16:
+ 759              		.cfi_remember_state
+ 760              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 23
+
+
+ 761              		@ sp needed
+ 762 0068 5DF804FB 		ldr	pc, [sp], #4
+ 763              	.L44:
+ 764              	.LCFI17:
+ 765              		.cfi_restore_state
+ 284:Src/main.c    ****   }
+ 766              		.loc 1 284 0
+ 767 006c 4FF48E71 		mov	r1, #284
+ 768 0070 0448     		ldr	r0, .L46+4
+ 769 0072 FFF7FEFF 		bl	_Error_Handler
+ 770              	.LVL52:
+ 771              	.L45:
+ 298:Src/main.c    ****   }
+ 772              		.loc 1 298 0
+ 773 0076 4FF49571 		mov	r1, #298
+ 774 007a 0248     		ldr	r0, .L46+4
+ 775 007c FFF7FEFF 		bl	_Error_Handler
+ 776              	.LVL53:
+ 777              	.L47:
+ 778              		.align	2
+ 779              	.L46:
+ 780 0080 D34D6210 		.word	274877907
+ 781 0084 00000000 		.word	.LC0
+ 782              		.cfi_endproc
+ 783              	.LFE72:
+ 785              		.global	__aeabi_ddiv
+ 786              		.global	__aeabi_i2d
+ 787              		.global	__aeabi_d2uiz
+ 788              		.global	__aeabi_dadd
+ 789              		.section	.text.main,"ax",%progbits
+ 790              		.align	1
+ 791              		.global	main
+ 792              		.syntax unified
+ 793              		.thumb
+ 794              		.thumb_func
+ 795              		.fpu softvfp
+ 797              	main:
+ 798              	.LFB71:
+ 157:Src/main.c    **** 
+ 799              		.loc 1 157 0
+ 800              		.cfi_startproc
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 804              	.LCFI18:
+ 805              		.cfi_def_cfa_offset 36
+ 806              		.cfi_offset 4, -36
+ 807              		.cfi_offset 5, -32
+ 808              		.cfi_offset 6, -28
+ 809              		.cfi_offset 7, -24
+ 810              		.cfi_offset 8, -20
+ 811              		.cfi_offset 9, -16
+ 812              		.cfi_offset 10, -12
+ 813              		.cfi_offset 11, -8
+ 814              		.cfi_offset 14, -4
+ 815 0004 83B0     		sub	sp, sp, #12
+ 816              	.LCFI19:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 24
+
+
+ 817              		.cfi_def_cfa_offset 48
+ 161:Src/main.c    ****   SetDCPin((void*)GPIOB, 12);
+ 818              		.loc 1 161 0
+ 819 0006 A34C     		ldr	r4, .L100
+ 820 0008 0B21     		movs	r1, #11
+ 821 000a 2046     		mov	r0, r4
+ 822 000c FFF7FEFF 		bl	SetRESPin
+ 823              	.LVL54:
+ 162:Src/main.c    ****   SetSSPin((void*)GPIOB, 14);
+ 824              		.loc 1 162 0
+ 825 0010 0C21     		movs	r1, #12
+ 826 0012 2046     		mov	r0, r4
+ 827 0014 FFF7FEFF 		bl	SetDCPin
+ 828              	.LVL55:
+ 163:Src/main.c    **** 
+ 829              		.loc 1 163 0
+ 830 0018 0E21     		movs	r1, #14
+ 831 001a 2046     		mov	r0, r4
+ 832 001c FFF7FEFF 		bl	SetSSPin
+ 833              	.LVL56:
+ 170:Src/main.c    **** 
+ 834              		.loc 1 170 0
+ 835 0020 FFF7FEFF 		bl	HAL_Init
+ 836              	.LVL57:
+ 177:Src/main.c    **** 
+ 837              		.loc 1 177 0
+ 838 0024 FFF7FEFF 		bl	SystemClock_Config
+ 839              	.LVL58:
+ 184:Src/main.c    ****   MX_SPI1_Init();
+ 840              		.loc 1 184 0
+ 841 0028 FFF7FEFF 		bl	MX_GPIO_Init
+ 842              	.LVL59:
+ 185:Src/main.c    ****   MX_SPI2_Init();
+ 843              		.loc 1 185 0
+ 844 002c FFF7FEFF 		bl	MX_SPI1_Init
+ 845              	.LVL60:
+ 186:Src/main.c    **** 
+ 846              		.loc 1 186 0
+ 847 0030 FFF7FEFF 		bl	MX_SPI2_Init
+ 848              	.LVL61:
+ 189:Src/main.c    **** 	OLEDinit();
+ 849              		.loc 1 189 0
+ 850 0034 6420     		movs	r0, #100
+ 851 0036 FFF7FEFF 		bl	HAL_Delay
+ 852              	.LVL62:
+ 190:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"STM32F103 FT V1");
+ 853              		.loc 1 190 0
+ 854 003a FFF7FEFF 		bl	OLEDinit
+ 855              	.LVL63:
+ 191:Src/main.c    **** 	ShowBuffer();HAL_Delay(2000);
+ 856              		.loc 1 191 0
+ 857 003e 964C     		ldr	r4, .L100+4
+ 858 0040 2346     		mov	r3, r4
+ 859 0042 0122     		movs	r2, #1
+ 860 0044 0021     		movs	r1, #0
+ 861 0046 0846     		mov	r0, r1
+ 862 0048 FFF7FEFF 		bl	NoShowDrawString
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 25
+
+
+ 863              	.LVL64:
+ 192:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"FourierTransform");ShowBuffer();HAL_Delay(1000);ClearBuffer(0)
+ 864              		.loc 1 192 0
+ 865 004c FFF7FEFF 		bl	ShowBuffer
+ 866              	.LVL65:
+ 867 0050 4FF4FA60 		mov	r0, #2000
+ 868 0054 FFF7FEFF 		bl	HAL_Delay
+ 869              	.LVL66:
+ 193:Src/main.c    **** 	NoShowDrawString(0,0,OLED_Char8X16,"STM32F103 FT V1");
+ 870              		.loc 1 193 0
+ 871 0058 904B     		ldr	r3, .L100+8
+ 872 005a 0122     		movs	r2, #1
+ 873 005c 0021     		movs	r1, #0
+ 874 005e 0846     		mov	r0, r1
+ 875 0060 FFF7FEFF 		bl	NoShowDrawString
+ 876              	.LVL67:
+ 877 0064 FFF7FEFF 		bl	ShowBuffer
+ 878              	.LVL68:
+ 879 0068 4FF47A70 		mov	r0, #1000
+ 880 006c FFF7FEFF 		bl	HAL_Delay
+ 881              	.LVL69:
+ 882 0070 0020     		movs	r0, #0
+ 883 0072 FFF7FEFF 		bl	ClearBuffer
+ 884              	.LVL70:
+ 194:Src/main.c    **** 	NoShowDrawString(0,24,OLED_Char8X16,"    Made by");ShowBuffer();HAL_Delay(1000);
+ 885              		.loc 1 194 0
+ 886 0076 2346     		mov	r3, r4
+ 887 0078 0122     		movs	r2, #1
+ 888 007a 0021     		movs	r1, #0
+ 889 007c 0846     		mov	r0, r1
+ 890 007e FFF7FEFF 		bl	NoShowDrawString
+ 891              	.LVL71:
+ 195:Src/main.c    **** 	NoShowDrawString(0,40,OLED_Char8X16,"  Park Giyong.");ShowBuffer();HAL_Delay(1000);
+ 892              		.loc 1 195 0
+ 893 0082 874B     		ldr	r3, .L100+12
+ 894 0084 0122     		movs	r2, #1
+ 895 0086 1821     		movs	r1, #24
+ 896 0088 0020     		movs	r0, #0
+ 897 008a FFF7FEFF 		bl	NoShowDrawString
+ 898              	.LVL72:
+ 899 008e FFF7FEFF 		bl	ShowBuffer
+ 900              	.LVL73:
+ 901 0092 4FF47A70 		mov	r0, #1000
+ 902 0096 FFF7FEFF 		bl	HAL_Delay
+ 903              	.LVL74:
+ 196:Src/main.c    **** 	NoShowDrawString(0,56,OLED_Char6X8,"  2018.03.04 21:55");ShowBuffer();HAL_Delay(2000);
+ 904              		.loc 1 196 0
+ 905 009a 824B     		ldr	r3, .L100+16
+ 906 009c 0122     		movs	r2, #1
+ 907 009e 2821     		movs	r1, #40
+ 908 00a0 0020     		movs	r0, #0
+ 909 00a2 FFF7FEFF 		bl	NoShowDrawString
+ 910              	.LVL75:
+ 911 00a6 FFF7FEFF 		bl	ShowBuffer
+ 912              	.LVL76:
+ 913 00aa 4FF47A70 		mov	r0, #1000
+ 914 00ae FFF7FEFF 		bl	HAL_Delay
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 26
+
+
+ 915              	.LVL77:
+ 197:Src/main.c    **** 	FTRender();
+ 916              		.loc 1 197 0
+ 917 00b2 7D4B     		ldr	r3, .L100+20
+ 918 00b4 0022     		movs	r2, #0
+ 919 00b6 3821     		movs	r1, #56
+ 920 00b8 1046     		mov	r0, r2
+ 921 00ba FFF7FEFF 		bl	NoShowDrawString
+ 922              	.LVL78:
+ 923 00be FFF7FEFF 		bl	ShowBuffer
+ 924              	.LVL79:
+ 925 00c2 4FF4FA60 		mov	r0, #2000
+ 926 00c6 FFF7FEFF 		bl	HAL_Delay
+ 927              	.LVL80:
+ 198:Src/main.c    ****   /* USER CODE END 2 */
+ 928              		.loc 1 198 0
+ 929 00ca FFF7FEFF 		bl	FTRender
+ 930              	.LVL81:
+ 931 00ce 79E1     		b	.L88
+ 932              	.L49:
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 933              		.loc 1 211 0 discriminator 2
+ 934 00d0 764B     		ldr	r3, .L100+24
+ 935 00d2 0022     		movs	r2, #0
+ 936 00d4 9A60     		str	r2, [r3, #8]
+ 937 00d6 7FE1     		b	.L50
+ 938              	.L92:
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 939              		.loc 1 211 0 is_stmt 0 discriminator 5
+ 940 00d8 754B     		ldr	r3, .L100+28
+ 941 00da 1B68     		ldr	r3, [r3]
+ 942 00dc 032B     		cmp	r3, #3
+ 943 00de 03D0     		beq	.L52
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 944              		.loc 1 211 0 discriminator 6
+ 945 00e0 0133     		adds	r3, r3, #1
+ 946 00e2 734A     		ldr	r2, .L100+28
+ 947 00e4 1360     		str	r3, [r2]
+ 948 00e6 7CE1     		b	.L51
+ 949              	.L52:
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 950              		.loc 1 211 0 discriminator 7
+ 951 00e8 714B     		ldr	r3, .L100+28
+ 952 00ea 0022     		movs	r2, #0
+ 953 00ec 1A60     		str	r2, [r3]
+ 954 00ee 78E1     		b	.L51
+ 955              	.L53:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 956              		.loc 1 212 0 is_stmt 1 discriminator 2
+ 957 00f0 6E4B     		ldr	r3, .L100+24
+ 958 00f2 0022     		movs	r2, #0
+ 959 00f4 DA60     		str	r2, [r3, #12]
+ 960 00f6 7EE1     		b	.L54
+ 961              	.L93:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 962              		.loc 1 212 0 is_stmt 0 discriminator 5
+ 963 00f8 6E4B     		ldr	r3, .L100+32
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 27
+
+
+ 964 00fa 1B68     		ldr	r3, [r3]
+ 965 00fc 6BB1     		cbz	r3, .L91
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 966              		.loc 1 212 0 discriminator 7
+ 967 00fe 6E4B     		ldr	r3, .L100+36
+ 968 0100 0022     		movs	r2, #0
+ 969 0102 1A60     		str	r2, [r3]
+ 970 0104 6D4B     		ldr	r3, .L100+40
+ 971 0106 0020     		movs	r0, #0
+ 972 0108 6D49     		ldr	r1, .L100+44
+ 973 010a C3E90001 		strd	r0, [r3]
+ 974 010e 6D4B     		ldr	r3, .L100+48
+ 975 0110 1B68     		ldr	r3, [r3]
+ 976 0112 2BB1     		cbz	r3, .L58
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 977              		.loc 1 212 0 discriminator 8
+ 978 0114 6B4B     		ldr	r3, .L100+48
+ 979 0116 1A60     		str	r2, [r3]
+ 980 0118 77E1     		b	.L57
+ 981              	.L91:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 982              		.loc 1 212 0 discriminator 6
+ 983 011a FFF7FEFF 		bl	FTRender
+ 984              	.LVL82:
+ 985 011e 74E1     		b	.L57
+ 986              	.L58:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 987              		.loc 1 212 0 discriminator 9
+ 988 0120 684B     		ldr	r3, .L100+48
+ 989 0122 0122     		movs	r2, #1
+ 990 0124 1A60     		str	r2, [r3]
+ 991 0126 70E1     		b	.L57
+ 992              	.L94:
+ 213:Src/main.c    **** 	Bt1Bt{if(Autorender)Autorender=0;else Autorender=1;}
+ 993              		.loc 1 213 0 is_stmt 1 discriminator 1
+ 994 0128 0123     		movs	r3, #1
+ 995 012a 0193     		str	r3, [sp, #4]
+ 996 012c 664B     		ldr	r3, .L100+52
+ 997 012e 0093     		str	r3, [sp]
+ 998 0130 0623     		movs	r3, #6
+ 999 0132 0522     		movs	r2, #5
+ 1000 0134 0021     		movs	r1, #0
+ 1001 0136 7720     		movs	r0, #119
+ 1002 0138 FFF7FEFF 		bl	NoShowDrawPicture
+ 1003              	.LVL83:
+ 1004 013c FFF7FEFF 		bl	FTRender
+ 1005              	.LVL84:
+ 1006 0140 63E1     		b	.L57
+ 1007              	.L59:
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1008              		.loc 1 214 0 discriminator 2
+ 1009 0142 5A4B     		ldr	r3, .L100+24
+ 1010 0144 0022     		movs	r2, #0
+ 1011 0146 1A61     		str	r2, [r3, #16]
+ 1012 0148 69E1     		b	.L60
+ 1013              	.L95:
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 28
+
+
+ 1014              		.loc 1 214 0 is_stmt 0 discriminator 5
+ 1015 014a 5A4B     		ldr	r3, .L100+32
+ 1016 014c 1B68     		ldr	r3, [r3]
+ 1017 014e 1BB1     		cbz	r3, .L62
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1018              		.loc 1 214 0 discriminator 6
+ 1019 0150 584B     		ldr	r3, .L100+32
+ 1020 0152 0022     		movs	r2, #0
+ 1021 0154 1A60     		str	r2, [r3]
+ 1022 0156 67E1     		b	.L61
+ 1023              	.L62:
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1024              		.loc 1 214 0 discriminator 7
+ 1025 0158 564B     		ldr	r3, .L100+32
+ 1026 015a 0122     		movs	r2, #1
+ 1027 015c 1A60     		str	r2, [r3]
+ 1028 015e 63E1     		b	.L61
+ 1029              	.LVL85:
+ 1030              	.L96:
+ 226:Src/main.c    **** 	else if(mode==1){sprintf(Str," %d",Getdelaytime);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str,
+ 1031              		.loc 1 226 0 is_stmt 1 discriminator 1
+ 1032 0160 DBF80020 		ldr	r2, [fp]
+ 1033 0164 5949     		ldr	r1, .L100+56
+ 1034 0166 2846     		mov	r0, r5
+ 1035 0168 FFF7FEFF 		bl	sprintf
+ 1036              	.LVL86:
+ 1037 016c A000     		lsls	r0, r4, #2
+ 1038 016e C0B2     		uxtb	r0, r0
+ 1039 0170 5044     		add	r0, r0, r10
+ 1040 0172 3146     		mov	r1, r6
+ 1041 0174 0096     		str	r6, [sp]
+ 1042 0176 2B46     		mov	r3, r5
+ 1043 0178 0222     		movs	r2, #2
+ 1044 017a C0B2     		uxtb	r0, r0
+ 1045 017c FFF7FEFF 		bl	NoShowDrawNumStr
+ 1046              	.LVL87:
+ 1047 0180 F5E1     		b	.L64
+ 1048              	.LVL88:
+ 1049              	.L97:
+ 227:Src/main.c    **** 	else if(mode==2){sprintf(Str," %ld",(uint32_t)Sensitivity);NoShowDrawNumStr((len<<2)+1, 0, OLED_Nu
+ 1050              		.loc 1 227 0 discriminator 1
+ 1051 0182 534D     		ldr	r5, .L100+60
+ 1052 0184 534B     		ldr	r3, .L100+64
+ 1053 0186 1A68     		ldr	r2, [r3]
+ 1054 0188 5049     		ldr	r1, .L100+56
+ 1055 018a 2846     		mov	r0, r5
+ 1056 018c FFF7FEFF 		bl	sprintf
+ 1057              	.LVL89:
+ 1058 0190 A000     		lsls	r0, r4, #2
+ 1059 0192 C0B2     		uxtb	r0, r0
+ 1060 0194 0130     		adds	r0, r0, #1
+ 1061 0196 0021     		movs	r1, #0
+ 1062 0198 0091     		str	r1, [sp]
+ 1063 019a 2B46     		mov	r3, r5
+ 1064 019c 0222     		movs	r2, #2
+ 1065 019e C0B2     		uxtb	r0, r0
+ 1066 01a0 FFF7FEFF 		bl	NoShowDrawNumStr
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 29
+
+
+ 1067              	.LVL90:
+ 1068 01a4 E3E1     		b	.L64
+ 1069              	.LVL91:
+ 1070              	.L98:
+ 228:Src/main.c    **** 	else if(mode==3){sprintf(Str," %d",bufflen);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);l
+ 1071              		.loc 1 228 0 discriminator 1
+ 1072 01a6 454B     		ldr	r3, .L100+40
+ 1073 01a8 D3E90001 		ldrd	r0, [r3]
+ 1074 01ac FFF7FEFF 		bl	__aeabi_d2uiz
+ 1075              	.LVL92:
+ 1076 01b0 474D     		ldr	r5, .L100+60
+ 1077 01b2 0246     		mov	r2, r0
+ 1078 01b4 4849     		ldr	r1, .L100+68
+ 1079 01b6 2846     		mov	r0, r5
+ 1080 01b8 FFF7FEFF 		bl	sprintf
+ 1081              	.LVL93:
+ 1082 01bc A000     		lsls	r0, r4, #2
+ 1083 01be C0B2     		uxtb	r0, r0
+ 1084 01c0 0130     		adds	r0, r0, #1
+ 1085 01c2 0021     		movs	r1, #0
+ 1086 01c4 0091     		str	r1, [sp]
+ 1087 01c6 2B46     		mov	r3, r5
+ 1088 01c8 0222     		movs	r2, #2
+ 1089 01ca C0B2     		uxtb	r0, r0
+ 1090 01cc FFF7FEFF 		bl	NoShowDrawNumStr
+ 1091              	.LVL94:
+ 1092 01d0 CDE1     		b	.L64
+ 1093              	.LVL95:
+ 1094              	.L99:
+ 229:Src/main.c    **** 	NoShowDrawPicture(105, 0, 14, 7, StatusBarBuf[mode], 1);
+ 1095              		.loc 1 229 0 discriminator 1
+ 1096 01d2 3F4D     		ldr	r5, .L100+60
+ 1097 01d4 414B     		ldr	r3, .L100+72
+ 1098 01d6 1A68     		ldr	r2, [r3]
+ 1099 01d8 3C49     		ldr	r1, .L100+56
+ 1100 01da 2846     		mov	r0, r5
+ 1101 01dc FFF7FEFF 		bl	sprintf
+ 1102              	.LVL96:
+ 1103 01e0 A000     		lsls	r0, r4, #2
+ 1104 01e2 C0B2     		uxtb	r0, r0
+ 1105 01e4 0130     		adds	r0, r0, #1
+ 1106 01e6 0021     		movs	r1, #0
+ 1107 01e8 0091     		str	r1, [sp]
+ 1108 01ea 2B46     		mov	r3, r5
+ 1109 01ec 0222     		movs	r2, #2
+ 1110 01ee C0B2     		uxtb	r0, r0
+ 1111 01f0 FFF7FEFF 		bl	NoShowDrawNumStr
+ 1112              	.LVL97:
+ 1113 01f4 BBE1     		b	.L64
+ 1114              	.L67:
+ 232:Src/main.c    **** 		case 0:if(AddDot+Button[0]<=bufflen-128)AddDot+=Button[0];break;
+ 1115              		.loc 1 232 0
+ 1116 01f6 2E4B     		ldr	r3, .L100+28
+ 1117 01f8 1B68     		ldr	r3, [r3]
+ 1118 01fa 032B     		cmp	r3, #3
+ 1119 01fc 16D8     		bhi	.L69
+ 1120 01fe DFE803F0 		tbb	[pc, r3]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 30
+
+
+ 1121              	.L71:
+ 1122 0202 02       		.byte	(.L70-.L71)/2
+ 1123 0203 0F       		.byte	(.L72-.L71)/2
+ 1124 0204 19       		.byte	(.L73-.L71)/2
+ 1125 0205 23       		.byte	(.L74-.L71)/2
+ 1126              		.p2align 1
+ 1127              	.L70:
+ 233:Src/main.c    **** 		case 1:Getdelaytime+=Button[0];break;
+ 1128              		.loc 1 233 0
+ 1129 0206 294B     		ldr	r3, .L100+24
+ 1130 0208 1B68     		ldr	r3, [r3]
+ 1131 020a 2B4A     		ldr	r2, .L100+36
+ 1132 020c 1268     		ldr	r2, [r2]
+ 1133 020e 1344     		add	r3, r3, r2
+ 1134 0210 324A     		ldr	r2, .L100+72
+ 1135 0212 1268     		ldr	r2, [r2]
+ 1136 0214 803A     		subs	r2, r2, #128
+ 1137 0216 9342     		cmp	r3, r2
+ 1138 0218 08DC     		bgt	.L69
+ 233:Src/main.c    **** 		case 1:Getdelaytime+=Button[0];break;
+ 1139              		.loc 1 233 0 is_stmt 0 discriminator 1
+ 1140 021a 274A     		ldr	r2, .L100+36
+ 1141 021c 1360     		str	r3, [r2]
+ 1142 021e 05E0     		b	.L69
+ 1143              	.L72:
+ 234:Src/main.c    **** 		case 2:Sensitivity *= 1.5;break;
+ 1144              		.loc 1 234 0 is_stmt 1
+ 1145 0220 224B     		ldr	r3, .L100+24
+ 1146 0222 1968     		ldr	r1, [r3]
+ 1147 0224 2B4A     		ldr	r2, .L100+64
+ 1148 0226 1368     		ldr	r3, [r2]
+ 1149 0228 0B44     		add	r3, r3, r1
+ 1150 022a 1360     		str	r3, [r2]
+ 1151              	.L69:
+ 238:Src/main.c    **** 	}
+ 1152              		.loc 1 238 0
+ 1153 022c 1F4B     		ldr	r3, .L100+24
+ 1154 022e 0022     		movs	r2, #0
+ 1155 0230 1A60     		str	r2, [r3]
+ 1156 0232 B6E1     		b	.L68
+ 1157              	.L73:
+ 235:Src/main.c    **** 		case 3:if(bufflen+Button[0] <= 2048)bufflen+=Button[0];break;
+ 1158              		.loc 1 235 0
+ 1159 0234 214C     		ldr	r4, .L100+40
+ 1160 0236 0022     		movs	r2, #0
+ 1161 0238 294B     		ldr	r3, .L100+76
+ 1162 023a D4E90001 		ldrd	r0, [r4]
+ 1163 023e FFF7FEFF 		bl	__aeabi_dmul
+ 1164              	.LVL98:
+ 1165 0242 C4E90001 		strd	r0, [r4]
+ 1166 0246 F1E7     		b	.L69
+ 1167              	.L74:
+ 236:Src/main.c    **** 		}
+ 1168              		.loc 1 236 0
+ 1169 0248 184B     		ldr	r3, .L100+24
+ 1170 024a 1B68     		ldr	r3, [r3]
+ 1171 024c 234A     		ldr	r2, .L100+72
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 31
+
+
+ 1172 024e 1268     		ldr	r2, [r2]
+ 1173 0250 1344     		add	r3, r3, r2
+ 1174 0252 B3F5006F 		cmp	r3, #2048
+ 1175 0256 E9DC     		bgt	.L69
+ 236:Src/main.c    **** 		}
+ 1176              		.loc 1 236 0 is_stmt 0 discriminator 1
+ 1177 0258 204A     		ldr	r2, .L100+72
+ 1178 025a 1360     		str	r3, [r2]
+ 1179 025c E6E7     		b	.L69
+ 1180              	.L75:
+ 241:Src/main.c    **** 		case 0:if(AddDot-Button[1]>=0)AddDot-=Button[1];break;
+ 1181              		.loc 1 241 0 is_stmt 1
+ 1182 025e 144B     		ldr	r3, .L100+28
+ 1183 0260 1B68     		ldr	r3, [r3]
+ 1184 0262 032B     		cmp	r3, #3
+ 1185 0264 47D8     		bhi	.L77
+ 1186 0266 DFE803F0 		tbb	[pc, r3]
+ 1187              	.L79:
+ 1188 026a 02       		.byte	(.L78-.L79)/2
+ 1189 026b 0B       		.byte	(.L80-.L79)/2
+ 1190 026c 3D       		.byte	(.L81-.L79)/2
+ 1191 026d 4A       		.byte	(.L82-.L79)/2
+ 1192              		.p2align 1
+ 1193              	.L78:
+ 242:Src/main.c    **** 		case 1:if(Getdelaytime-Button[1] >= 0)Getdelaytime-=Button[1];break;
+ 1194              		.loc 1 242 0
+ 1195 026e 0F4B     		ldr	r3, .L100+24
+ 1196 0270 5A68     		ldr	r2, [r3, #4]
+ 1197 0272 114B     		ldr	r3, .L100+36
+ 1198 0274 1B68     		ldr	r3, [r3]
+ 1199 0276 9B1A     		subs	r3, r3, r2
+ 1200 0278 3DD4     		bmi	.L77
+ 242:Src/main.c    **** 		case 1:if(Getdelaytime-Button[1] >= 0)Getdelaytime-=Button[1];break;
+ 1201              		.loc 1 242 0 is_stmt 0 discriminator 1
+ 1202 027a 0F4A     		ldr	r2, .L100+36
+ 1203 027c 1360     		str	r3, [r2]
+ 1204 027e 3AE0     		b	.L77
+ 1205              	.L80:
+ 243:Src/main.c    **** 		case 2:Sensitivity /= 1.5;break;
+ 1206              		.loc 1 243 0 is_stmt 1
+ 1207 0280 0A4B     		ldr	r3, .L100+24
+ 1208 0282 5A68     		ldr	r2, [r3, #4]
+ 1209 0284 134B     		ldr	r3, .L100+64
+ 1210 0286 1B68     		ldr	r3, [r3]
+ 1211 0288 9B1A     		subs	r3, r3, r2
+ 1212 028a 34D4     		bmi	.L77
+ 243:Src/main.c    **** 		case 2:Sensitivity /= 1.5;break;
+ 1213              		.loc 1 243 0 is_stmt 0 discriminator 1
+ 1214 028c 114A     		ldr	r2, .L100+64
+ 1215 028e 1360     		str	r3, [r2]
+ 1216 0290 31E0     		b	.L77
+ 1217              	.L101:
+ 1218 0292 00BF     		.align	2
+ 1219              	.L100:
+ 1220 0294 000C0140 		.word	1073810432
+ 1221 0298 00000000 		.word	.LC1
+ 1222 029c 10000000 		.word	.LC2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 32
+
+
+ 1223 02a0 24000000 		.word	.LC3
+ 1224 02a4 30000000 		.word	.LC4
+ 1225 02a8 40000000 		.word	.LC5
+ 1226 02ac 00000000 		.word	.LANCHOR8
+ 1227 02b0 00000000 		.word	.LANCHOR9
+ 1228 02b4 00000000 		.word	.LANCHOR10
+ 1229 02b8 00000000 		.word	.LANCHOR11
+ 1230 02bc 00000000 		.word	.LANCHOR12
+ 1231 02c0 0000F03F 		.word	1072693248
+ 1232 02c4 00000000 		.word	.LANCHOR6
+ 1233 02c8 00000000 		.word	.LANCHOR13
+ 1234 02cc 60000000 		.word	.LC8
+ 1235 02d0 00000000 		.word	.LANCHOR14
+ 1236 02d4 00000000 		.word	.LANCHOR4
+ 1237 02d8 58000000 		.word	.LC7
+ 1238 02dc 00000000 		.word	.LANCHOR0
+ 1239 02e0 0000F83F 		.word	1073217536
+ 1240              	.L81:
+ 244:Src/main.c    **** 		case 3:if(bufflen-Button[1] >= 0)bufflen-=Button[1];break;
+ 1241              		.loc 1 244 0 is_stmt 1
+ 1242 02e4 B74C     		ldr	r4, .L102
+ 1243 02e6 0022     		movs	r2, #0
+ 1244 02e8 B74B     		ldr	r3, .L102+4
+ 1245 02ea D4E90001 		ldrd	r0, [r4]
+ 1246 02ee FFF7FEFF 		bl	__aeabi_ddiv
+ 1247              	.LVL99:
+ 1248 02f2 C4E90001 		strd	r0, [r4]
+ 1249              	.L77:
+ 247:Src/main.c    **** 	}
+ 1250              		.loc 1 247 0
+ 1251 02f6 B54B     		ldr	r3, .L102+8
+ 1252 02f8 0022     		movs	r2, #0
+ 1253 02fa 5A60     		str	r2, [r3, #4]
+ 1254 02fc 5BE1     		b	.L76
+ 1255              	.L82:
+ 245:Src/main.c    **** 		}
+ 1256              		.loc 1 245 0
+ 1257 02fe B34B     		ldr	r3, .L102+8
+ 1258 0300 5A68     		ldr	r2, [r3, #4]
+ 1259 0302 B34B     		ldr	r3, .L102+12
+ 1260 0304 1B68     		ldr	r3, [r3]
+ 1261 0306 9B1A     		subs	r3, r3, r2
+ 1262 0308 F5D4     		bmi	.L77
+ 245:Src/main.c    **** 		}
+ 1263              		.loc 1 245 0 is_stmt 0 discriminator 1
+ 1264 030a B14A     		ldr	r2, .L102+12
+ 1265 030c 1360     		str	r3, [r2]
+ 1266 030e F2E7     		b	.L77
+ 1267              	.LVL100:
+ 1268              	.L85:
+ 1269              	.LBB7:
+ 251:Src/main.c    **** 		}
+ 1270              		.loc 1 251 0 is_stmt 1 discriminator 3
+ 1271 0310 5FFA84FA 		uxtb	r10, r4
+ 1272 0314 AF4B     		ldr	r3, .L102+16
+ 1273 0316 1B68     		ldr	r3, [r3]
+ 1274 0318 D3F808B0 		ldr	fp, [r3, #8]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 33
+
+
+ 1275 031c AE4B     		ldr	r3, .L102+20
+ 1276 031e 1D68     		ldr	r5, [r3]
+ 1277 0320 2B19     		adds	r3, r5, r4
+ 1278 0322 5BF83300 		ldr	r0, [fp, r3, lsl #3]	@ float
+ 1279 0326 FFF7FEFF 		bl	__aeabi_f2d
+ 1280              	.LVL101:
+ 1281 032a 0022     		movs	r2, #0
+ 1282 032c AB4B     		ldr	r3, .L102+24
+ 1283 032e FFF7FEFF 		bl	__aeabi_dadd
+ 1284              	.LVL102:
+ 1285 0332 0022     		movs	r2, #0
+ 1286 0334 AA4B     		ldr	r3, .L102+28
+ 1287 0336 FFF7FEFF 		bl	__aeabi_dmul
+ 1288              	.LVL103:
+ 1289 033a A24B     		ldr	r3, .L102
+ 1290 033c D3E90067 		ldrd	r6, [r3]
+ 1291 0340 3246     		mov	r2, r6
+ 1292 0342 3B46     		mov	r3, r7
+ 1293 0344 FFF7FEFF 		bl	__aeabi_dmul
+ 1294              	.LVL104:
+ 1295 0348 0246     		mov	r2, r0
+ 1296 034a 0B46     		mov	r3, r1
+ 1297 034c 0020     		movs	r0, #0
+ 1298 034e A549     		ldr	r1, .L102+32
+ 1299 0350 FFF7FEFF 		bl	__aeabi_dsub
+ 1300              	.LVL105:
+ 1301 0354 8046     		mov	r8, r0
+ 1302 0356 8946     		mov	r9, r1
+ 1303 0358 0134     		adds	r4, r4, #1
+ 1304              	.LVL106:
+ 1305 035a 2544     		add	r5, r5, r4
+ 1306 035c 5BF83500 		ldr	r0, [fp, r5, lsl #3]	@ float
+ 1307 0360 FFF7FEFF 		bl	__aeabi_f2d
+ 1308              	.LVL107:
+ 1309 0364 0022     		movs	r2, #0
+ 1310 0366 9D4B     		ldr	r3, .L102+24
+ 1311 0368 FFF7FEFF 		bl	__aeabi_dadd
+ 1312              	.LVL108:
+ 1313 036c 0022     		movs	r2, #0
+ 1314 036e 9C4B     		ldr	r3, .L102+28
+ 1315 0370 FFF7FEFF 		bl	__aeabi_dmul
+ 1316              	.LVL109:
+ 1317 0374 0246     		mov	r2, r0
+ 1318 0376 0B46     		mov	r3, r1
+ 1319 0378 3046     		mov	r0, r6
+ 1320 037a 3946     		mov	r1, r7
+ 1321 037c FFF7FEFF 		bl	__aeabi_dmul
+ 1322              	.LVL110:
+ 1323 0380 0246     		mov	r2, r0
+ 1324 0382 0B46     		mov	r3, r1
+ 1325 0384 0020     		movs	r0, #0
+ 1326 0386 9749     		ldr	r1, .L102+32
+ 1327 0388 FFF7FEFF 		bl	__aeabi_dsub
+ 1328              	.LVL111:
+ 1329 038c FFF7FEFF 		bl	__aeabi_d2uiz
+ 1330              	.LVL112:
+ 1331 0390 C6B2     		uxtb	r6, r0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 34
+
+
+ 1332 0392 0AF10105 		add	r5, r10, #1
+ 1333 0396 EDB2     		uxtb	r5, r5
+ 1334 0398 4046     		mov	r0, r8
+ 1335 039a 4946     		mov	r1, r9
+ 1336 039c FFF7FEFF 		bl	__aeabi_d2uiz
+ 1337              	.LVL113:
+ 1338 03a0 0123     		movs	r3, #1
+ 1339 03a2 0093     		str	r3, [sp]
+ 1340 03a4 3346     		mov	r3, r6
+ 1341 03a6 2A46     		mov	r2, r5
+ 1342 03a8 C1B2     		uxtb	r1, r0
+ 1343 03aa 5046     		mov	r0, r10
+ 1344 03ac FFF7FEFF 		bl	NoShowDrawLine
+ 1345              	.LVL114:
+ 1346              	.L83:
+ 250:Src/main.c    **** 			NoShowDrawLine(i,60-(input->arr[i+AddDot].re+1.0)*22.5*Sensitivity,i+1,60-(input->arr[i+1+AddDot
+ 1347              		.loc 1 250 0 discriminator 1
+ 1348 03b0 7E2C     		cmp	r4, #126
+ 1349 03b2 ADDD     		ble	.L85
+ 1350              	.LVL115:
+ 1351              	.L86:
+ 1352              	.LBE7:
+ 258:Src/main.c    ****     vecRelease(&input);
+ 1353              		.loc 1 258 0
+ 1354 03b4 FFF7FEFF 		bl	ShowBuffer
+ 1355              	.LVL116:
+ 1356 03b8 0020     		movs	r0, #0
+ 1357 03ba FFF7FEFF 		bl	ClearBuffer
+ 1358              	.LVL117:
+ 259:Src/main.c    ****   }
+ 1359              		.loc 1 259 0
+ 1360 03be 8548     		ldr	r0, .L102+16
+ 1361 03c0 FFF7FEFF 		bl	vecRelease
+ 1362              	.LVL118:
+ 1363              	.L88:
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 1364              		.loc 1 211 0
+ 1365 03c4 884B     		ldr	r3, .L102+36
+ 1366 03c6 9B68     		ldr	r3, [r3, #8]
+ 1367 03c8 13F0080F 		tst	r3, #8
+ 1368 03cc 3FF480AE 		beq	.L49
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 1369              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 1370 03d0 7E4A     		ldr	r2, .L102+8
+ 1371 03d2 9368     		ldr	r3, [r2, #8]
+ 1372 03d4 0133     		adds	r3, r3, #1
+ 1373 03d6 9360     		str	r3, [r2, #8]
+ 1374              	.L50:
+ 211:Src/main.c    **** 	RenderBt{if(!Autorender)FTRender();else {AddDot=0;Sensitivity=1;if(displaymode)displaymode=0;else 
+ 1375              		.loc 1 211 0 discriminator 4
+ 1376 03d8 7C4B     		ldr	r3, .L102+8
+ 1377 03da 9B68     		ldr	r3, [r3, #8]
+ 1378 03dc 012B     		cmp	r3, #1
+ 1379 03de 3FF47BAE 		beq	.L92
+ 1380              	.L51:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 1381              		.loc 1 212 0 is_stmt 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 35
+
+
+ 1382 03e2 824B     		ldr	r3, .L102+40
+ 1383 03e4 9B68     		ldr	r3, [r3, #8]
+ 1384 03e6 13F4006F 		tst	r3, #2048
+ 1385 03ea 3FF481AE 		beq	.L53
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 1386              		.loc 1 212 0 is_stmt 0 discriminator 1
+ 1387 03ee 774A     		ldr	r2, .L102+8
+ 1388 03f0 D368     		ldr	r3, [r2, #12]
+ 1389 03f2 0133     		adds	r3, r3, #1
+ 1390 03f4 D360     		str	r3, [r2, #12]
+ 1391              	.L54:
+ 212:Src/main.c    **** 	else if(Autorender){NoShowDrawPicture(119, 0, 5, 6, AutoBuf, 1);FTRender();}
+ 1392              		.loc 1 212 0 discriminator 4
+ 1393 03f6 754B     		ldr	r3, .L102+8
+ 1394 03f8 DB68     		ldr	r3, [r3, #12]
+ 1395 03fa 012B     		cmp	r3, #1
+ 1396 03fc 3FF47CAE 		beq	.L93
+ 213:Src/main.c    **** 	Bt1Bt{if(Autorender)Autorender=0;else Autorender=1;}
+ 1397              		.loc 1 213 0 is_stmt 1
+ 1398 0400 7B4B     		ldr	r3, .L102+44
+ 1399 0402 1B68     		ldr	r3, [r3]
+ 1400 0404 002B     		cmp	r3, #0
+ 1401 0406 7FF48FAE 		bne	.L94
+ 1402              	.L57:
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1403              		.loc 1 214 0
+ 1404 040a 774B     		ldr	r3, .L102+36
+ 1405 040c 9B68     		ldr	r3, [r3, #8]
+ 1406 040e 13F0100F 		tst	r3, #16
+ 1407 0412 3FF496AE 		beq	.L59
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1408              		.loc 1 214 0 is_stmt 0 discriminator 1
+ 1409 0416 6D4A     		ldr	r2, .L102+8
+ 1410 0418 1369     		ldr	r3, [r2, #16]
+ 1411 041a 0133     		adds	r3, r3, #1
+ 1412 041c 1361     		str	r3, [r2, #16]
+ 1413              	.L60:
+ 214:Src/main.c    **** 	//sprintf(Str,"%ld",Getms);NoShowDrawNumStr(1, 0, OLED_Num3X5, Str, 0);int len=strlen(Str);
+ 1414              		.loc 1 214 0 discriminator 4
+ 1415 041e 6B4B     		ldr	r3, .L102+8
+ 1416 0420 1B69     		ldr	r3, [r3, #16]
+ 1417 0422 012B     		cmp	r3, #1
+ 1418 0424 3FF491AE 		beq	.L95
+ 1419              	.L61:
+ 221:Src/main.c    **** 	NoShowDrawPicture((len<<2)+1, 0, 7, 5, HzBuf, 1);len+=2;
+ 1420              		.loc 1 221 0 is_stmt 1
+ 1421 0428 DFF8F081 		ldr	r8, .L102+88
+ 1422 042c D8F80000 		ldr	r0, [r8]
+ 1423 0430 FFF7FEFF 		bl	__aeabi_ui2d
+ 1424              	.LVL119:
+ 1425 0434 0246     		mov	r2, r0
+ 1426 0436 0B46     		mov	r3, r1
+ 1427 0438 0020     		movs	r0, #0
+ 1428 043a 6E49     		ldr	r1, .L102+48
+ 1429 043c FFF7FEFF 		bl	__aeabi_ddiv
+ 1430              	.LVL120:
+ 1431 0440 0446     		mov	r4, r0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 36
+
+
+ 1432 0442 0D46     		mov	r5, r1
+ 1433 0444 DFF890B1 		ldr	fp, .L102+20
+ 1434 0448 DBF80000 		ldr	r0, [fp]
+ 1435 044c 0130     		adds	r0, r0, #1
+ 1436 044e FFF7FEFF 		bl	__aeabi_i2d
+ 1437              	.LVL121:
+ 1438 0452 2246     		mov	r2, r4
+ 1439 0454 2B46     		mov	r3, r5
+ 1440 0456 FFF7FEFF 		bl	__aeabi_dmul
+ 1441              	.LVL122:
+ 1442 045a FFF7FEFF 		bl	__aeabi_d2uiz
+ 1443              	.LVL123:
+ 1444 045e 664D     		ldr	r5, .L102+52
+ 1445 0460 0246     		mov	r2, r0
+ 1446 0462 6649     		ldr	r1, .L102+56
+ 1447 0464 2846     		mov	r0, r5
+ 1448 0466 FFF7FEFF 		bl	sprintf
+ 1449              	.LVL124:
+ 1450 046a 0026     		movs	r6, #0
+ 1451 046c 0096     		str	r6, [sp]
+ 1452 046e 2B46     		mov	r3, r5
+ 1453 0470 0222     		movs	r2, #2
+ 1454 0472 3146     		mov	r1, r6
+ 1455 0474 0120     		movs	r0, #1
+ 1456 0476 FFF7FEFF 		bl	NoShowDrawNumStr
+ 1457              	.LVL125:
+ 1458 047a 2846     		mov	r0, r5
+ 1459 047c FFF7FEFF 		bl	strlen
+ 1460              	.LVL126:
+ 1461 0480 0446     		mov	r4, r0
+ 1462              	.LVL127:
+ 222:Src/main.c    **** 	sprintf(Str," %ld",(uint32_t)((1000.0/(double)Getms)*(128.0+AddDot)));NoShowDrawNumStr((len<<2)+1,
+ 1463              		.loc 1 222 0
+ 1464 0482 8000     		lsls	r0, r0, #2
+ 1465              	.LVL128:
+ 1466 0484 C0B2     		uxtb	r0, r0
+ 1467 0486 0130     		adds	r0, r0, #1
+ 1468 0488 4FF0010A 		mov	r10, #1
+ 1469 048c CDF804A0 		str	r10, [sp, #4]
+ 1470 0490 5B4F     		ldr	r7, .L102+60
+ 1471 0492 0097     		str	r7, [sp]
+ 1472 0494 0523     		movs	r3, #5
+ 1473 0496 0722     		movs	r2, #7
+ 1474 0498 3146     		mov	r1, r6
+ 1475 049a C0B2     		uxtb	r0, r0
+ 1476 049c FFF7FEFF 		bl	NoShowDrawPicture
+ 1477              	.LVL129:
+ 1478 04a0 0234     		adds	r4, r4, #2
+ 1479              	.LVL130:
+ 223:Src/main.c    **** 	NoShowDrawPicture((len<<2)+1, 0, 7, 5, HzBuf, 1);len+=2;
+ 1480              		.loc 1 223 0
+ 1481 04a2 D8F80000 		ldr	r0, [r8]
+ 1482 04a6 FFF7FEFF 		bl	__aeabi_ui2d
+ 1483              	.LVL131:
+ 1484 04aa 0246     		mov	r2, r0
+ 1485 04ac 0B46     		mov	r3, r1
+ 1486 04ae 0020     		movs	r0, #0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 37
+
+
+ 1487 04b0 5049     		ldr	r1, .L102+48
+ 1488 04b2 FFF7FEFF 		bl	__aeabi_ddiv
+ 1489              	.LVL132:
+ 1490 04b6 8046     		mov	r8, r0
+ 1491 04b8 8946     		mov	r9, r1
+ 1492 04ba DBF80000 		ldr	r0, [fp]
+ 1493 04be FFF7FEFF 		bl	__aeabi_i2d
+ 1494              	.LVL133:
+ 1495 04c2 0022     		movs	r2, #0
+ 1496 04c4 4F4B     		ldr	r3, .L102+64
+ 1497 04c6 FFF7FEFF 		bl	__aeabi_dadd
+ 1498              	.LVL134:
+ 1499 04ca 0246     		mov	r2, r0
+ 1500 04cc 0B46     		mov	r3, r1
+ 1501 04ce 4046     		mov	r0, r8
+ 1502 04d0 4946     		mov	r1, r9
+ 1503 04d2 FFF7FEFF 		bl	__aeabi_dmul
+ 1504              	.LVL135:
+ 1505 04d6 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1506              	.LVL136:
+ 1507 04da 0246     		mov	r2, r0
+ 1508 04dc 4A49     		ldr	r1, .L102+68
+ 1509 04de 2846     		mov	r0, r5
+ 1510 04e0 FFF7FEFF 		bl	sprintf
+ 1511              	.LVL137:
+ 1512 04e4 A000     		lsls	r0, r4, #2
+ 1513 04e6 C0B2     		uxtb	r0, r0
+ 1514 04e8 5044     		add	r0, r0, r10
+ 1515 04ea 0096     		str	r6, [sp]
+ 1516 04ec 2B46     		mov	r3, r5
+ 1517 04ee 0222     		movs	r2, #2
+ 1518 04f0 3146     		mov	r1, r6
+ 1519 04f2 C0B2     		uxtb	r0, r0
+ 1520 04f4 FFF7FEFF 		bl	NoShowDrawNumStr
+ 1521              	.LVL138:
+ 1522 04f8 2846     		mov	r0, r5
+ 1523 04fa FFF7FEFF 		bl	strlen
+ 1524              	.LVL139:
+ 1525 04fe 0444     		add	r4, r4, r0
+ 1526              	.LVL140:
+ 224:Src/main.c    **** 	sprintf(Str," %d",Button[0]+Button[1]+Button[2]+Button[3]+Button[4]);NoShowDrawNumStr((len<<2)+1, 
+ 1527              		.loc 1 224 0
+ 1528 0500 A000     		lsls	r0, r4, #2
+ 1529 0502 C0B2     		uxtb	r0, r0
+ 1530 0504 5044     		add	r0, r0, r10
+ 1531 0506 CDF804A0 		str	r10, [sp, #4]
+ 1532 050a 0097     		str	r7, [sp]
+ 1533 050c 0523     		movs	r3, #5
+ 1534 050e 0722     		movs	r2, #7
+ 1535 0510 3146     		mov	r1, r6
+ 1536 0512 C0B2     		uxtb	r0, r0
+ 1537 0514 FFF7FEFF 		bl	NoShowDrawPicture
+ 1538              	.LVL141:
+ 1539 0518 0234     		adds	r4, r4, #2
+ 1540              	.LVL142:
+ 225:Src/main.c    **** 	if(mode==0){sprintf(Str," %d",AddDot);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);len+=st
+ 1541              		.loc 1 225 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 38
+
+
+ 1542 051a 2C4A     		ldr	r2, .L102+8
+ 1543 051c 1368     		ldr	r3, [r2]
+ 1544 051e 5168     		ldr	r1, [r2, #4]
+ 1545 0520 0B44     		add	r3, r3, r1
+ 1546 0522 9168     		ldr	r1, [r2, #8]
+ 1547 0524 0B44     		add	r3, r3, r1
+ 1548 0526 D168     		ldr	r1, [r2, #12]
+ 1549 0528 0B44     		add	r3, r3, r1
+ 1550 052a 1269     		ldr	r2, [r2, #16]
+ 1551 052c 1A44     		add	r2, r2, r3
+ 1552 052e 3749     		ldr	r1, .L102+72
+ 1553 0530 2846     		mov	r0, r5
+ 1554 0532 FFF7FEFF 		bl	sprintf
+ 1555              	.LVL143:
+ 1556 0536 A000     		lsls	r0, r4, #2
+ 1557 0538 C0B2     		uxtb	r0, r0
+ 1558 053a 5044     		add	r0, r0, r10
+ 1559 053c 0096     		str	r6, [sp]
+ 1560 053e 2B46     		mov	r3, r5
+ 1561 0540 0222     		movs	r2, #2
+ 1562 0542 3146     		mov	r1, r6
+ 1563 0544 C0B2     		uxtb	r0, r0
+ 1564 0546 FFF7FEFF 		bl	NoShowDrawNumStr
+ 1565              	.LVL144:
+ 1566 054a 2846     		mov	r0, r5
+ 1567 054c FFF7FEFF 		bl	strlen
+ 1568              	.LVL145:
+ 1569 0550 0444     		add	r4, r4, r0
+ 1570              	.LVL146:
+ 226:Src/main.c    **** 	else if(mode==1){sprintf(Str," %d",Getdelaytime);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str,
+ 1571              		.loc 1 226 0
+ 1572 0552 2F4B     		ldr	r3, .L102+76
+ 1573 0554 1B68     		ldr	r3, [r3]
+ 1574 0556 002B     		cmp	r3, #0
+ 1575 0558 3FF402AE 		beq	.L96
+ 227:Src/main.c    **** 	else if(mode==2){sprintf(Str," %ld",(uint32_t)Sensitivity);NoShowDrawNumStr((len<<2)+1, 0, OLED_Nu
+ 1576              		.loc 1 227 0
+ 1577 055c 012B     		cmp	r3, #1
+ 1578 055e 3FF410AE 		beq	.L97
+ 228:Src/main.c    **** 	else if(mode==3){sprintf(Str," %d",bufflen);NoShowDrawNumStr((len<<2)+1, 0, OLED_Num3X5, Str, 0);l
+ 1579              		.loc 1 228 0
+ 1580 0562 022B     		cmp	r3, #2
+ 1581 0564 3FF41FAE 		beq	.L98
+ 229:Src/main.c    **** 	NoShowDrawPicture(105, 0, 14, 7, StatusBarBuf[mode], 1);
+ 1582              		.loc 1 229 0
+ 1583 0568 032B     		cmp	r3, #3
+ 1584 056a 3FF432AE 		beq	.L99
+ 1585              	.LVL147:
+ 1586              	.L64:
+ 230:Src/main.c    **** 	UpBt{
+ 1587              		.loc 1 230 0
+ 1588 056e 284B     		ldr	r3, .L102+76
+ 1589 0570 1B68     		ldr	r3, [r3]
+ 1590 0572 C3EBC303 		rsb	r3, r3, r3, lsl #3
+ 1591 0576 5A00     		lsls	r2, r3, #1
+ 1592 0578 264B     		ldr	r3, .L102+80
+ 1593 057a 1344     		add	r3, r3, r2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 39
+
+
+ 1594 057c 0122     		movs	r2, #1
+ 1595 057e 0192     		str	r2, [sp, #4]
+ 1596 0580 0093     		str	r3, [sp]
+ 1597 0582 0723     		movs	r3, #7
+ 1598 0584 0E22     		movs	r2, #14
+ 1599 0586 0021     		movs	r1, #0
+ 1600 0588 6920     		movs	r0, #105
+ 1601 058a FFF7FEFF 		bl	NoShowDrawPicture
+ 1602              	.LVL148:
+ 231:Src/main.c    **** 		switch(mode){
+ 1603              		.loc 1 231 0
+ 1604 058e 174B     		ldr	r3, .L102+40
+ 1605 0590 9B68     		ldr	r3, [r3, #8]
+ 1606 0592 13F4807F 		tst	r3, #256
+ 1607 0596 3FF42EAE 		beq	.L67
+ 231:Src/main.c    **** 		switch(mode){
+ 1608              		.loc 1 231 0 is_stmt 0 discriminator 1
+ 1609 059a 0C4A     		ldr	r2, .L102+8
+ 1610 059c 1368     		ldr	r3, [r2]
+ 1611 059e 0133     		adds	r3, r3, #1
+ 1612 05a0 1360     		str	r3, [r2]
+ 1613              	.L68:
+ 240:Src/main.c    **** 		switch(mode){
+ 1614              		.loc 1 240 0 is_stmt 1
+ 1615 05a2 124B     		ldr	r3, .L102+40
+ 1616 05a4 9B68     		ldr	r3, [r3, #8]
+ 1617 05a6 13F4007F 		tst	r3, #512
+ 1618 05aa 3FF458AE 		beq	.L75
+ 240:Src/main.c    **** 		switch(mode){
+ 1619              		.loc 1 240 0 is_stmt 0 discriminator 1
+ 1620 05ae 074A     		ldr	r2, .L102+8
+ 1621 05b0 5368     		ldr	r3, [r2, #4]
+ 1622 05b2 0133     		adds	r3, r3, #1
+ 1623 05b4 5360     		str	r3, [r2, #4]
+ 1624              	.L76:
+ 249:Src/main.c    **** 		for(int i=0;i<127;i++){
+ 1625              		.loc 1 249 0 is_stmt 1
+ 1626 05b6 184B     		ldr	r3, .L102+84
+ 1627 05b8 1C68     		ldr	r4, [r3]
+ 1628 05ba 002C     		cmp	r4, #0
+ 1629 05bc 00F08680 		beq	.L84
+ 1630              	.LBB8:
+ 250:Src/main.c    **** 			NoShowDrawLine(i,60-(input->arr[i+AddDot].re+1.0)*22.5*Sensitivity,i+1,60-(input->arr[i+1+AddDot
+ 1631              		.loc 1 250 0
+ 1632 05c0 0024     		movs	r4, #0
+ 1633 05c2 F5E6     		b	.L83
+ 1634              	.L103:
+ 1635              		.align	2
+ 1636              	.L102:
+ 1637 05c4 00000000 		.word	.LANCHOR12
+ 1638 05c8 0000F83F 		.word	1073217536
+ 1639 05cc 00000000 		.word	.LANCHOR8
+ 1640 05d0 00000000 		.word	.LANCHOR0
+ 1641 05d4 00000000 		.word	.LANCHOR1
+ 1642 05d8 00000000 		.word	.LANCHOR11
+ 1643 05dc 0000F03F 		.word	1072693248
+ 1644 05e0 00803640 		.word	1077313536
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 40
+
+
+ 1645 05e4 00004E40 		.word	1078853632
+ 1646 05e8 000C0140 		.word	1073810432
+ 1647 05ec 00080140 		.word	1073809408
+ 1648 05f0 00000000 		.word	.LANCHOR10
+ 1649 05f4 00408F40 		.word	1083129856
+ 1650 05f8 00000000 		.word	.LANCHOR14
+ 1651 05fc 54000000 		.word	.LC6
+ 1652 0600 00000000 		.word	.LANCHOR15
+ 1653 0604 00006040 		.word	1080033280
+ 1654 0608 58000000 		.word	.LC7
+ 1655 060c 60000000 		.word	.LC8
+ 1656 0610 00000000 		.word	.LANCHOR9
+ 1657 0614 00000000 		.word	.LANCHOR16
+ 1658 0618 00000000 		.word	.LANCHOR6
+ 1659 061c 00000000 		.word	.LANCHOR5
+ 1660              	.LVL149:
+ 1661              	.L87:
+ 1662              	.LBE8:
+ 1663              	.LBB9:
+ 255:Src/main.c    **** 		}
+ 1664              		.loc 1 255 0 discriminator 3
+ 1665 0620 E5B2     		uxtb	r5, r4
+ 1666 0622 DFF8B8A0 		ldr	r10, .L104+8
+ 1667 0626 DAF80030 		ldr	r3, [r10]
+ 1668 062a 9B68     		ldr	r3, [r3, #8]
+ 1669 062c DFF8B090 		ldr	r9, .L104+12
+ 1670 0630 D9F80020 		ldr	r2, [r9]
+ 1671 0634 2244     		add	r2, r2, r4
+ 1672 0636 03EBC203 		add	r3, r3, r2, lsl #3
+ 1673 063a 93E80300 		ldm	r3, {r0, r1}
+ 1674 063e FFF7FEFF 		bl	VecDistance
+ 1675              	.LVL150:
+ 1676 0642 FFF7FEFF 		bl	__aeabi_f2d
+ 1677              	.LVL151:
+ 1678 0646 0022     		movs	r2, #0
+ 1679 0648 224B     		ldr	r3, .L104
+ 1680 064a FFF7FEFF 		bl	__aeabi_dmul
+ 1681              	.LVL152:
+ 1682 064e DFF89480 		ldr	r8, .L104+16
+ 1683 0652 D8E90023 		ldrd	r2, [r8]
+ 1684 0656 FFF7FEFF 		bl	__aeabi_dmul
+ 1685              	.LVL153:
+ 1686 065a 0246     		mov	r2, r0
+ 1687 065c 0B46     		mov	r3, r1
+ 1688 065e 0020     		movs	r0, #0
+ 1689 0660 1D49     		ldr	r1, .L104+4
+ 1690 0662 FFF7FEFF 		bl	__aeabi_dsub
+ 1691              	.LVL154:
+ 1692 0666 0646     		mov	r6, r0
+ 1693 0668 0F46     		mov	r7, r1
+ 1694 066a DAF80030 		ldr	r3, [r10]
+ 1695 066e 9B68     		ldr	r3, [r3, #8]
+ 1696 0670 0134     		adds	r4, r4, #1
+ 1697              	.LVL155:
+ 1698 0672 D9F80020 		ldr	r2, [r9]
+ 1699 0676 2244     		add	r2, r2, r4
+ 1700 0678 03EBC203 		add	r3, r3, r2, lsl #3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 41
+
+
+ 1701 067c 93E80300 		ldm	r3, {r0, r1}
+ 1702 0680 FFF7FEFF 		bl	VecDistance
+ 1703              	.LVL156:
+ 1704 0684 FFF7FEFF 		bl	__aeabi_f2d
+ 1705              	.LVL157:
+ 1706 0688 0022     		movs	r2, #0
+ 1707 068a 124B     		ldr	r3, .L104
+ 1708 068c FFF7FEFF 		bl	__aeabi_dmul
+ 1709              	.LVL158:
+ 1710 0690 D8E90023 		ldrd	r2, [r8]
+ 1711 0694 FFF7FEFF 		bl	__aeabi_dmul
+ 1712              	.LVL159:
+ 1713 0698 0246     		mov	r2, r0
+ 1714 069a 0B46     		mov	r3, r1
+ 1715 069c 0020     		movs	r0, #0
+ 1716 069e 0E49     		ldr	r1, .L104+4
+ 1717 06a0 FFF7FEFF 		bl	__aeabi_dsub
+ 1718              	.LVL160:
+ 1719 06a4 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1720              	.LVL161:
+ 1721 06a8 5FFA80F9 		uxtb	r9, r0
+ 1722 06ac 05F10108 		add	r8, r5, #1
+ 1723 06b0 5FFA88F8 		uxtb	r8, r8
+ 1724 06b4 3046     		mov	r0, r6
+ 1725 06b6 3946     		mov	r1, r7
+ 1726 06b8 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1727              	.LVL162:
+ 1728 06bc 0123     		movs	r3, #1
+ 1729 06be 0093     		str	r3, [sp]
+ 1730 06c0 4B46     		mov	r3, r9
+ 1731 06c2 4246     		mov	r2, r8
+ 1732 06c4 C1B2     		uxtb	r1, r0
+ 1733 06c6 2846     		mov	r0, r5
+ 1734 06c8 FFF7FEFF 		bl	NoShowDrawLine
+ 1735              	.LVL163:
+ 1736              	.L84:
+ 254:Src/main.c    **** 			NoShowDrawLine(i,60-VecDistance(input->arr[i+AddDot])*22.5*Sensitivity,i+1,60-VecDistance(input-
+ 1737              		.loc 1 254 0 discriminator 1
+ 1738 06cc 7E2C     		cmp	r4, #126
+ 1739 06ce A7DD     		ble	.L87
+ 1740 06d0 70E6     		b	.L86
+ 1741              	.L105:
+ 1742 06d2 00BF     		.align	2
+ 1743              	.L104:
+ 1744 06d4 00803640 		.word	1077313536
+ 1745 06d8 00004E40 		.word	1078853632
+ 1746 06dc 00000000 		.word	.LANCHOR1
+ 1747 06e0 00000000 		.word	.LANCHOR11
+ 1748 06e4 00000000 		.word	.LANCHOR12
+ 1749              	.LBE9:
+ 1750              		.cfi_endproc
+ 1751              	.LFE71:
+ 1753              		.global	StatusBarBuf
+ 1754              		.global	AutoBuf
+ 1755              		.global	CommaBuf
+ 1756              		.global	HzBuf
+ 1757              		.global	input
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 42
+
+
+ 1758              		.global	Sensitivity
+ 1759              		.global	AddDot
+ 1760              		.global	displaymode
+ 1761              		.global	Getdelaytime
+ 1762              		.global	mode
+ 1763              		.global	Autorender
+ 1764              		.global	bufflen
+ 1765              		.global	GetFTms
+ 1766              		.global	Getms
+ 1767              		.global	tick0
+ 1768              		.global	Delay
+ 1769              		.global	Button
+ 1770              		.global	AmountSum
+ 1771              		.comm	Sample,1024,4
+ 1772              		.global	Str
+ 1773              		.comm	hspi2,88,4
+ 1774              		.comm	hspi1,88,4
+ 1775              		.section	.bss.AddDot,"aw",%nobits
+ 1776              		.align	2
+ 1777              		.set	.LANCHOR11,. + 0
+ 1780              	AddDot:
+ 1781 0000 00000000 		.space	4
+ 1782              		.section	.bss.AmountSum,"aw",%nobits
+ 1783              		.align	2
+ 1786              	AmountSum:
+ 1787 0000 00000000 		.space	4
+ 1788              		.section	.bss.Autorender,"aw",%nobits
+ 1789              		.align	2
+ 1790              		.set	.LANCHOR10,. + 0
+ 1793              	Autorender:
+ 1794 0000 00000000 		.space	4
+ 1795              		.section	.bss.Button,"aw",%nobits
+ 1796              		.align	2
+ 1797              		.set	.LANCHOR8,. + 0
+ 1800              	Button:
+ 1801 0000 00000000 		.space	20
+ 1801      00000000 
+ 1801      00000000 
+ 1801      00000000 
+ 1801      00000000 
+ 1802              		.section	.bss.Delay,"aw",%nobits
+ 1803              		.align	2
+ 1804              		.set	.LANCHOR3,. + 0
+ 1807              	Delay:
+ 1808 0000 00000000 		.space	4
+ 1809              		.section	.bss.GetFTms,"aw",%nobits
+ 1810              		.align	2
+ 1811              		.set	.LANCHOR7,. + 0
+ 1814              	GetFTms:
+ 1815 0000 00000000 		.space	4
+ 1816              		.section	.bss.Getms,"aw",%nobits
+ 1817              		.align	2
+ 1818              		.set	.LANCHOR5,. + 0
+ 1821              	Getms:
+ 1822 0000 00000000 		.space	4
+ 1823              		.section	.bss.Str,"aw",%nobits
+ 1824              		.align	2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 43
+
+
+ 1825              		.set	.LANCHOR14,. + 0
+ 1828              	Str:
+ 1829 0000 00000000 		.space	250
+ 1829      00000000 
+ 1829      00000000 
+ 1829      00000000 
+ 1829      00000000 
+ 1830              		.section	.bss.displaymode,"aw",%nobits
+ 1831              		.align	2
+ 1832              		.set	.LANCHOR6,. + 0
+ 1835              	displaymode:
+ 1836 0000 00000000 		.space	4
+ 1837              		.section	.bss.input,"aw",%nobits
+ 1838              		.align	2
+ 1839              		.set	.LANCHOR1,. + 0
+ 1842              	input:
+ 1843 0000 00000000 		.space	4
+ 1844              		.section	.bss.mode,"aw",%nobits
+ 1845              		.align	2
+ 1846              		.set	.LANCHOR9,. + 0
+ 1849              	mode:
+ 1850 0000 00000000 		.space	4
+ 1851              		.section	.bss.tick0,"aw",%nobits
+ 1852              		.align	2
+ 1853              		.set	.LANCHOR2,. + 0
+ 1856              	tick0:
+ 1857 0000 00000000 		.space	4
+ 1858              		.section	.data.AutoBuf,"aw",%progbits
+ 1859              		.align	2
+ 1860              		.set	.LANCHOR13,. + 0
+ 1863              	AutoBuf:
+ 1864 0000 F8       		.byte	-8
+ 1865 0001 D8       		.byte	-40
+ 1866 0002 A8       		.byte	-88
+ 1867 0003 88       		.byte	-120
+ 1868 0004 A8       		.byte	-88
+ 1869 0005 F8       		.byte	-8
+ 1870              		.section	.data.CommaBuf,"aw",%progbits
+ 1871              		.align	2
+ 1874              	CommaBuf:
+ 1875 0000 00       		.byte	0
+ 1876 0001 00       		.byte	0
+ 1877 0002 00       		.byte	0
+ 1878 0003 40       		.byte	64
+ 1879 0004 40       		.byte	64
+ 1880              		.section	.data.Getdelaytime,"aw",%progbits
+ 1881              		.align	2
+ 1882              		.set	.LANCHOR4,. + 0
+ 1885              	Getdelaytime:
+ 1886 0000 F4010000 		.word	500
+ 1887              		.section	.data.HzBuf,"aw",%progbits
+ 1888              		.align	2
+ 1889              		.set	.LANCHOR15,. + 0
+ 1892              	HzBuf:
+ 1893 0000 AE       		.byte	-82
+ 1894 0001 A2       		.byte	-94
+ 1895 0002 E4       		.byte	-28
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 44
+
+
+ 1896 0003 A8       		.byte	-88
+ 1897 0004 AE       		.byte	-82
+ 1898              		.section	.data.Sensitivity,"aw",%progbits
+ 1899              		.align	3
+ 1900              		.set	.LANCHOR12,. + 0
+ 1903              	Sensitivity:
+ 1904 0000 00000000 		.word	0
+ 1905 0004 0000F03F 		.word	1072693248
+ 1906              		.section	.data.StatusBarBuf,"aw",%progbits
+ 1907              		.align	2
+ 1908              		.set	.LANCHOR16,. + 0
+ 1911              	StatusBarBuf:
+ 1912 0000 FF       		.byte	-1
+ 1913 0001 FC       		.byte	-4
+ 1914 0002 90       		.byte	-112
+ 1915 0003 24       		.byte	36
+ 1916 0004 A0       		.byte	-96
+ 1917 0005 14       		.byte	20
+ 1918 0006 FF       		.byte	-1
+ 1919 0007 FC       		.byte	-4
+ 1920 0008 A0       		.byte	-96
+ 1921 0009 14       		.byte	20
+ 1922 000a 90       		.byte	-112
+ 1923 000b 24       		.byte	36
+ 1924 000c FF       		.byte	-1
+ 1925 000d FC       		.byte	-4
+ 1926 000e FF       		.byte	-1
+ 1927 000f FC       		.byte	-4
+ 1928 0010 90       		.byte	-112
+ 1929 0011 04       		.byte	4
+ 1930 0012 90       		.byte	-112
+ 1931 0013 04       		.byte	4
+ 1932 0014 FC       		.byte	-4
+ 1933 0015 FC       		.byte	-4
+ 1934 0016 90       		.byte	-112
+ 1935 0017 04       		.byte	4
+ 1936 0018 90       		.byte	-112
+ 1937 0019 04       		.byte	4
+ 1938 001a FF       		.byte	-1
+ 1939 001b FC       		.byte	-4
+ 1940 001c FF       		.byte	-1
+ 1941 001d FC       		.byte	-4
+ 1942 001e 90       		.byte	-112
+ 1943 001f 24       		.byte	36
+ 1944 0020 B8       		.byte	-72
+ 1945 0021 24       		.byte	36
+ 1946 0022 D4       		.byte	-44
+ 1947 0023 AC       		.byte	-84
+ 1948 0024 90       		.byte	-112
+ 1949 0025 74       		.byte	116
+ 1950 0026 90       		.byte	-112
+ 1951 0027 24       		.byte	36
+ 1952 0028 FF       		.byte	-1
+ 1953 0029 FC       		.byte	-4
+ 1954 002a FF       		.byte	-1
+ 1955 002b FC       		.byte	-4
+ 1956 002c BF       		.byte	-65
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 45
+
+
+ 1957 002d 6C       		.byte	108
+ 1958 002e BE       		.byte	-66
+ 1959 002f C4       		.byte	-60
+ 1960 0030 94       		.byte	-108
+ 1961 0031 6C       		.byte	108
+ 1962 0032 A4       		.byte	-92
+ 1963 0033 FC       		.byte	-4
+ 1964 0034 8A       		.byte	-118
+ 1965 0035 C4       		.byte	-60
+ 1966 0036 FF       		.byte	-1
+ 1967 0037 FC       		.byte	-4
+ 1968              		.section	.data.bufflen,"aw",%progbits
+ 1969              		.align	2
+ 1970              		.set	.LANCHOR0,. + 0
+ 1973              	bufflen:
+ 1974 0000 00020000 		.word	512
+ 1975              		.section	.rodata.MX_SPI1_Init.str1.4,"aMS",%progbits,1
+ 1976              		.align	2
+ 1977              	.LC0:
+ 1978 0000 5372632F 		.ascii	"Src/main.c\000"
+ 1978      6D61696E 
+ 1978      2E6300
+ 1979              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 1980              		.align	2
+ 1981              	.LC1:
+ 1982 0000 53544D33 		.ascii	"STM32F103 FT V1\000"
+ 1982      32463130 
+ 1982      33204654 
+ 1982      20563100 
+ 1983              	.LC2:
+ 1984 0010 466F7572 		.ascii	"FourierTransform\000"
+ 1984      69657254 
+ 1984      72616E73 
+ 1984      666F726D 
+ 1984      00
+ 1985 0021 000000   		.space	3
+ 1986              	.LC3:
+ 1987 0024 20202020 		.ascii	"    Made by\000"
+ 1987      4D616465 
+ 1987      20627900 
+ 1988              	.LC4:
+ 1989 0030 20205061 		.ascii	"  Park Giyong.\000"
+ 1989      726B2047 
+ 1989      69796F6E 
+ 1989      672E00
+ 1990 003f 00       		.space	1
+ 1991              	.LC5:
+ 1992 0040 20203230 		.ascii	"  2018.03.04 21:55\000"
+ 1992      31382E30 
+ 1992      332E3034 
+ 1992      2032313A 
+ 1992      353500
+ 1993 0053 00       		.space	1
+ 1994              	.LC6:
+ 1995 0054 256C6400 		.ascii	"%ld\000"
+ 1996              	.LC7:
+ 1997 0058 20256C64 		.ascii	" %ld\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 46
+
+
+ 1997      00
+ 1998 005d 000000   		.space	3
+ 1999              	.LC8:
+ 2000 0060 20256400 		.ascii	" %d\000"
+ 2001              		.text
+ 2002              	.Letext0:
+ 2003              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2004              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2005              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 2006              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 2007              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 2008              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2009              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2010              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 2011              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2012              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 2013              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 2014              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 2015              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 2016              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 2017              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+ 2018              		.file 17 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2019              		.file 18 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2020              		.file 19 "Inc/MyMath.h"
+ 2021              		.file 20 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
+ 2022              		.file 21 "Inc/MyOLED.h"
+ 2023              		.file 22 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 2024              		.file 23 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2025              		.file 24 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 47
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:16     .text.MX_GPIO_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:22     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:175    .text.MX_GPIO_Init:000000e0 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:183    .text.MCP3202_GetData:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:190    .text.MCP3202_GetData:00000000 MCP3202_GetData
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:245    .text.MCP3202_GetData:00000044 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:250    .text.OLED_SPI_Transmit:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:257    .text.OLED_SPI_Transmit:00000000 OLED_SPI_Transmit
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:284    .text.OLED_SPI_Transmit:00000010 $d
+                            *COM*:00000058 hspi2
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:290    .text.pow2:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:297    .text.pow2:00000000 pow2
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:322    .text.VecDistance:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:329    .text.VecDistance:00000000 VecDistance
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:376    .text.FTRender:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:383    .text.FTRender:00000000 FTRender
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:498    .text.FTRender:0000009c $d
+                            *COM*:00000058 hspi1
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:512    .text._Error_Handler:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:519    .text._Error_Handler:00000000 _Error_Handler
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:534    .text.MX_SPI1_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:540    .text.MX_SPI1_Init:00000000 MX_SPI1_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:598    .text.MX_SPI1_Init:00000040 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:605    .text.MX_SPI2_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:611    .text.MX_SPI2_Init:00000000 MX_SPI2_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:668    .text.MX_SPI2_Init:00000040 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:675    .text.SystemClock_Config:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:682    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:780    .text.SystemClock_Config:00000080 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:790    .text.main:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:797    .text.main:00000000 main
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1122   .text.main:00000202 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1126   .text.main:00000206 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1188   .text.main:0000026a $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1192   .text.main:0000026e $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1220   .text.main:00000294 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1242   .text.main:000002e4 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1637   .text.main:000005c4 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1665   .text.main:00000620 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1744   .text.main:000006d4 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1911   .data.StatusBarBuf:00000000 StatusBarBuf
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1863   .data.AutoBuf:00000000 AutoBuf
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1874   .data.CommaBuf:00000000 CommaBuf
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1892   .data.HzBuf:00000000 HzBuf
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1842   .bss.input:00000000 input
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1903   .data.Sensitivity:00000000 Sensitivity
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1780   .bss.AddDot:00000000 AddDot
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1835   .bss.displaymode:00000000 displaymode
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1885   .data.Getdelaytime:00000000 Getdelaytime
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1849   .bss.mode:00000000 mode
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1793   .bss.Autorender:00000000 Autorender
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1973   .data.bufflen:00000000 bufflen
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1814   .bss.GetFTms:00000000 GetFTms
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1821   .bss.Getms:00000000 Getms
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1856   .bss.tick0:00000000 tick0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 48
+
+
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1807   .bss.Delay:00000000 Delay
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1800   .bss.Button:00000000 Button
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1786   .bss.AmountSum:00000000 AmountSum
+                            *COM*:00000400 Sample
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1828   .bss.Str:00000000 Str
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1776   .bss.AddDot:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1783   .bss.AmountSum:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1789   .bss.Autorender:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1796   .bss.Button:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1803   .bss.Delay:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1810   .bss.GetFTms:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1817   .bss.Getms:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1824   .bss.Str:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1831   .bss.displaymode:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1838   .bss.input:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1845   .bss.mode:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1852   .bss.tick0:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1859   .data.AutoBuf:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1871   .data.CommaBuf:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1881   .data.Getdelaytime:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1888   .data.HzBuf:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1899   .data.Sensitivity:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1907   .data.StatusBarBuf:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1969   .data.bufflen:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1976   .rodata.MX_SPI1_Init.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s:1980   .rodata.main.str1.4:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_Init
+HAL_SPI_TransmitReceive
+HAL_SPI_Transmit
+__aeabi_fmul
+__aeabi_fadd
+__aeabi_f2d
+__aeabi_d2f
+sqrt
+__aeabi_ui2d
+__aeabi_dsub
+__aeabi_dmul
+vecAlloc
+HAL_GetTick
+fft
+HAL_SPI_Init
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_RCC_GetHCLKFreq
+HAL_SYSTICK_Config
+HAL_SYSTICK_CLKSourceConfig
+HAL_NVIC_SetPriority
+__aeabi_ddiv
+__aeabi_i2d
+__aeabi_d2uiz
+__aeabi_dadd
+SetRESPin
+SetDCPin
+SetSSPin
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccO8FNdy.s 			page 49
+
+
+HAL_Init
+HAL_Delay
+OLEDinit
+NoShowDrawString
+ShowBuffer
+ClearBuffer
+NoShowDrawPicture
+sprintf
+NoShowDrawNumStr
+NoShowDrawLine
+vecRelease
+strlen
