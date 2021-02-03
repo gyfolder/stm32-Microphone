@@ -1,0 +1,30 @@
+﻿  main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sdl2\sdl_stdinc.h(499): note: 'M_PI'의 이전 정의를 참조하십시오.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\han2unicode.h(1142): warning C4244: 'return': 'long'에서 'unsigned short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\headerjuttf.h(224): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\headerjuttf.h(228): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\headerjuttf.h(231): warning C4244: '-=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\headerjuttf.h(243): warning C4244: '-=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\headerjuttf.h(243): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(98): warning C4244: '인수': 'unsigned __int64'에서 'std::size_t'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(173): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(173): warning C4334: '<<': 32비트 시프트의 결과가 암시적으로 64비트로 변환됩니다. 64비트 시프트를 사용하시겠습니까?
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(175): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(195): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(202): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(202): warning C4334: '<<': 32비트 시프트의 결과가 암시적으로 64비트로 변환됩니다. 64비트 시프트를 사용하시겠습니까?
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(204): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(217): warning C4244: '인수': 'unsigned __int64'에서 'std::size_t'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(224): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(249): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(274): warning C4244: '인수': 'unsigned __int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(298): warning C4334: '<<': 32비트 시프트의 결과가 암시적으로 64비트로 변환됩니다. 64비트 시프트를 사용하시겠습니까?
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\mymath.h(304): warning C4334: '<<': 32비트 시프트의 결과가 암시적으로 64비트로 변환됩니다. 64비트 시프트를 사용하시겠습니까?
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\main.cpp(19): warning C4244: '인수': 'unsigned __int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\main.cpp(38): warning C4244: '인수': 'Real'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\main.cpp(38): warning C4244: '인수': 'unsigned __int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\main.cpp(69): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\ghgyju\gi\arm\stm32\stm32f103c8t6_microphone\fourier transform\fourier transform\main.cpp(69): warning C4244: '인수': 'unsigned __int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Fourier Transform.vcxproj -> D:\GHGYJU\gi\ARM\STM32\STM32F103C8T6_Microphone\Fourier Transform\Debug\Fourier Transform.exe
+  Fourier Transform.vcxproj -> D:\GHGYJU\gi\ARM\STM32\STM32F103C8T6_Microphone\Fourier Transform\Debug\Fourier Transform.pdb (Full PDB)
